@@ -187,7 +187,7 @@ export interface FormSubmission {
   status: string;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://ai-hackathon-3-j57k.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://ai-hackathon-1-fp0k.onrender.com";
 const NORMALIZED_API_URL = API_BASE_URL.replace(/\/+$/, '').endsWith('/api')
   ? API_BASE_URL.replace(/\/+$/, '')
   : `${API_BASE_URL.replace(/\/+$/, '')}/api`;
