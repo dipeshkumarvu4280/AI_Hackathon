@@ -332,20 +332,20 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[94vh] sm:max-h-[92vh] animate-in fade-in zoom-in-95 my-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full overflow-hidden shadow-xl flex flex-col max-h-[94vh] sm:max-h-[92vh] animate-in fade-in zoom-in-95 my-auto text-[#14213D]">
         
         {/* Header */}
-        <div className="px-4 py-3 sm:px-6 sm:py-4 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between gap-2">
+        <div className="px-4 py-3 sm:px-6 sm:py-4 bg-[#F8FAFC] border-b border-slate-200 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="p-2 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 shrink-0">
+            <div className="p-2 rounded-xl bg-purple-50 border border-purple-200 text-[#7C3AED] shrink-0">
               <Video className="w-5 h-5" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-white font-bold text-sm sm:text-base flex items-center gap-2 truncate">
+              <h3 className="text-[#14213D] font-bold text-sm sm:text-base flex items-center gap-2 truncate">
                 <span>AI Video Practice Assessor</span>
               </h3>
-              <p className="text-slate-400 text-[11px] sm:text-xs truncate">
+              <p className="text-[#475569] text-[11px] sm:text-xs truncate">
                 Real-time WebRTC camera feed, speech filler detection, and pacing analytics.
               </p>
             </div>
@@ -353,31 +353,31 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
           <button
             onClick={onClose}
             aria-label="Close"
-            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="text-slate-400 hover:text-[#14213D] p-1.5 rounded-lg hover:bg-slate-100 transition shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Question Prompt Bar */}
-        <div className="bg-purple-950/30 border-b border-purple-800/40 px-4 py-2.5 sm:px-6 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-          <div className="flex items-start sm:items-center gap-2 text-purple-200 min-w-0">
-            <BrainCircuit className="w-4 h-4 text-purple-400 shrink-0 mt-0.5 sm:mt-0" />
-            <span className="break-words-safe"><strong>Interview Prompt:</strong> "{questionPrompt}"</span>
+        <div className="bg-purple-50/70 border-b border-purple-100 px-4 py-2.5 sm:px-6 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+          <div className="flex items-start sm:items-center gap-2 text-[#14213D] min-w-0">
+            <BrainCircuit className="w-4 h-4 text-[#7C3AED] shrink-0 mt-0.5 sm:mt-0" />
+            <span className="break-words-safe font-medium"><strong>Interview Prompt:</strong> "{questionPrompt}"</span>
           </div>
-          <span className="font-mono text-purple-300 font-bold bg-purple-500/20 px-2 py-0.5 rounded border border-purple-500/30 shrink-0 self-start sm:self-auto text-[11px]">
+          <span className="font-mono text-[#7C3AED] font-bold bg-purple-100 px-2 py-0.5 rounded border border-purple-200 shrink-0 self-start sm:self-auto text-[11px]">
             Target: 2 mins
           </span>
         </div>
 
         {/* Content Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 min-h-0">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 min-h-0 text-[#334155]">
           {viewState !== 'REPORT' ? (
             /* ========================================================================= */
             /* VIEW 1: WEBCAM FEED & RECORDING CONTROLS                                  */
             /* ========================================================================= */
             <div className="space-y-6">
-              <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-video flex items-center justify-center shadow-inner">
+              <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 aspect-video flex items-center justify-center shadow-inner">
                 {/* Live Video Element */}
                 <video
                   ref={videoRef}
@@ -388,7 +388,7 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                 />
 
                 {!isVideoEnabled && (
-                  <div className="flex flex-col items-center gap-2 text-slate-500">
+                  <div className="flex flex-col items-center gap-2 text-slate-400">
                     <VideoOff className="w-12 h-12" />
                     <span className="text-xs font-medium">Camera Feed Disabled</span>
                   </div>
@@ -427,10 +427,10 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
 
                     {/* Audio Level Indicator */}
                     <div className="bg-slate-950/80 border border-slate-800 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs">
-                      <Volume2 className="w-3.5 h-3.5 text-cyan-400" />
+                      <Volume2 className="w-3.5 h-3.5 text-[#2563EB]" />
                       <div className="w-24 h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
                         <div
-                          className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 transition-all duration-100"
+                          className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-100"
                           style={{ width: `${audioLevel}%` }}
                         />
                       </div>
@@ -440,29 +440,29 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
               </div>
 
               {/* Controls Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-950 border border-slate-800 p-4 rounded-xl">
+              <div className="flex flex-wrap items-center justify-between gap-4 bg-[#F8FAFC] border border-slate-200 p-4 rounded-xl">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={toggleCamera}
-                    className={`p-2.5 rounded-xl border text-xs font-semibold transition flex items-center gap-2 ${
+                    className={`p-2.5 rounded-xl border text-xs font-semibold transition flex items-center gap-2 cursor-pointer ${
                       isVideoEnabled
-                        ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'
-                        : 'bg-red-500/20 border-red-500/40 text-red-300'
+                        ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                        : 'bg-red-50 border-red-200 text-red-700'
                     }`}
                   >
-                    {isVideoEnabled ? <Video className="w-4 h-4 text-cyan-400" /> : <VideoOff className="w-4 h-4" />}
+                    {isVideoEnabled ? <Video className="w-4 h-4 text-[#2563EB]" /> : <VideoOff className="w-4 h-4" />}
                     <span>{isVideoEnabled ? 'Cam On' : 'Cam Off'}</span>
                   </button>
 
                   <button
                     onClick={toggleMic}
-                    className={`p-2.5 rounded-xl border text-xs font-semibold transition flex items-center gap-2 ${
+                    className={`p-2.5 rounded-xl border text-xs font-semibold transition flex items-center gap-2 cursor-pointer ${
                       isAudioEnabled
-                        ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'
-                        : 'bg-red-500/20 border-red-500/40 text-red-300'
+                        ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                        : 'bg-red-50 border-red-200 text-red-700'
                     }`}
                   >
-                    {isAudioEnabled ? <Mic className="w-4 h-4 text-emerald-400" /> : <MicOff className="w-4 h-4" />}
+                    {isAudioEnabled ? <Mic className="w-4 h-4 text-emerald-600" /> : <MicOff className="w-4 h-4" />}
                     <span>{isAudioEnabled ? 'Mic On' : 'Mic Off'}</span>
                   </button>
                 </div>
@@ -472,7 +472,7 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                     <Button
                       variant="primary"
                       onClick={handleStartRecording}
-                      className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-6 py-2.5"
+                      className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold px-6 py-2.5"
                     >
                       <Play className="w-4 h-4 fill-white mr-2" />
                       Start Video Practice
@@ -481,7 +481,7 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                     <Button
                       variant="primary"
                       onClick={handleStopRecording}
-                      className="bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold px-6 py-2.5"
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2.5"
                     >
                       <Square className="w-4 h-4 fill-white mr-2" />
                       Stop & Evaluate AI Report
@@ -492,8 +492,8 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
 
               {/* Manual Speech Input Option (Fallback if mic is silent) */}
               <div className="space-y-1.5">
-                <label className="text-slate-400 text-xs font-medium flex items-center gap-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-purple-400" />
+                <label className="text-[#475569] text-xs font-bold flex items-center gap-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#7C3AED]" />
                   Speech Text Preview / Custom Input (Optional override):
                 </label>
                 <textarea
@@ -504,7 +504,7 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                     setTranscript(e.target.value);
                   }}
                   placeholder="Your spoken text will transcribe here automatically in real-time..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-purple-500 font-mono"
+                  className="w-full bg-[#F8FAFC] focus:bg-white border border-slate-300 rounded-xl p-3 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] font-mono shadow-xs transition-colors"
                 />
               </div>
             </div>
@@ -514,17 +514,17 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
             /* ========================================================================= */
             <div className="space-y-6">
               {/* Report Header Score Overview */}
-              <div className="bg-gradient-to-r from-purple-900/40 via-indigo-900/30 to-cyan-900/40 border border-purple-500/40 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+              <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-white border border-purple-200 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 font-black text-xl shadow-lg">
+                  <div className="w-14 h-14 rounded-2xl bg-purple-100 border border-purple-200 flex items-center justify-center text-[#7C3AED] font-black text-xl shadow-xs">
                     {analytics.clarityScore}%
                   </div>
                   <div>
-                    <h4 className="text-white font-bold text-base flex items-center gap-2">
-                      <Award className="w-5 h-5 text-amber-400" />
+                    <h4 className="text-[#14213D] font-bold text-base flex items-center gap-2">
+                      <Award className="w-5 h-5 text-amber-500" />
                       Overall Speech & Clarity Index
                     </h4>
-                    <p className="text-slate-300 text-xs mt-0.5">
+                    <p className="text-[#475569] text-xs mt-0.5">
                       Evaluated across filler word density, speaking rate (WPM), and centered camera posture.
                     </p>
                   </div>
@@ -548,14 +548,14 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Recorded Video Playback */}
                 <div className="space-y-2">
-                  <h5 className="text-slate-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <Video className="w-3.5 h-3.5 text-cyan-400" /> Recorded Session Playback
+                  <h5 className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <Video className="w-3.5 h-3.5 text-[#2563EB]" /> Recorded Session Playback
                   </h5>
-                  <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden aspect-video shadow-md">
+                  <div className="bg-slate-900 border border-slate-200 rounded-xl overflow-hidden aspect-video shadow-xs">
                     {recordedVideoUrl ? (
                       <video src={recordedVideoUrl} controls className="w-full h-full object-cover" />
                     ) : (
-                      <div className="flex items-center justify-center h-full text-slate-500 text-xs">
+                      <div className="flex items-center justify-center h-full text-slate-400 text-xs">
                         Video playback preview unavailable
                       </div>
                     )}
@@ -564,38 +564,38 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
 
                 {/* Metrics Breakdown Cards */}
                 <div className="space-y-4">
-                  <h5 className="text-slate-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <BarChart2 className="w-3.5 h-3.5 text-purple-400" /> Audio & Speech Analytics
+                  <h5 className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <BarChart2 className="w-3.5 h-3.5 text-[#7C3AED]" /> Audio & Speech Analytics
                   </h5>
 
                   <div className="grid grid-cols-2 gap-3">
                     {/* Filler Word Density Card */}
-                    <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-1">
-                      <div className="text-slate-400 text-[11px] font-medium">Filler Word Density</div>
-                      <div className="text-white text-lg font-bold font-mono">
-                        {analytics.fillerDensity}% <span className="text-xs font-normal text-slate-400">({analytics.fillerCount} used)</span>
+                    <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1 shadow-xs">
+                      <div className="text-[#475569] text-[11px] font-semibold">Filler Word Density</div>
+                      <div className="text-[#14213D] text-lg font-bold font-mono">
+                        {analytics.fillerDensity}% <span className="text-xs font-normal text-[#64748B]">({analytics.fillerCount} used)</span>
                       </div>
-                      <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
                         analytics.fillerDensity <= 3
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                           : analytics.fillerDensity <= 8
-                          ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                          : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                          : 'bg-red-50 text-red-700 border border-red-200'
                       }`}>
                         {analytics.fillerDensity <= 3 ? '✅ Optimal Fluent' : analytics.fillerDensity <= 8 ? '⚡ Moderate Fillers' : '⚠️ Overused Fillers'}
                       </span>
                     </div>
 
                     {/* Speaking Speed WPM Card */}
-                    <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-1">
-                      <div className="text-slate-400 text-[11px] font-medium">Speaking Pace (WPM)</div>
-                      <div className="text-white text-lg font-bold font-mono">
-                        {analytics.wpm} <span className="text-xs font-normal text-slate-400">WPM</span>
+                    <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1 shadow-xs">
+                      <div className="text-[#475569] text-[11px] font-semibold">Speaking Pace (WPM)</div>
+                      <div className="text-[#14213D] text-lg font-bold font-mono">
+                        {analytics.wpm} <span className="text-xs font-normal text-[#64748B]">WPM</span>
                       </div>
-                      <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
                         analytics.pacingStatus === 'IDEAL'
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                          : 'bg-amber-50 text-amber-800 border border-amber-200'
                       }`}>
                         {analytics.pacingStatus === 'IDEAL' ? '🎯 Ideal Pace (120-150)' : analytics.pacingStatus === 'TOO_FAST' ? '🚀 Too Fast (>170)' : '🐢 Too Slow (<90)'}
                       </span>
@@ -603,14 +603,14 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                   </div>
 
                   {/* Body Language & Eye Contact Card */}
-                  <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-2">
+                  <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2 shadow-xs">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-300 font-semibold">Body Language & Eye Contact</span>
-                      <span className="text-emerald-400 font-mono font-bold text-[11px]">
+                      <span className="text-[#14213D] font-bold">Body Language & Eye Contact</span>
+                      <span className="text-emerald-700 font-mono font-bold text-[11px] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                         {analytics.eyeContactScore}
                       </span>
                     </div>
-                    <p className="text-slate-400 text-xs leading-relaxed">
+                    <p className="text-[#475569] text-xs leading-relaxed">
                       Maintained central alignment with active camera eye contact throughout response delivery.
                     </p>
                   </div>
@@ -619,10 +619,10 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
 
               {/* Interactive Transcript with Filler Word Highlighting */}
               <div className="space-y-2">
-                <h5 className="text-slate-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-cyan-400" /> Interactive Transcript & Filler Analysis
+                <h5 className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#2563EB]" /> Interactive Transcript & Filler Analysis
                 </h5>
-                <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs leading-relaxed text-slate-300 font-mono space-y-3">
+                <div className="bg-[#F8FAFC] border border-slate-200 rounded-xl p-4 text-xs leading-relaxed text-[#334155] font-mono space-y-3">
                   <div className="flex flex-wrap gap-1.5">
                     {transcript.split(/\s+/).map((word, idx) => {
                       const cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
@@ -633,8 +633,8 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                           key={idx}
                           className={
                             isFiller
-                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 px-1.5 py-0.5 rounded font-bold shadow-sm'
-                              : 'text-slate-300'
+                              ? 'bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.5 rounded font-bold shadow-xs'
+                              : 'text-[#14213D]'
                           }
                         >
                           {word}
@@ -644,10 +644,10 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
                   </div>
 
                   {Object.keys(analytics.fillerBreakdown).length > 0 && (
-                    <div className="pt-3 border-t border-slate-900 flex flex-wrap items-center gap-2 text-[11px]">
-                      <span className="text-slate-400 font-sans">Detected Fillers:</span>
+                    <div className="pt-3 border-t border-slate-200 flex flex-wrap items-center gap-2 text-[11px]">
+                      <span className="text-[#475569] font-sans font-bold">Detected Fillers:</span>
                       {Object.entries(analytics.fillerBreakdown).map(([filler, count]) => (
-                        <span key={filler} className="bg-amber-950/60 border border-amber-800/60 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">
+                        <span key={filler} className="bg-amber-50 border border-amber-200 text-amber-800 px-2 py-0.5 rounded font-mono font-bold">
                           "{filler}": {count}x
                         </span>
                       ))}
@@ -657,17 +657,17 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
               </div>
 
               {/* AI Coaching & Improvement Suggestions */}
-              <div className="bg-purple-950/20 border border-purple-800/40 rounded-xl p-4 space-y-2">
-                <h5 className="text-purple-300 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-purple-400" /> AI Coach Feedback & Recommendations
+              <div className="bg-purple-50/50 border border-purple-200 rounded-xl p-4 space-y-2">
+                <h5 className="text-[#7C3AED] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-[#7C3AED]" /> AI Coach Feedback & Recommendations
                 </h5>
-                <ul className="space-y-1.5 text-xs text-slate-300">
+                <ul className="space-y-1.5 text-xs text-[#334155]">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <span><strong>Pause Strategy:</strong> Take a 1-second silent breath instead of using filler words like "{Object.keys(analytics.fillerBreakdown)[0] || 'um'}" between thoughts.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0 mt-0.5" />
                     <span><strong>Pacing Alignment:</strong> Your rate of {analytics.wpm} WPM is within executive interview standards. Maintain steady articulation.</span>
                   </li>
                 </ul>
@@ -677,7 +677,7 @@ export const VideoPracticeModal: React.FC<VideoPracticeModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-4 bg-slate-950/60 border-t border-slate-800 flex justify-end gap-3">
+        <div className="px-6 py-4 bg-[#F8FAFC] border-t border-slate-200 flex justify-end gap-3">
           <Button variant="secondary" onClick={onClose} className="text-xs">
             Close Session
           </Button>

@@ -233,34 +233,34 @@ export const CandidatesList: React.FC = () => {
 
       {/* KPI METRIC CARDS */}
       <div className="grid grid-cols-2 sm:grid-cols-6 gap-3">
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">All Applicants</span>
-          <div className="text-2xl font-black text-[#F8FAFC] mt-1">{stats.all || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider">All Applicants</span>
+          <div className="text-2xl font-black text-[#14213D] mt-1">{stats.all || 0}</div>
         </div>
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Applied</span>
-          <div className="text-2xl font-black text-[#3B82F6] mt-1">{stats.applied || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Applied</span>
+          <div className="text-2xl font-black text-[#2563EB] mt-1">{stats.applied || 0}</div>
         </div>
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Shortlisted</span>
-          <div className="text-2xl font-black text-[#22C55E] mt-1">{stats.shortlisted || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Shortlisted</span>
+          <div className="text-2xl font-black text-emerald-600 mt-1">{stats.shortlisted || 0}</div>
         </div>
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Not Shortlisted</span>
-          <div className="text-2xl font-black text-[#EF4444] mt-1">{stats.not_shortlisted || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Not Shortlisted</span>
+          <div className="text-2xl font-black text-red-600 mt-1">{stats.not_shortlisted || 0}</div>
         </div>
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#FCD34D] uppercase tracking-wider">Interview Set</span>
-          <div className="text-2xl font-black text-[#FCD34D] mt-1">{stats.interview_scheduled || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">Interview Set</span>
+          <div className="text-2xl font-black text-amber-600 mt-1">{stats.interview_scheduled || 0}</div>
         </div>
-        <div className="p-4 bg-[#101D31] rounded-xl border border-[#243650] shadow-sm">
-          <span className="text-xs font-bold text-[#86EFAC] uppercase tracking-wider">Selected</span>
-          <div className="text-2xl font-black text-[#86EFAC] mt-1">{stats.selected || 0}</div>
+        <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">Selected</span>
+          <div className="text-2xl font-black text-emerald-600 mt-1">{stats.selected || 0}</div>
         </div>
       </div>
 
       {/* FILTER BAR */}
-      <Card className="p-4 bg-[#101D31] border-[#243650]">
+      <Card className="p-4 bg-white border-slate-200">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div className="relative md:col-span-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748B]" />
@@ -269,14 +269,14 @@ export const CandidatesList: React.FC = () => {
               placeholder="Search candidate, roll no, company, skill..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 text-xs bg-[#0B1628] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+              className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           <select
             value={driveFilter}
             onChange={(e) => setDriveFilter(e.target.value)}
-            className="text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none cursor-pointer font-medium"
+            className="text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none cursor-pointer font-medium"
           >
             <option value="all">All Placement Drives</option>
             {drives.map((d) => (
@@ -289,7 +289,7 @@ export const CandidatesList: React.FC = () => {
           <select
             value={branchFilter}
             onChange={(e) => setBranchFilter(e.target.value)}
-            className="text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none cursor-pointer font-medium"
+            className="text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none cursor-pointer font-medium"
           >
             <option value="all">All Branches</option>
             <option value="CSE">CSE</option>
@@ -301,7 +301,7 @@ export const CandidatesList: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none cursor-pointer font-medium"
+            className="text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none cursor-pointer font-medium"
           >
             <option value="all">All Application Statuses</option>
             <option value="APPLIED">Applied (Pending Review)</option>
@@ -314,29 +314,29 @@ export const CandidatesList: React.FC = () => {
       </Card>
 
       {/* CANDIDATE APPLICATIONS ROSTER */}
-      <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-        <CardHeader className="flex flex-row items-center justify-between border-b border-[#1B2A40]">
+      <Card className="bg-white border-slate-200 text-[#14213D]">
+        <CardHeader className="flex flex-row items-center justify-between border-b border-slate-100">
           <CardTitle>Application Review & Candidate Pool</CardTitle>
-          <span className="text-xs text-[#94A3B8] font-medium">Showing {filteredCandidates.length} applicants</span>
+          <span className="text-xs text-[#64748B] font-medium">Showing {filteredCandidates.length} applicants</span>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
           {loading && candidates.length === 0 ? (
-            <div className="p-12 text-center text-xs text-[#94A3B8]">
+            <div className="p-12 text-center text-xs text-[#64748B]">
               <div className="inline-flex items-center gap-2">
-                <RefreshCw className="w-4 h-4 animate-spin text-[#3B82F6]" />
+                <RefreshCw className="w-4 h-4 animate-spin text-[#2563EB]" />
                 <span>Loading candidate applications...</span>
               </div>
             </div>
           ) : filteredCandidates.length === 0 ? (
-            <div className="p-12 text-center text-[#94A3B8] space-y-2">
-              <Users className="w-8 h-8 text-[#64748B] mx-auto opacity-50" />
-              <p className="text-sm font-bold text-[#F8FAFC]">No candidate applications yet</p>
+            <div className="p-12 text-center text-[#64748B] space-y-2">
+              <Users className="w-8 h-8 text-[#94A3B8] mx-auto opacity-50" />
+              <p className="text-sm font-bold text-[#14213D]">No candidate applications yet</p>
               <p className="text-xs text-[#64748B]">
                 When students apply for college placement drives, their applications and extracted resume profiles will appear here in real-time.
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-[#243650]">
+            <div className="divide-y divide-slate-100">
               {filteredCandidates.map((c) => {
                 const stage = (c.stage || c.status || 'APPLIED').toUpperCase();
                 const isEligible = c.eligible !== false;
@@ -352,7 +352,7 @@ export const CandidatesList: React.FC = () => {
                   <div
                     key={c.id}
                     onClick={() => navigate(`/admin/candidates/${c.id}`)}
-                    className="p-5 hover:bg-[#14243B] transition-colors cursor-pointer space-y-4"
+                    className="p-5 hover:bg-slate-50/80 transition-colors cursor-pointer space-y-4"
                   >
                     {/* Top Row */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -362,123 +362,123 @@ export const CandidatesList: React.FC = () => {
                         </div>
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="font-bold text-[#F8FAFC] text-base">{c.student_name}</h3>
+                            <h3 className="font-bold text-[#14213D] text-base">{c.student_name}</h3>
 
                             {!isEligible && (
                               <span
                                 title={(c.eligibility_reasons || []).join('; ')}
-                                className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(239,68,68,0.20)] text-[#F87171] border border-[rgba(239,68,68,0.40)] cursor-help"
+                                className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200 cursor-help"
                               >
                                 ⚠️ Ineligible {(c.eligibility_reasons?.length ? `(${c.eligibility_reasons[0]})` : '')}
                               </span>
                             )}
                             {isEligible && stage === 'APPLIED' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                                 🔵 Eligible (Applied)
                               </span>
                             )}
                             {isEligible && isShortlisted && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
                                 🟡 Shortlisted (Aptitude Pending)
                               </span>
                             )}
                             {isEligible && isAptitudeAssigned && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">
                                 🔷 Aptitude Round Allocated
                               </span>
                             )}
                             {isEligible && stage === 'APTITUDE_IN_PROGRESS' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
                                 ⏳ Aptitude Test In Progress
                               </span>
                             )}
                             {isEligible && stage === 'APTITUDE_QUALIFIED' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 🟢 Aptitude Qualified (Technical Eligible)
                               </span>
                             )}
                             {isEligible && stage === 'TECHNICAL_ALLOCATED' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
                                 💻 Technical Round Allocated
                               </span>
                             )}
                             {isEligible && stage === 'HR_INTERVIEW_ALLOCATED' && !isInterviewScheduled && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">
                                 🔷 HR / Interview Allocated
                               </span>
                             )}
                             {isEligible && isInterviewScheduled && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200">
                                 🟣 Interview Scheduled
                               </span>
                             )}
                             {isEligible && stage === 'INTERVIEW_COMPLETED' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
                                 🤝 Interview Completed (Decision Pending)
                               </span>
                             )}
                             {isEligible && (['SELECTED', 'FINAL_SELECTED', 'PLACED'].includes(stage) || (c.status || '').toUpperCase() === 'SELECTED' || (c.status || '').toUpperCase() === 'PLACED') && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 🏆 Selected / Placed
                               </span>
                             )}
                             {isEligible && (stage === 'OFFER_EXTENDED' || (c.status || '').toUpperCase() === 'OFFER_EXTENDED') && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 📄 Offer Extended
                               </span>
                             )}
                             {isEligible && (stage === 'OFFER_ACCEPTED' || (c.status || '').toUpperCase() === 'OFFER_ACCEPTED') && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 ✅ Offer Accepted
                               </span>
                             )}
                             {isEligible && (stage === 'JOINED' || (c.status || '').toUpperCase() === 'JOINED') && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 🎉 Joined Company
                               </span>
                             )}
                             {stage === 'TECHNICAL_IN_PROGRESS' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
                                 💻 Technical In Progress
                               </span>
                             )}
                             {(stage === 'TECHNICAL_QUALIFIED' || stage === 'INTERVIEW_PENDING') && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 🟢 Technical Qualified (Interview Pending)
                               </span>
                             )}
                             {stage === 'REJECTED_AT_TECHNICAL' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
                                 🔴 Rejected at Technical
                               </span>
                             )}
                             {stage === 'REJECTED_AT_HR' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
                                 🔴 Rejected at HR / Interview
                               </span>
                             )}
                             {(isRejected || stage === 'REJECTED_AT_APTITUDE') && stage !== 'REJECTED_AT_TECHNICAL' && stage !== 'REJECTED_AT_HR' && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40">
+                              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
                                 🔴 {stage === 'REJECTED_AT_APTITUDE' ? 'Rejected at Aptitude' : 'Not Shortlisted / Failed'}
                               </span>
                             )}
 
                           </div>
-                          <div className="text-xs text-[#CBD5E1] mt-0.5">
-                            <strong className="text-[#60A5FA]">{c.job_title}</strong> at{' '}
-                            <strong className="text-[#F8FAFC]">{c.company_name}</strong> &bull; Applied on{' '}
-                            <span className="font-mono text-[#94A3B8]">{c.applied_at}</span>
+                          <div className="text-xs text-[#475569] mt-0.5">
+                            <strong className="text-[#2563EB]">{c.job_title}</strong> at{' '}
+                            <strong className="text-[#14213D]">{c.company_name}</strong> &bull; Applied on{' '}
+                            <span className="font-mono text-[#64748B]">{c.applied_at}</span>
                           </div>
-                          <div className="text-[11px] text-[#CBD5E1] mt-1.5 flex flex-wrap items-center gap-3">
-                            <span className="flex items-center gap-1 font-mono text-[#F8FAFC]">
+                          <div className="text-[11px] text-[#475569] mt-1.5 flex flex-wrap items-center gap-3">
+                            <span className="flex items-center gap-1 font-mono text-[#14213D]">
                               📱 {c.mobile || c.applicant?.mobile || 'Mobile N/A'}
                             </span>
                             <span>&bull;</span>
-                            <span className="flex items-center gap-1 text-[#CBD5E1]">
+                            <span className="flex items-center gap-1 text-[#475569]">
                               🎓 {c.college_name || c.applicant?.college_name || 'Campus University'}
                             </span>
                             <span>&bull;</span>
-                            <span className="flex items-center gap-1 text-[#94A3B8]">
+                            <span className="flex items-center gap-1 text-[#64748B]">
                               📍 {c.location || c.applicant?.location || 'Bengaluru'}
                             </span>
                           </div>
@@ -569,7 +569,6 @@ export const CandidatesList: React.FC = () => {
                           <Button
                             variant="primary"
                             size="sm"
-                            className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold"
                             icon={<Users className="w-4 h-4" />}
                             onClick={async (e) => {
                               e.stopPropagation();
@@ -590,7 +589,7 @@ export const CandidatesList: React.FC = () => {
                           <Button
                             variant="secondary"
                             size="sm"
-                            className="bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold"
+                            className="bg-blue-50 text-[#2563EB] border border-blue-200 font-bold hover:bg-blue-100"
                             onClick={(e) => {
                               e.stopPropagation();
                               navigate('/interviews');
@@ -606,7 +605,7 @@ export const CandidatesList: React.FC = () => {
                             variant="outline"
                             size="sm"
                             disabled
-                            className="border-indigo-500/40 text-indigo-300 bg-indigo-500/10 cursor-default"
+                            className="border-indigo-200 text-indigo-700 bg-indigo-50 cursor-default"
                           >
                             Technical Allocated
                           </Button>
@@ -618,7 +617,7 @@ export const CandidatesList: React.FC = () => {
                             variant="outline"
                             size="sm"
                             disabled
-                            className="border-cyan-500/40 text-cyan-400 bg-cyan-500/10 cursor-default"
+                            className="border-blue-200 text-[#2563EB] bg-blue-50 cursor-default"
                           >
                             Aptitude Allocated
                           </Button>
@@ -628,7 +627,7 @@ export const CandidatesList: React.FC = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10"
+                            className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedCandidateForShortlist(c);
@@ -642,7 +641,6 @@ export const CandidatesList: React.FC = () => {
                           <Button
                             variant="primary"
                             size="sm"
-                            className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold flex items-center gap-1.5 shadow-md shadow-emerald-900/30"
                             icon={<Award className="w-4 h-4" />}
                             onClick={(e) => {
                               e.stopPropagation();
@@ -658,7 +656,7 @@ export const CandidatesList: React.FC = () => {
                             variant="outline"
                             size="sm"
                             disabled
-                            className="border-cyan-500/40 text-cyan-400 bg-cyan-500/10 cursor-default"
+                            className="border-blue-200 text-[#2563EB] bg-blue-50 cursor-default"
                           >
                             Offer Released
                           </Button>
@@ -689,19 +687,19 @@ export const CandidatesList: React.FC = () => {
 
                     {/* Interview Logistics Banner (If Scheduled) */}
                     {hasInterview && (
-                      <div className="p-3 bg-[#0B1628] rounded-xl border border-[rgba(34,197,94,0.30)] flex flex-wrap items-center justify-between gap-3 text-xs">
+                      <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200 flex flex-wrap items-center justify-between gap-3 text-xs">
                         <div className="flex items-center gap-4 flex-wrap">
-                          <span className="font-bold text-[#4ADE80] flex items-center gap-1.5">
+                          <span className="font-bold text-emerald-700 flex items-center gap-1.5">
                             <Calendar className="w-3.5 h-3.5" /> {c.interview.date}
                           </span>
-                          <span className="font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-[#3B82F6]" /> {c.interview.time}
+                          <span className="font-bold text-[#14213D] flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-[#2563EB]" /> {c.interview.time}
                           </span>
-                          <span className="text-[#CBD5E1] flex items-center gap-1.5">
-                            <Users className="w-3.5 h-3.5 text-[#3B82F6]" /> {c.interview.panel_name}
+                          <span className="text-[#64748B] flex items-center gap-1.5">
+                            <Users className="w-3.5 h-3.5 text-[#2563EB]" /> {c.interview.panel_name}
                           </span>
-                          <span className="text-[#CBD5E1] flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-[#3B82F6]" /> {c.interview.room_name}
+                          <span className="text-[#64748B] flex items-center gap-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> {c.interview.room_name}
                           </span>
                         </div>
                       </div>
@@ -710,7 +708,7 @@ export const CandidatesList: React.FC = () => {
                     {/* Skills & Projects Extracted from Resume */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                       <div>
-                        <span className="text-[11px] font-bold text-[#94A3B8] uppercase block mb-1.5">
+                        <span className="text-[11px] font-bold text-[#64748B] uppercase block mb-1.5">
                           Extracted Resume Skills
                         </span>
                         <div className="flex flex-wrap gap-1.5">
@@ -718,7 +716,7 @@ export const CandidatesList: React.FC = () => {
                             c.skills.map((sk: string) => (
                               <span
                                 key={sk}
-                                className="px-2.5 py-0.5 rounded bg-[#0B1628] text-[#CBD5E1] border border-[#243650] text-[11px] font-medium"
+                                className="px-2.5 py-0.5 rounded bg-slate-100 text-[#14213D] border border-slate-200 text-[11px] font-medium"
                               >
                                 {sk}
                               </span>
@@ -730,14 +728,14 @@ export const CandidatesList: React.FC = () => {
                       </div>
 
                       <div>
-                        <span className="text-[11px] font-bold text-[#94A3B8] uppercase block mb-1.5">
+                        <span className="text-[11px] font-bold text-[#64748B] uppercase block mb-1.5">
                           Extracted Projects
                         </span>
                         <div className="space-y-1">
                           {(c.projects || []).length > 0 ? (
                             c.projects.slice(0, 2).map((proj: any, idx: number) => (
-                              <div key={idx} className="text-[#CBD5E1] font-medium flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]"></span>
+                              <div key={idx} className="text-[#14213D] font-medium flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]"></span>
                                 <span>{proj.title || proj.name || proj}</span>
                               </div>
                             ))

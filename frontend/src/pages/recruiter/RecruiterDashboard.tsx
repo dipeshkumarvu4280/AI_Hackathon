@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Building2,
   Users,
@@ -26,6 +27,7 @@ import {
   Layers,
   RefreshCw,
   Send,
+  User,
 } from 'lucide-react';
 import { usePlacement } from '../../context/PlacementContext';
 import { useAuth } from '../../context/AuthContext';
@@ -39,7 +41,61 @@ import {
 import { CreateDriveModal } from '../../components/companies/CreateDriveModal';
 import { CreateOfferModal } from '../../components/offers/CreateOfferModal';
 
+// Modern Corporate Office Skyscraper SVG Illustration for Welcome Banner
+const CorporateIllustration: React.FC = () => (
+  <svg
+    className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 drop-shadow-md select-none pointer-events-none"
+    viewBox="0 0 200 200"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Soft subtle glow behind buildings */}
+    <circle cx="110" cy="110" r="75" fill="#DDD6FE" fillOpacity="0.5" />
+
+    {/* Background Tower */}
+    <rect x="110" y="35" width="55" height="135" rx="3" fill="#64748B" />
+    <rect x="115" y="42" width="10" height="8" rx="1" fill="#93C5FD" fillOpacity="0.8" />
+    <rect x="130" y="42" width="10" height="8" rx="1" fill="#93C5FD" fillOpacity="0.8" />
+    <rect x="145" y="42" width="10" height="8" rx="1" fill="#93C5FD" fillOpacity="0.8" />
+    <rect x="115" y="56" width="10" height="8" rx="1" fill="#BFDBFE" />
+    <rect x="130" y="56" width="10" height="8" rx="1" fill="#BFDBFE" />
+    <rect x="145" y="56" width="10" height="8" rx="1" fill="#BFDBFE" />
+    <rect x="115" y="70" width="10" height="8" rx="1" fill="#DBEAFE" />
+    <rect x="130" y="70" width="10" height="8" rx="1" fill="#DBEAFE" />
+    <rect x="145" y="70" width="10" height="8" rx="1" fill="#DBEAFE" />
+
+    {/* Foreground Main Glass Tower */}
+    <rect x="45" y="55" width="60" height="115" rx="3" fill="#1E293B" />
+    <rect x="52" y="65" width="12" height="10" rx="1.5" fill="#38BDF8" fillOpacity="0.9" />
+    <rect x="69" y="65" width="12" height="10" rx="1.5" fill="#38BDF8" fillOpacity="0.9" />
+    <rect x="86" y="65" width="12" height="10" rx="1.5" fill="#38BDF8" fillOpacity="0.9" />
+    <rect x="52" y="82" width="12" height="10" rx="1.5" fill="#7DD3FC" />
+    <rect x="69" y="82" width="12" height="10" rx="1.5" fill="#7DD3FC" />
+    <rect x="86" y="82" width="12" height="10" rx="1.5" fill="#7DD3FC" />
+    <rect x="52" y="99" width="12" height="10" rx="1.5" fill="#BAE6FD" />
+    <rect x="69" y="99" width="12" height="10" rx="1.5" fill="#BAE6FD" />
+    <rect x="86" y="99" width="12" height="10" rx="1.5" fill="#BAE6FD" />
+    <rect x="52" y="116" width="12" height="10" rx="1.5" fill="#E0F2FE" />
+    <rect x="69" y="116" width="12" height="10" rx="1.5" fill="#E0F2FE" />
+    <rect x="86" y="116" width="12" height="10" rx="1.5" fill="#E0F2FE" />
+
+    {/* Small Side Building */}
+    <rect x="15" y="95" width="30" height="75" rx="2" fill="#475569" />
+    <rect x="20" y="105" width="8" height="7" rx="1" fill="#93C5FD" />
+    <rect x="32" y="105" width="8" height="7" rx="1" fill="#93C5FD" />
+    <rect x="20" y="118" width="8" height="7" rx="1" fill="#93C5FD" />
+    <rect x="32" y="118" width="8" height="7" rx="1" fill="#93C5FD" />
+
+    {/* Trees at the Base */}
+    <circle cx="28" cy="168" r="9" fill="#10B981" />
+    <circle cx="40" cy="166" r="11" fill="#059669" />
+    <circle cx="160" cy="168" r="10" fill="#10B981" />
+    <circle cx="172" cy="167" r="8" fill="#047857" />
+  </svg>
+);
+
 export const RecruiterDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { triggerToast, refreshAllData } = usePlacement();
 
@@ -61,7 +117,6 @@ export const RecruiterDashboard: React.FC = () => {
   const [isConfigureRoundsOpen, setIsConfigureRoundsOpen] = useState<boolean>(false);
   const [selectedCandidateForOffer, setSelectedCandidateForOffer] = useState<any | null>(null);
 
-
   // Configure Round Form Inputs
   const [newRoundName, setNewRoundName] = useState<string>('');
   const [newRoundType, setNewRoundType] = useState<string>('Technical');
@@ -71,9 +126,9 @@ export const RecruiterDashboard: React.FC = () => {
 
   // Action Loading State per Application ID
   const [actionLoadingAppId, setActionLoadingAppId] = useState<string | null>(null);
-
-  // Track drive IDs for which error toasts have already been shown to avoid spam
   const errorToastShownDriveIdRef = useRef<string | null>(null);
+
+  const recruiterName = user?.name || 'Recruiter';
 
   // Fetch placement drives belonging to currently authenticated recruiter
   const loadRecruiterDrives = async () => {
@@ -141,8 +196,6 @@ export const RecruiterDashboard: React.FC = () => {
       });
 
       setMetricsError(true);
-
-      // Only trigger toast ONCE per failing drive ID
       if (errorToastShownDriveIdRef.current !== driveId) {
         errorToastShownDriveIdRef.current = driveId;
         triggerToast('Could not load drive pipeline metrics. Please click retry.', 'error');
@@ -152,12 +205,10 @@ export const RecruiterDashboard: React.FC = () => {
     }
   };
 
-  // Initial load on mount
   useEffect(() => {
     loadRecruiterDrives();
   }, []);
 
-  // Fetch metrics whenever selectedDriveId changes — STABLE DEPENDENCY
   useEffect(() => {
     if (selectedDriveId && selectedDriveId !== 'undefined') {
       loadDriveMetrics(selectedDriveId);
@@ -184,7 +235,6 @@ export const RecruiterDashboard: React.FC = () => {
 
       triggerToast(`${candidateName} ${actionText} successfully!`, 'success');
 
-      // Refresh drive metrics & active modal candidates
       if (selectedDriveId) {
         const freshData = await apiService.getDriveRecruiterMetrics(selectedDriveId);
         setDashboardData(freshData);
@@ -262,727 +312,508 @@ export const RecruiterDashboard: React.FC = () => {
     }
   };
 
+  const totalApplicantsCount = dashboardData?.metrics?.registeredCount || 0;
+  const shortlistedCount = dashboardData?.metrics?.shortlistedCount || 0;
+
   return (
-    <div className="space-y-6 pb-12">
-      {/* Header Banner & Drive Filter */}
-      <div className="bg-[#101D31] p-6 rounded-2xl border border-[#243650] text-[#F8FAFC] shadow-[0_12px_35px_rgba(0,0,0,0.22)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(245,158,11,0.10)] border border-[rgba(245,158,11,0.25)] text-[#FCD34D] text-xs font-bold mb-2">
-            <Building2 className="w-3.5 h-3.5 text-[#F59E0B]" /> Company Recruiter Workspace
-          </div>
-          <h1 className="text-2xl font-black text-[#F8FAFC] tracking-tight">Recruiter Command Center</h1>
-          <p className="text-xs text-[#CBD5E1] mt-1 font-medium">
-            Manage company placement drives, applicant pipeline, round-wise evaluations, and live candidate selections.
-          </p>
-        </div>
+    <div className="space-y-6 sm:space-y-8 pb-12 text-[#14213D]">
+      {/* 1. WELCOME HERO SECTION (Matching placemind-dashboard-reference.png) */}
+      <div className="relative rounded-3xl bg-gradient-to-r from-violet-50/90 via-[#F8FAFC] to-white border border-[#CBD5E1]/90 p-6 sm:p-8 md:p-10 overflow-hidden shadow-xs">
+        {/* Soft background curve accent */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-purple-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
-        {/* Right Action Bar: Drive Selector + Create Drive */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 bg-[#0B1628] p-2 rounded-xl border border-[#243650]">
-            <Filter className="w-4 h-4 text-[#3B82F6] ml-1" />
-            {loadingDrives ? (
-              <span className="text-xs text-[#94A3B8] px-2 flex items-center gap-1.5">
-                <Loader2 className="w-3.5 h-3.5 animate-spin" /> Loading drives...
-              </span>
-            ) : recruiterDrives.length > 0 ? (
-              <select
-                value={selectedDriveId}
-                onChange={(e) => setSelectedDriveId(e.target.value)}
-                className="bg-transparent text-xs font-bold text-[#F8FAFC] focus:outline-none cursor-pointer pr-2 max-w-[260px] truncate"
-              >
-                {recruiterDrives.map((d) => (
-                  <option key={d.id} value={d.id} className="bg-[#0B1628] text-[#F8FAFC]">
-                    {d.companyName} — {d.roleTitle}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <span className="text-xs font-bold text-[#FCA5A5] px-2">
-                No placement drives created yet
-              </span>
-            )}
-          </div>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-3 max-w-xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#14213D] tracking-tight">
+              Welcome back, {recruiterName}!
+            </h1>
+            <p className="text-sm sm:text-base text-[#475569] font-medium leading-relaxed">
+              Manage your placement drives and find the right talent.
+            </p>
 
-          {selectedDriveId && (
-            <button
-              onClick={async () => {
-                let targetDrive: any = recruiterDrives.find((d) => d.id === selectedDriveId) || dashboardData?.drive || selectedDrive;
-                if (!targetDrive && selectedDriveId) {
-                  try {
-                    targetDrive = await apiService.getDrive(selectedDriveId);
-                  } catch (err) {
-                    console.warn('Failed to fetch drive by id', err);
-                  }
-                }
-                if (targetDrive) {
-                  setDriveToEdit(targetDrive);
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
+              <button
+                onClick={() => {
+                  setDriveToEdit(null);
                   setIsCreateDriveOpen(true);
-                }
-              }}
-              className="flex items-center gap-1.5 px-3.5 py-2 bg-[#1E293B] hover:bg-[#334155] text-[#FCD34D] border border-[rgba(245,158,11,0.30)] text-xs font-bold rounded-xl transition-colors cursor-pointer"
-            >
-              <Edit3 className="w-4 h-4 text-[#F59E0B]" /> Edit Drive
-            </button>
-          )}
+                }}
+                className="px-5 py-2 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+              >
+                <span>Build Your Team</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              {selectedDrive && (
+                <span className="px-3 py-1 rounded-full bg-white border border-purple-200 text-slate-700 text-xs font-semibold">
+                  {selectedDrive.companyName} &bull; {selectedDrive.roleTitle}
+                </span>
+              )}
+            </div>
+          </div>
 
-          <button
-            onClick={() => {
-              setDriveToEdit(null);
-              setIsCreateDriveOpen(true);
-            }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold rounded-xl transition-colors shadow-sm cursor-pointer"
-          >
-            <Plus className="w-4 h-4" /> Create Placement Drive
-          </button>
+          {/* Right Corporate Illustration */}
+          <div className="flex justify-center md:justify-end shrink-0">
+            <CorporateIllustration />
+          </div>
         </div>
       </div>
 
-
-      {/* Empty State when Recruiter has 0 drives */}
-      {!loadingDrives && recruiterDrives.length === 0 && (
-        <div className="bg-[#101D31] p-10 rounded-2xl border border-[#243650] text-center text-[#CBD5E1] space-y-4 shadow-sm">
-          <div className="w-16 h-16 rounded-full bg-[rgba(59,130,246,0.1)] border border-[rgba(59,130,246,0.2)] text-[#60A5FA] flex items-center justify-center mx-auto">
-            <Building2 className="w-8 h-8" />
+      {/* 2. THREE KEY METRIC CARDS (Matching placemind-dashboard-reference.png) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        {/* Card 1: Active Drives */}
+        <div
+          onClick={() => {
+            setDriveToEdit(null);
+            setIsCreateDriveOpen(true);
+          }}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-purple-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#7C3AED] shadow-xs group-hover:scale-105 transition-transform">
+              <Briefcase className="w-6 h-6" />
+            </div>
           </div>
-          <h3 className="text-lg font-bold text-[#F8FAFC]">No Placement Drives Created Yet</h3>
-          <p className="text-xs max-w-md mx-auto text-[#94A3B8]">
-            You have not posted any campus recruitment drives under your recruiter account. Submit a new drive requirements specification to begin candidate screening and round-wise hiring.
-          </p>
-          <button
-            onClick={() => setIsCreateDriveOpen(true)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold rounded-xl transition-all shadow-md cursor-pointer"
-          >
-            <Plus className="w-4 h-4" /> Post Your First Placement Drive
-          </button>
+
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              Active Drives
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {recruiterDrives.length}
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-[#7C3AED] transition-colors">
+            <span>Create Drive</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
         </div>
-      )}
 
-      {/* API ERROR / RETRY BANNER */}
-      {selectedDriveId && metricsError && (
-        <div className="p-5 bg-[rgba(239,68,68,0.08)] border border-[rgba(239,68,68,0.25)] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[#FCA5A5] shadow-xs">
-          <div className="flex items-center gap-3">
-            <AlertCircle className="w-6 h-6 text-[#EF4444] shrink-0" />
-            <div>
-              <h4 className="text-sm font-bold text-[#F8FAFC]">Could not load drive pipeline metrics</h4>
-              <p className="text-xs text-[#CBD5E1]">
-                Failed to fetch live applicant data for this drive. Please click retry to make another request.
-              </p>
+        {/* Card 2: Applications */}
+        <div
+          onClick={() => navigate('/recruiter/candidates')}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-emerald-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-xs group-hover:scale-105 transition-transform">
+              <Users className="w-6 h-6" />
             </div>
           </div>
-          <button
-            onClick={() => loadDriveMetrics(selectedDriveId)}
-            className="px-4 py-2 bg-[#EF4444] hover:bg-[#DC2626] text-white text-xs font-bold rounded-xl transition-all shadow-sm cursor-pointer flex items-center gap-1.5 whitespace-nowrap"
-          >
-            <RefreshCw className="w-3.5 h-3.5" /> Retry Request
-          </button>
+
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              Applications
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {totalApplicantsCount}
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-emerald-600 transition-colors">
+            <span>View Applications</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
         </div>
-      )}
 
-      {/* Selected Drive Metrics & Pipeline */}
-      {selectedDriveId && (
-        <>
-          {/* Drive Lifecycle Status Banner */}
-          <div className="p-4 bg-[#101D31] rounded-2xl border border-[#243650] shadow-xs text-[#F8FAFC] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Drive Status:</div>
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-bold capitalize flex items-center gap-1.5 ${
-                  (selectedDrive?.status || '').toUpperCase() === 'ACTIVE' || (selectedDrive?.status || '').toUpperCase() === 'ANNOUNCED'
-                    ? 'bg-[rgba(34,197,94,0.15)] text-[#86EFAC] border border-[rgba(34,197,94,0.3)]'
-                    : (selectedDrive?.status || '').toUpperCase() === 'SUBMITTED_TO_OFFICER' || (selectedDrive?.status || '').toUpperCase() === 'PENDING_APPROVAL'
-                    ? 'bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.3)]'
-                    : (selectedDrive?.status || '').toUpperCase() === 'CHANGES_REQUESTED'
-                    ? 'bg-[rgba(245,158,11,0.15)] text-[#FCD34D] border border-[rgba(245,158,11,0.3)]'
-                    : (selectedDrive?.status || '').toUpperCase() === 'REJECTED'
-                    ? 'bg-[rgba(239,68,68,0.15)] text-[#FCA5A5] border border-[rgba(239,68,68,0.3)]'
-                    : 'bg-[#1E293B] text-[#CBD5E1] border border-[#334155]'
-                }`}
-              >
-                {(selectedDrive?.status || '').toUpperCase() === 'ACTIVE' || (selectedDrive?.status || '').toUpperCase() === 'ANNOUNCED'
-                  ? '● Live / Approved'
-                  : (selectedDrive?.status || '').toUpperCase() === 'SUBMITTED_TO_OFFICER' || (selectedDrive?.status || '').toUpperCase() === 'PENDING_APPROVAL'
-                  ? '⏳ Submitted to Placement Officer'
-                  : (selectedDrive?.status || '').toUpperCase() === 'CHANGES_REQUESTED'
-                  ? '⚠️ Adjustments Requested'
-                  : (selectedDrive?.status || '').toUpperCase() === 'REJECTED'
-                  ? '✕ Rejected by Placement Cell'
-                  : '📝 Draft (Private)'}
-              </span>
-            </div>
-
-            {/* Quick Action: Send to Officer if DRAFT or CHANGES_REQUESTED */}
-            {((selectedDrive?.status || '').toUpperCase() === 'DRAFT' ||
-              (selectedDrive?.status || '').toUpperCase() === 'CHANGES_REQUESTED') && (
-              <button
-                onClick={handleSubmitDriveToOfficer}
-                disabled={isSubmittingDrive}
-                className="flex items-center gap-1.5 px-4 py-2 bg-[#22C55E] hover:bg-[#16A34A] text-white text-xs font-bold rounded-xl transition-all shadow-md cursor-pointer disabled:opacity-50"
-              >
-                {isSubmittingDrive ? (
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                  <Send className="w-3.5 h-3.5" />
-                )}
-                {(selectedDrive?.status || '').toUpperCase() === 'CHANGES_REQUESTED'
-                  ? 'Resubmit to Placement Officer'
-                  : 'Send to Placement Officer'}
-              </button>
-            )}
-          </div>
-
-          {/* Officer Feedback Notice Card if changes requested or rejected */}
-          {Boolean(selectedDrive?.changes_feedback || (selectedDrive as any)?.changesFeedback) && (selectedDrive?.status || '').toUpperCase() === 'CHANGES_REQUESTED' && (
-            <div className="p-4 bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.25)] rounded-2xl flex items-start gap-3 text-[#FCD34D]">
-              <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC]">Placement Cell Requested Adjustments</h4>
-                <p className="text-xs text-[#CBD5E1] mt-1 font-medium">
-                  {selectedDrive?.changes_feedback || (selectedDrive as any)?.changesFeedback}
-                </p>
-                <p className="text-[11px] text-[#94A3B8] mt-1.5">
-                  Click "Edit Drive" to adjust requirements or criteria, then click "Resubmit to Placement Officer".
-                </p>
-              </div>
-            </div>
-          )}
-
-          {Boolean(selectedDrive?.rejection_reason || (selectedDrive as any)?.rejectionReason) && (selectedDrive?.status || '').toUpperCase() === 'REJECTED' && (
-            <div className="p-4 bg-[rgba(239,68,68,0.08)] border border-[rgba(239,68,68,0.25)] rounded-2xl flex items-start gap-3 text-[#FCA5A5]">
-              <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-[#EF4444]" />
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#F8FAFC]">Placement Cell Rejection Note</h4>
-                <p className="text-xs text-[#CBD5E1] mt-1 font-medium">
-                  {selectedDrive?.rejection_reason || (selectedDrive as any)?.rejectionReason}
-                </p>
-              </div>
-            </div>
-          )}
-          {/* Drive Overview Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-[#101D31] p-5 rounded-2xl border border-[#243650] shadow-xs text-[#F8FAFC]">
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Drive Role &amp; Package</div>
-              <div className="text-lg font-bold text-[#F8FAFC] mt-1 truncate">
-                {selectedDrive?.roleTitle || dashboardData?.metrics?.roleTitle || 'Role TBD'}
-              </div>
-              <div className="text-xs font-bold text-[#86EFAC] mt-0.5">
-                {selectedDrive?.packageLpa ? `₹${selectedDrive.packageLpa} LPA` : dashboardData?.metrics?.packageText || 'Not specified'} &bull; {selectedDrive?.location || dashboardData?.metrics?.location || 'Location TBD'}
-              </div>
-            </div>
-
-            <div className="bg-[#101D31] p-5 rounded-2xl border border-[#243650] shadow-xs text-[#F8FAFC]">
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Total Registered</div>
-              <div className="text-2xl font-black text-[#F8FAFC] mt-1">
-                {loadingMetrics ? <Loader2 className="w-5 h-5 animate-spin text-[#94A3B8]" /> : dashboardData?.metrics?.registeredCount ?? 0}
-              </div>
-              <div className="text-xs text-[#CBD5E1] mt-0.5 font-medium">Campus candidates applied</div>
-            </div>
-
-            <div className="bg-[#101D31] p-5 rounded-2xl border border-[#243650] shadow-xs text-[#F8FAFC]">
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Shortlisted</div>
-              <div className="text-2xl font-black text-[#3B82F6] mt-1">
-                {loadingMetrics ? <Loader2 className="w-5 h-5 animate-spin text-[#3B82F6]" /> : dashboardData?.metrics?.shortlistedCount ?? 0}
-              </div>
-              <div className="text-xs text-[#CBD5E1] mt-0.5 font-medium">In interview pipeline</div>
-            </div>
-
-            <div className="bg-[#101D31] p-5 rounded-2xl border border-[#243650] shadow-xs text-[#F8FAFC]">
-              <div className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">Selections Made</div>
-              <div className="text-2xl font-black text-[#86EFAC] mt-1">
-                {loadingMetrics ? <Loader2 className="w-5 h-5 animate-spin text-[#86EFAC]" /> : dashboardData?.metrics?.selectedCount ?? 0}
-              </div>
-              <div className="text-xs text-[#CBD5E1] mt-0.5 font-medium">Final candidate selections</div>
+        {/* Card 3: Shortlisted */}
+        <div
+          onClick={() => {
+            if (dashboardData?.rounds?.[0]) {
+              setActiveRoundModal(dashboardData.rounds[0]);
+            }
+          }}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-amber-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-500 shadow-xs group-hover:scale-105 transition-transform">
+              <CheckCircle2 className="w-6 h-6" />
             </div>
           </div>
 
-          {/* Scheduled Interviews Section */}
-          <div className="bg-[#101D31] rounded-2xl border border-[#243650] shadow-[0_12px_35px_rgba(0,0,0,0.22)] overflow-hidden text-[#F8FAFC]">
-            <div className="p-5 border-b border-[#243650] flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-[#F8FAFC]">Scheduled Interviews &amp; Candidates</h3>
-                <p className="text-xs text-[#CBD5E1]">
-                  Live interview slots scheduled for {selectedDrive?.companyName || 'this drive'} — {selectedDrive?.roleTitle}
-                </p>
-              </div>
-              <span className="px-3 py-1 bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)] text-xs font-bold rounded-full">
-                {dashboardData?.interviews?.length || 0} Slots Scheduled
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[#14243B] text-[#CBD5E1] uppercase tracking-wider font-bold border-b border-[#243650]">
-                  <tr>
-                    <th className="p-3.5 pl-5">Candidate</th>
-                    <th className="p-3.5">Roll Number</th>
-                    <th className="p-3.5">Round</th>
-                    <th className="p-3.5">Time Slot &amp; Venue</th>
-                    <th className="p-3.5">Panel Assigned</th>
-                    <th className="p-3.5 pr-5">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#243650] font-medium text-[#F8FAFC]">
-                  {dashboardData && dashboardData.interviews.length > 0 ? (
-                    dashboardData.interviews.map((intSlot) => (
-                      <tr key={intSlot.id} className="hover:bg-[#14243B] transition-colors">
-                        <td className="p-3.5 pl-5 font-bold text-[#F8FAFC] flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-[#3B82F6] text-white font-bold flex items-center justify-center text-xs shadow-xs">
-                            {intSlot.candidateName.charAt(0)}
-                          </div>
-                          <span>{intSlot.candidateName}</span>
-                        </td>
-                        <td className="p-3.5 font-mono text-[#CBD5E1]">{intSlot.candidateRoll}</td>
-                        <td className="p-3.5">
-                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#0B1628] text-[#CBD5E1] border border-[#243650]">
-                            {intSlot.round}
-                          </span>
-                        </td>
-                        <td className="p-3.5">
-                          <div className="font-bold text-[#F8FAFC]">{intSlot.timeSlot}</div>
-                          <div className="text-[11px] text-[#94A3B8]">{intSlot.roomName}</div>
-                        </td>
-                        <td className="p-3.5 font-bold text-[#F8FAFC]">{intSlot.panelName}</td>
-                        <td className="p-3.5 pr-5">
-                          <span
-                            className={`px-2.5 py-1 rounded-full text-[11px] font-bold capitalize ${
-                              intSlot.status === 'completed'
-                                ? 'bg-[rgba(34,197,94,0.10)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)]'
-                                : intSlot.status === 'cancelled'
-                                ? 'bg-[rgba(239,68,68,0.10)] text-[#FCA5A5] border border-[rgba(239,68,68,0.25)]'
-                                : 'bg-[rgba(245,158,11,0.10)] text-[#FCD34D] border border-[rgba(245,158,11,0.25)]'
-                            }`}
-                          >
-                            {intSlot.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={6} className="p-8 text-center text-[#94A3B8]">
-                        {loadingMetrics ? 'Loading scheduled interviews...' : 'No interviews scheduled yet for this drive.'}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              Shortlisted
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {shortlistedCount}
             </div>
           </div>
 
-          {/* Recruitment Pipeline Section */}
-          <div className="bg-[#101D31] p-6 rounded-2xl border border-[#243650] shadow-[0_12px_35px_rgba(0,0,0,0.22)] text-[#F8FAFC] space-y-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#243650] pb-4">
-              <div>
-                <h3 className="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-[#3B82F6]" /> Recruitment Pipeline — Round-wise Workflow
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-amber-600 transition-colors">
+            <span>View Details</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </div>
+
+      {/* 3. RECENT DRIVES & QUICK ACTIONS ROW (Matching placemind-dashboard-reference.png) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Your Recent Drives */}
+        <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-7 border border-[#CBD5E1]/90 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 className="text-base sm:text-lg font-black text-[#14213D]">
+              Your Recent Drives
+            </h2>
+            <button
+              onClick={() => navigate('/recruiter/drives')}
+              className="text-xs font-bold text-[#7C3AED] hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* If no drives, display reference empty state with Post a Drive button */}
+          {!loadingDrives && recruiterDrives.length === 0 ? (
+            <div className="py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-300">
+                <Briefcase className="w-7 h-7" />
+              </div>
+              <div className="space-y-1 max-w-sm">
+                <h3 className="text-sm font-bold text-[#14213D]">
+                  No drives posted yet
                 </h3>
-                <p className="text-xs text-[#CBD5E1] mt-0.5">
-                  Evaluate candidates round by round. Candidates must pass each round sequentially to advance to final selection.
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Create a placement drive to get started.
                 </p>
               </div>
-
-              <button
-                onClick={() => setIsConfigureRoundsOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0B1628] hover:bg-[#14243B] text-[#CBD5E1] border border-[#243650] rounded-xl text-xs font-bold transition-colors cursor-pointer"
-              >
-                <Settings className="w-3.5 h-3.5 text-[#3B82F6]" /> Configure Rounds
-              </button>
-            </div>
-
-            {/* Round Pipeline Cards Grid */}
-            {dashboardData && dashboardData.rounds && dashboardData.rounds.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {dashboardData.rounds.map((rnd, idx) => (
-                  <div
-                    key={rnd.id}
-                    className="bg-[#0B1628] p-4 rounded-xl border border-[#243650] flex flex-col justify-between space-y-4 hover:border-[#3B82F6]/50 transition-all shadow-xs"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[rgba(59,130,246,0.1)] text-[#60A5FA] border border-[rgba(59,130,246,0.25)]">
-                          {rnd.round_type || 'Technical'}
-                        </span>
-                        {rnd.is_final && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[rgba(34,197,94,0.15)] text-[#86EFAC] border border-[rgba(34,197,94,0.3)]">
-                            Final Round
-                          </span>
-                        )}
-                      </div>
-
-                      <h4 className="text-sm font-bold text-[#F8FAFC] line-clamp-1">{rnd.name}</h4>
-                      {rnd.description && (
-                        <p className="text-[11px] text-[#94A3B8] line-clamp-2">{rnd.description}</p>
-                      )}
-                    </div>
-
-                    {/* Round Candidates Count Breakdown */}
-                    <div className="space-y-2 pt-2 border-t border-[#243650]/60">
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="bg-[#101D31] p-2 rounded-lg border border-[#243650]/50 text-center">
-                          <div className="text-[10px] text-[#94A3B8] font-bold uppercase">Total</div>
-                          <div className="text-base font-black text-[#F8FAFC]">{rnd.candidates_count || 0}</div>
-                        </div>
-                        <div className="bg-[#101D31] p-2 rounded-lg border border-[#243650]/50 text-center">
-                          <div className="text-[10px] text-[#86EFAC] font-bold uppercase">Passed</div>
-                          <div className="text-base font-black text-[#86EFAC]">{rnd.passed_count || 0}</div>
-                        </div>
-                        <div className="bg-[#101D31] p-2 rounded-lg border border-[#243650]/50 text-center">
-                          <div className="text-[10px] text-[#FCA5A5] font-bold uppercase">Rejected</div>
-                          <div className="text-base font-black text-[#FCA5A5]">{rnd.rejected_count || 0}</div>
-                        </div>
-                        <div className="bg-[#101D31] p-2 rounded-lg border border-[#243650]/50 text-center">
-                          <div className="text-[10px] text-[#FCD34D] font-bold uppercase">Pending</div>
-                          <div className="text-base font-black text-[#FCD34D]">{rnd.pending_count || 0}</div>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={() => setActiveRoundModal(rnd)}
-                        className="w-full py-2 bg-[#14243B] hover:bg-[#3B82F6] text-[#CBD5E1] hover:text-white border border-[#243650] hover:border-[#3B82F6] text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer"
-                      >
-                        View Candidates <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Final Selections Summary Card */}
-                <div className="bg-[rgba(34,197,94,0.05)] p-4 rounded-xl border border-[rgba(34,197,94,0.25)] flex flex-col justify-between space-y-4 text-[#F8FAFC]">
-                  <div className="space-y-1">
-                    <div className="inline-flex items-center gap-1 text-xs font-bold text-[#86EFAC]">
-                      <Award className="w-4 h-4 text-[#22C55E]" /> Final Selections
-                    </div>
-                    <h4 className="text-sm font-bold text-[#F8FAFC]">Selected Candidates</h4>
-                    <p className="text-[11px] text-[#CBD5E1]">
-                      Candidates who successfully passed all recruitment rounds.
-                    </p>
-                  </div>
-
-                  <div className="bg-[#101D31] p-4 rounded-xl border border-[rgba(34,197,94,0.25)] text-center space-y-1">
-                    <div className="text-3xl font-black text-[#86EFAC]">
-                      {dashboardData.metrics.selectedCount}
-                    </div>
-                    <div className="text-xs font-bold text-[#CBD5E1]">Confirmed Selections</div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="p-8 text-center text-[#94A3B8] space-y-2 bg-[#0B1628] rounded-xl border border-[#243650]">
-                <Layers className="w-8 h-8 mx-auto text-[#94A3B8]" />
-                <p className="text-xs">No recruitment rounds configured yet for this drive.</p>
+              <div className="pt-2">
                 <button
-                  onClick={() => setIsConfigureRoundsOpen(true)}
-                  className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold rounded-xl transition-colors cursor-pointer"
+                  onClick={() => setIsCreateDriveOpen(true)}
+                  className="px-5 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold rounded-xl shadow-sm transition-all cursor-pointer"
                 >
-                  Configure Recruitment Rounds
+                  Post a Drive
                 </button>
               </div>
-            )}
-          </div>
-        </>
-      )}
-
-      {/* MODAL 1: VIEW ROUND CANDIDATES & EVALUATION */}
-      {activeRoundModal && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-          <div className="bg-[#101D31] rounded-2xl border border-[#243650] w-full max-w-4xl max-h-[94vh] sm:max-h-[90vh] flex flex-col shadow-2xl text-[#F8FAFC] my-auto">
-            {/* Modal Header */}
-            <div className="shrink-0 p-4 sm:p-5 border-b border-[#243650] flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.3)]">
-                  {activeRoundModal.round_type || 'Round'}
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-[#F8FAFC] mt-1 truncate">
-                  {activeRoundModal.name} — Candidates List
-                </h3>
-                <p className="text-[10px] sm:text-xs text-[#CBD5E1] truncate">
-                  Evaluate candidates entering this round. Select action to pass to next round or reject.
-                </p>
-              </div>
-              <button
-                onClick={() => setActiveRoundModal(null)}
-                aria-label="Close"
-                className="p-1.5 text-[#94A3B8] hover:text-white rounded-lg hover:bg-[#14243B] transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
-
-            {/* Candidates Table */}
-            <div className="p-4 sm:p-5 overflow-y-auto flex-1 space-y-4 min-h-0">
-              {activeRoundModal.candidates && activeRoundModal.candidates.length > 0 ? (
-                <div className="overflow-x-auto rounded-xl border border-[#243650]">
-                  <table className="w-full text-left text-xs">
-                    <thead className="bg-[#14243B] text-[#CBD5E1] uppercase tracking-wider font-bold border-b border-[#243650]">
-                      <tr>
-                        <th className="p-3 pl-4">Candidate</th>
-                        <th className="p-3">Roll &amp; Branch</th>
-                        <th className="p-3">CGPA</th>
-                        <th className="p-3">Skills</th>
-                        <th className="p-3">Round Status</th>
-                        <th className="p-3 pr-4 text-right">Recruiter Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#243650] font-medium text-[#F8FAFC]">
-                      {activeRoundModal.candidates.map((cand) => (
-                        <tr key={cand.application_id} className="hover:bg-[#14243B]/60 transition-colors">
-                          <td className="p-3 pl-4 font-bold text-[#F8FAFC]">
-                            <div className="flex items-center gap-2">
-                              <div className="w-7 h-7 rounded-full bg-[#3B82F6] text-white font-bold flex items-center justify-center text-xs">
-                                {cand.student_name.charAt(0)}
-                              </div>
-                              <div>
-                                <div className="font-bold text-[#F8FAFC]">{cand.student_name}</div>
-                                <div className="text-[11px] text-[#94A3B8]">{cand.student_email}</div>
-                              </div>
-                            </div>
-                          </td>
-
-                          <td className="p-3">
-                            <div className="font-mono font-bold text-[#F8FAFC]">{cand.rollNumber}</div>
-                            <div className="text-[11px] text-[#CBD5E1]">{cand.branch}</div>
-                          </td>
-
-                          <td className="p-3 font-bold text-[#86EFAC]">{cand.cgpa}</td>
-
-                          <td className="p-3">
-                            <div className="flex flex-wrap gap-1 max-w-[180px]">
-                              {cand.skills && cand.skills.length > 0 ? (
-                                cand.skills.slice(0, 3).map((sk, i) => (
-                                  <span key={i} className="px-1.5 py-0.5 rounded bg-[#0B1628] text-[10px] text-[#CBD5E1] border border-[#243650]">
-                                    {sk}
-                                  </span>
-                                ))
-                              ) : (
-                                <span className="text-[#94A3B8]">N/A</span>
-                              )}
-                            </div>
-                          </td>
-
-                          <td className="p-3">
-                            <span
-                              className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
-                                cand.round_status === 'PASSED'
-                                  ? 'bg-[rgba(34,197,94,0.10)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)]'
-                                  : cand.round_status === 'REJECTED'
-                                  ? 'bg-[rgba(239,68,68,0.10)] text-[#FCA5A5] border border-[rgba(239,68,68,0.25)]'
-                                  : 'bg-[rgba(245,158,11,0.10)] text-[#FCD34D] border border-[rgba(245,158,11,0.25)]'
-                              }`}
-                            >
-                              {cand.round_status}
-                            </span>
-                          </td>
-
-                          <td className="p-3 pr-4 text-right space-x-1.5">
-                            {actionLoadingAppId === cand.application_id ? (
-                              <span className="text-xs text-[#94A3B8] inline-flex items-center gap-1">
-                                <Loader2 className="w-3.5 h-3.5 animate-spin" /> Processing...
-                              </span>
-                            ) : (
-                              <>
-                                {activeRoundModal.is_final ? (
-                                  <>
-                                    <button
-                                      onClick={() =>
-                                        handleCandidateAction(cand.application_id, 'FINAL_SELECT', activeRoundModal.id, cand.student_name)
-                                      }
-                                      disabled={cand.round_status === 'PASSED'}
-                                      className="px-2.5 py-1 bg-[#22C55E] hover:bg-[#16a34a] disabled:opacity-50 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
-                                    >
-                                      Final Select
-                                    </button>
-                                    {cand.round_status === 'PASSED' && (
-                                      <button
-                                        onClick={() => {
-                                          setSelectedCandidateForOffer({
-                                            id: cand.application_id,
-                                            application_id: cand.application_id,
-                                            student_id: cand.student_id,
-                                            student_name: cand.student_name,
-                                            drive_id: selectedDriveId,
-                                            company_name: selectedDrive?.companyName,
-                                            job_title: selectedDrive?.roleTitle,
-                                            package_lpa: selectedDrive?.packageLpa,
-                                          });
-                                        }}
-                                        className="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer inline-flex items-center gap-1 shadow-xs"
-                                      >
-                                        <Award className="w-3 h-3" /> Issue Offer
-                                      </button>
-                                    )}
-                                  </>
-                                ) : (
-                                  <button
-                                    onClick={() =>
-                                      handleCandidateAction(cand.application_id, 'PASS', activeRoundModal.id, cand.student_name)
-                                    }
-                                    disabled={cand.round_status === 'PASSED'}
-                                    className="px-2.5 py-1 bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
-                                  >
-                                    Pass to Next Round
-                                  </button>
-                                )}
-
-                                <button
-                                  onClick={() =>
-                                    handleCandidateAction(cand.application_id, 'REJECT', activeRoundModal.id, cand.student_name)
-                                  }
-                                  disabled={cand.round_status === 'REJECTED'}
-                                  className="px-2.5 py-1 bg-[#14243B] hover:bg-[rgba(239,68,68,0.20)] text-[#CBD5E1] hover:text-[#FCA5A5] border border-[#243650] disabled:opacity-50 text-[11px] font-bold rounded-lg transition-colors cursor-pointer"
-                                >
-                                  Reject
-                                </button>
-                              </>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="p-8 text-center text-[#94A3B8] space-y-2 bg-[#0B1628] rounded-xl border border-[#243650]">
-                  <Users className="w-8 h-8 mx-auto text-[#94A3B8]" />
-                  <p className="text-xs">No candidates currently active in this round.</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL 2: CONFIGURE RECRUITMENT ROUNDS */}
-      {isConfigureRoundsOpen && selectedDrive && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#101D31] rounded-2xl border border-[#243650] w-full max-w-2xl p-6 space-y-6 shadow-2xl text-[#F8FAFC]">
-            <div className="flex items-center justify-between border-b border-[#243650] pb-4">
-              <div>
-                <h3 className="text-lg font-bold text-[#F8FAFC]">Configure Recruitment Rounds</h3>
-                <p className="text-xs text-[#CBD5E1]">
-                  Customize hiring workflow for {selectedDrive.companyName} — {selectedDrive.roleTitle}
-                </p>
-              </div>
-              <button
-                onClick={() => setIsConfigureRoundsOpen(false)}
-                className="p-1.5 text-[#94A3B8] hover:text-white rounded-lg hover:bg-[#14243B]"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Current Rounds List */}
+          ) : (
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-[#CBD5E1] uppercase tracking-wider">Configured Drive Rounds</h4>
-              {dashboardData?.rounds && dashboardData.rounds.length > 0 ? (
-                <div className="space-y-2">
-                  {dashboardData.rounds.map((r, i) => (
-                    <div
-                      key={r.id}
-                      className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] flex items-center justify-between text-xs"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-[#14243B] text-[#CBD5E1] font-bold flex items-center justify-center text-xs border border-[#243650]">
-                          {r.order || i + 1}
-                        </span>
-                        <div>
-                          <div className="font-bold text-[#F8FAFC] flex items-center gap-2">
-                            {r.name}
-                            {r.is_final && (
-                              <span className="px-2 py-0.2 rounded text-[9px] font-bold uppercase bg-[rgba(34,197,94,0.15)] text-[#86EFAC]">
-                                Final Round
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-[11px] text-[#94A3B8]">{r.round_type}</div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => {
-                            setEditingRoundId(r.id);
-                            setNewRoundName(r.name);
-                            setNewRoundType(r.round_type);
-                            setNewRoundOrder(r.order);
-                            setNewRoundIsFinal(r.is_final);
-                          }}
-                          className="p-1.5 text-[#60A5FA] hover:bg-[#14243B] rounded-lg cursor-pointer"
-                        >
-                          <Edit3 className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteRound(r.id)}
-                          className="p-1.5 text-[#FCA5A5] hover:bg-[rgba(239,68,68,0.15)] rounded-lg cursor-pointer"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-[#94A3B8]">No rounds configured yet.</p>
-              )}
-            </div>
-
-            {/* Add / Edit Round Form */}
-            <form onSubmit={handleSaveRound} className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] space-y-4">
-              <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">
-                {editingRoundId ? 'Edit Recruitment Round' : 'Add New Round'}
-              </h4>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div>
-                  <label className="block text-[#CBD5E1] font-bold mb-1">Round Name</label>
-                  <input
-                    type="text"
-                    value={newRoundName}
-                    onChange={(e) => setNewRoundName(e.target.value)}
-                    placeholder="e.g. Technical Interview Round 1"
-                    className="w-full p-2.5 bg-[#101D31] text-[#F8FAFC] border border-[#243650] rounded-lg focus:outline-none focus:border-[#3B82F6]"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[#CBD5E1] font-bold mb-1">Round Type</label>
+              {/* Drive selector pill bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-[#7C3AED]" />
+                  <span className="text-xs font-bold text-slate-600">Active Pipeline:</span>
                   <select
-                    value={newRoundType}
-                    onChange={(e) => setNewRoundType(e.target.value)}
-                    className="w-full p-2.5 bg-[#101D31] text-[#F8FAFC] border border-[#243650] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    value={selectedDriveId}
+                    onChange={(e) => setSelectedDriveId(e.target.value)}
+                    className="bg-white border border-slate-200 text-xs font-bold text-[#14213D] rounded-xl px-3 py-1.5 focus:outline-none focus:border-purple-500 cursor-pointer max-w-[260px] truncate"
                   >
-                    <option value="Aptitude">Aptitude / Screening</option>
-                    <option value="Technical">Technical Interview</option>
-                    <option value="Coding">Coding Assessment</option>
-                    <option value="HR">HR &amp; Behavioral</option>
-                    <option value="GD">Group Discussion</option>
+                    {recruiterDrives.map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {d.companyName} — {d.roleTitle}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
+                <div className="flex items-center gap-2">
+                  {selectedDrive && (
+                    <button
+                      onClick={() => {
+                        setDriveToEdit(selectedDrive);
+                        setIsCreateDriveOpen(true);
+                      }}
+                      className="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+                    >
+                      <Edit3 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>Edit Drive</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Drives List */}
+              <div className="divide-y divide-slate-100">
+                {recruiterDrives.slice(0, 4).map((d) => {
+                  const isSelected = d.id === selectedDriveId;
+                  return (
+                    <div
+                      key={d.id}
+                      onClick={() => setSelectedDriveId(d.id)}
+                      className={`py-3.5 px-3 rounded-2xl flex items-center justify-between gap-3 transition-colors cursor-pointer ${
+                        isSelected ? 'bg-purple-50/50 border border-purple-100' : 'hover:bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 text-[#7C3AED] flex items-center justify-center font-bold text-xs shrink-0">
+                          {d.companyName ? d.companyName[0] : 'C'}
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="text-xs font-bold text-[#14213D] truncate">{d.roleTitle}</h4>
+                          <p className="text-[11px] text-slate-500 font-medium truncate">{d.companyName}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        <span
+                          className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold border ${
+                            (d.status || '').toUpperCase() === 'ACTIVE'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : (d.status || '').toUpperCase() === 'SUBMITTED_TO_OFFICER'
+                              ? 'bg-blue-50 text-blue-700 border-blue-200'
+                              : 'bg-slate-100 text-slate-700 border-slate-200'
+                          }`}
+                        >
+                          {d.status || 'Active'}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-slate-400" />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Column: Quick Actions */}
+        <div className="lg:col-span-4 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] space-y-4">
+          <h2 className="text-base sm:text-lg font-black text-[#14213D] pb-3 border-b border-slate-100">
+            Quick Actions
+          </h2>
+
+          <div className="space-y-3">
+            <button
+              onClick={() => {
+                setDriveToEdit(null);
+                setIsCreateDriveOpen(true);
+              }}
+              className="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs sm:text-sm font-bold flex items-center justify-start gap-3 shadow-xs transition-all cursor-pointer"
+            >
+              <span className="w-6 h-6 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center font-bold text-base">
+                +
+              </span>
+              <span>Post a New Drive</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/recruiter/candidates')}
+              className="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs sm:text-sm font-bold flex items-center justify-start gap-3 shadow-xs transition-all cursor-pointer"
+            >
+              <span className="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <FileText className="w-3.5 h-3.5" />
+              </span>
+              <span>View Applications</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/recruiter/drives')}
+              className="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs sm:text-sm font-bold flex items-center justify-start gap-3 shadow-xs transition-all cursor-pointer"
+            >
+              <span className="w-6 h-6 rounded-lg bg-purple-50 text-[#7C3AED] flex items-center justify-center">
+                <Building2 className="w-3.5 h-3.5" />
+              </span>
+              <span>Manage Company Profile</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. PRESERVED EXISTING RECRUITER PIPELINE & EVALUATION SECTIONS */}
+      {selectedDriveId && (
+        <div className="space-y-6">
+          {/* Drive Pipeline Header */}
+          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-[#14213D]">
+                  Recruitment Rounds &amp; Screening Pipeline
+                </h3>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-[#7C3AED] border border-purple-200">
+                  {selectedDrive?.roleTitle || 'Selected Drive'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                Configure screening stages, review candidates in each round, and record candidate evaluations.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsConfigureRoundsOpen(true)}
+                className="px-4 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl transition-all shadow-sm cursor-pointer flex items-center gap-1.5"
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Configure Rounds</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Rounds Cards Grid */}
+          {dashboardData && dashboardData.rounds && dashboardData.rounds.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {dashboardData.rounds.map((round) => (
+                <div
+                  key={round.id}
+                  className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between space-y-4"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                        Round {round.order} &bull; {round.round_type}
+                      </span>
+                      {round.is_final && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                          Final Round
+                        </span>
+                      )}
+                    </div>
+                    <h4 className="text-sm font-bold text-[#14213D]">{round.name}</h4>
+                    <p className="text-xs text-slate-500">
+                      {round.candidates?.length || 0} candidate(s) currently in this round.
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <button
+                      onClick={() => setActiveRoundModal(round)}
+                      className="text-xs font-bold text-[#7C3AED] hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Review Candidates</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-8 bg-white rounded-3xl border border-slate-200/80 text-center space-y-3">
+              <Layers className="w-8 h-8 text-slate-300 mx-auto" />
+              <p className="text-sm font-bold text-[#14213D]">No recruitment rounds configured yet</p>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                Add Aptitude, Technical, and HR interview stages to organize candidate screening.
+              </p>
+              <button
+                onClick={() => setIsConfigureRoundsOpen(true)}
+                className="px-4 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl transition-all cursor-pointer"
+              >
+                + Add First Round
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* MODAL 1: CONFIGURE ROUNDS */}
+      {isConfigureRoundsOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full border border-slate-200 p-6 sm:p-7 space-y-5 text-[#14213D]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <Layers className="w-5 h-5 text-[#7C3AED]" />
+                <h3 className="text-base font-bold text-[#14213D]">Configure Drive Rounds</h3>
+              </div>
+              <button
+                onClick={() => {
+                  setIsConfigureRoundsOpen(false);
+                  setEditingRoundId(null);
+                  setNewRoundName('');
+                }}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Existing Rounds List */}
+            <div className="space-y-2 max-h-56 overflow-y-auto">
+              {dashboardData?.rounds?.map((r) => (
+                <div
+                  key={r.id}
+                  className="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between gap-3 text-xs"
+                >
+                  <div>
+                    <span className="font-bold text-[#14213D] block">{r.name}</span>
+                    <span className="text-[11px] text-slate-500">
+                      Round {r.order} &bull; {r.round_type} {r.is_final ? '(Final)' : ''}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        setEditingRoundId(r.id);
+                        setNewRoundName(r.name);
+                        setNewRoundType(r.round_type);
+                        setNewRoundOrder(r.order);
+                        setNewRoundIsFinal(r.is_final);
+                      }}
+                      className="text-slate-500 hover:text-[#7C3AED] p-1 cursor-pointer"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteRound(r.id)}
+                      className="text-slate-500 hover:text-rose-600 p-1 cursor-pointer"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Add / Edit Form */}
+            <form onSubmit={handleSaveRound} className="p-4 bg-purple-50/50 rounded-2xl border border-purple-100 space-y-3 text-xs">
+              <h4 className="font-bold text-[#14213D]">
+                {editingRoundId ? 'Edit Round Details' : 'Add New Round'}
+              </h4>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="col-span-2">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
+                    Round Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newRoundName}
+                    onChange={(e) => setNewRoundName(e.target.value)}
+                    placeholder="e.g. Technical Interview Round 1"
+                    className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-purple-500"
+                  />
+                </div>
                 <div>
-                  <label className="block text-[#CBD5E1] font-bold mb-1">Round Order Sequence</label>
+                  <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
+                    Round Type
+                  </label>
+                  <select
+                    value={newRoundType}
+                    onChange={(e) => setNewRoundType(e.target.value)}
+                    className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none"
+                  >
+                    <option value="Aptitude">Aptitude</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Coding">Coding</option>
+                    <option value="HR">HR Interview</option>
+                    <option value="Managerial">Managerial</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
+                    Sequence Order
+                  </label>
                   <input
                     type="number"
                     min="1"
                     value={newRoundOrder}
-                    onChange={(e) => setNewRoundOrder(Number(e.target.value))}
-                    className="w-full p-2.5 bg-[#101D31] text-[#F8FAFC] border border-[#243650] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    onChange={(e) => setNewRoundOrder(parseInt(e.target.value) || 1)}
+                    className="w-full px-3 py-2 bg-white rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none"
                   />
-                </div>
-
-                <div className="flex items-center pt-6">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#F8FAFC]">
-                    <input
-                      type="checkbox"
-                      checked={newRoundIsFinal}
-                      onChange={(e) => setNewRoundIsFinal(e.target.checked)}
-                      className="w-4 h-4 accent-[#3B82F6] rounded"
-                    />
-                    Set as Final Selection Round
-                  </label>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2">
+              <div className="flex items-center gap-2 pt-1">
+                <input
+                  type="checkbox"
+                  id="is_final_round"
+                  checked={newRoundIsFinal}
+                  onChange={(e) => setNewRoundIsFinal(e.target.checked)}
+                  className="rounded text-purple-600 focus:ring-purple-500"
+                />
+                <label htmlFor="is_final_round" className="text-xs text-slate-700 font-semibold cursor-pointer">
+                  Is this the final selection round?
+                </label>
+              </div>
+
+              <div className="pt-2 flex justify-end gap-2">
                 {editingRoundId && (
                   <button
                     type="button"
@@ -990,16 +821,16 @@ export const RecruiterDashboard: React.FC = () => {
                       setEditingRoundId(null);
                       setNewRoundName('');
                     }}
-                    className="px-3 py-1.5 text-xs text-[#CBD5E1] hover:text-white"
+                    className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-xl cursor-pointer"
                   >
                     Cancel
                   </button>
                 )}
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold rounded-xl cursor-pointer shadow-sm"
                 >
-                  {editingRoundId ? 'Update Round' : 'Add Round'}
+                  {editingRoundId ? 'Update Round' : 'Save Round'}
                 </button>
               </div>
             </form>
@@ -1007,41 +838,122 @@ export const RecruiterDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* CREATE DRIVE MODAL */}
-      <CreateDriveModal
-        isOpen={isCreateDriveOpen}
-        onClose={() => {
-          setIsCreateDriveOpen(false);
-          setDriveToEdit(null);
-        }}
-        initialDrive={driveToEdit}
-        onDriveUpdated={async (updatedDrive) => {
-          setIsCreateDriveOpen(false);
-          setDriveToEdit(null);
-          triggerToast(`Placement drive '${updatedDrive.companyName} - ${updatedDrive.roleTitle}' updated!`, 'success');
-          await loadRecruiterDrives();
-          setSelectedDriveId(updatedDrive.id);
-        }}
-        onDriveCreated={async (newDrive) => {
-          setIsCreateDriveOpen(false);
-          setDriveToEdit(null);
-          triggerToast(`Placement drive '${newDrive.roleTitle}' created!`, 'success');
-          await loadRecruiterDrives();
-          setSelectedDriveId(newDrive.id);
-        }}
-      />
+      {/* MODAL 2: CANDIDATE EVALUATION IN ROUND */}
+      {activeRoundModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full border border-slate-200 p-6 sm:p-7 space-y-4 text-[#14213D]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="text-base font-bold text-[#14213D]">{activeRoundModal.name}</h3>
+                <p className="text-xs text-slate-500">
+                  Round {activeRoundModal.order} &bull; {activeRoundModal.round_type}
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveRoundModal(null)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
 
-      {/* ISSUE OFFICIAL OFFER MODAL */}
-      <CreateOfferModal
-        isOpen={!!selectedCandidateForOffer}
-        onClose={() => setSelectedCandidateForOffer(null)}
-        candidate={selectedCandidateForOffer}
-        onOfferIssued={() => {
-          if (selectedDriveId) loadDriveMetrics(selectedDriveId);
-          refreshAllData();
-        }}
-      />
+            <div className="max-h-96 overflow-y-auto space-y-2.5">
+              {!activeRoundModal.candidates || activeRoundModal.candidates.length === 0 ? (
+                <div className="py-8 text-center text-slate-400 text-xs">
+                  No candidates currently in this round.
+                </div>
+              ) : (
+                activeRoundModal.candidates.map((c) => (
+                  <div
+                    key={c.application_id}
+                    className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                  >
+                    <div>
+                      <span className="font-bold text-[#14213D] block">{c.student_name || 'Candidate'}</span>
+                      <span className="text-[11px] text-slate-500">
+                        {c.branch} &bull; CGPA: {c.cgpa} &bull; Roll: {c.rollNumber || 'N/A'}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        disabled={actionLoadingAppId === c.application_id}
+                        onClick={() =>
+                          handleCandidateAction(c.application_id, 'PASS', activeRoundModal.id, c.student_name)
+                        }
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-[11px] transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        Pass Round
+                      </button>
+                      <button
+                        disabled={actionLoadingAppId === c.application_id}
+                        onClick={() =>
+                          handleCandidateAction(c.application_id, 'REJECT', activeRoundModal.id, c.student_name)
+                        }
+                        className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-[11px] transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        Reject
+                      </button>
+                      {activeRoundModal.is_final && (
+                        <button
+                          disabled={actionLoadingAppId === c.application_id}
+                          onClick={() => {
+                            setSelectedCandidateForOffer(c);
+                            setActiveRoundModal(null);
+                          }}
+                          className="px-3 py-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold rounded-xl text-[11px] transition-colors cursor-pointer disabled:opacity-50"
+                        >
+                          Extend Offer
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setActiveRoundModal(null)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CREATE / EDIT DRIVE MODAL */}
+      {isCreateDriveOpen && (
+        <CreateDriveModal
+          isOpen={isCreateDriveOpen}
+          onClose={() => {
+            setIsCreateDriveOpen(false);
+            setDriveToEdit(null);
+          }}
+          initialDrive={driveToEdit}
+          onDriveCreated={() => {
+            setIsCreateDriveOpen(false);
+            setDriveToEdit(null);
+            loadRecruiterDrives();
+          }}
+        />
+      )}
+
+      {/* EXTEND OFFER MODAL */}
+      {selectedCandidateForOffer && (
+        <CreateOfferModal
+          isOpen={Boolean(selectedCandidateForOffer)}
+          candidate={selectedCandidateForOffer}
+          onClose={() => setSelectedCandidateForOffer(null)}
+          onOfferIssued={() => {
+            setSelectedCandidateForOffer(null);
+            triggerToast('Job offer extended successfully!', 'success');
+            if (selectedDriveId) loadDriveMetrics(selectedDriveId);
+          }}
+        />
+      )}
     </div>
   );
 };
-

@@ -90,13 +90,13 @@ export const StudentForms: React.FC = () => {
 
   if (submitSuccess) return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4 text-center px-4">
-      <div className="p-4 rounded-full bg-emerald-900/30 border border-emerald-500/40">
-        <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+      <div className="p-4 rounded-full bg-emerald-50 border border-emerald-200">
+        <CheckCircle2 className="w-10 h-10 text-emerald-600" />
       </div>
       <div>
-        <h2 className="text-xl font-bold text-white mb-1">Form Submitted Successfully!</h2>
-        <p className="text-sm text-slate-400">Your response has been recorded for <strong className="text-slate-200">{form.title}</strong>.</p>
-        <p className="text-xs text-slate-500 mt-1">Submitted by: {user?.name || 'You'}</p>
+        <h2 className="text-xl font-bold text-[#14213D] mb-1">Form Submitted Successfully!</h2>
+        <p className="text-sm text-[#64748B]">Your response has been recorded for <strong className="text-[#14213D]">{form.title}</strong>.</p>
+        <p className="text-xs text-[#94A3B8] mt-1">Submitted by: {user?.name || 'You'}</p>
       </div>
       <div className="flex gap-3 mt-2">
         {form.drive_id && (
@@ -110,37 +110,37 @@ export const StudentForms: React.FC = () => {
   );
 
   return (
-    <div className="space-y-6 pb-12 text-[#CBD5E1] max-w-2xl mx-auto">
+    <div className="space-y-6 pb-12 text-[#14213D] max-w-2xl mx-auto">
       <PageHeader
         title={form.title}
         subtitle={form.description || ('Uploaded by ' + form.created_by_name + ' (Placement Office)')}
-        icon={<ClipboardList className="w-5 h-5 text-white" />}
+        icon={<ClipboardList className="w-5 h-5 text-[#2563EB]" />}
         action={<Button variant="outline" size="sm" icon={<ArrowLeft className="w-4 h-4" />} onClick={() => navigate(-1)}>Back</Button>}
       />
 
-      <div className="flex items-center gap-3 p-3 rounded-xl bg-violet-900/20 border border-violet-700/30 text-xs text-violet-300">
-        <ClipboardList className="w-4 h-4 shrink-0" />
+      <div className="flex items-center gap-3 p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/60 text-xs text-blue-900">
+        <ClipboardList className="w-4 h-4 shrink-0 text-[#2563EB]" />
         <div>
           <span className="font-bold">{form.title}</span>
-          <span className="text-slate-500 ml-1">• Uploaded by {form.created_by_name}</span>
+          <span className="text-[#64748B] ml-1">• Uploaded by {form.created_by_name}</span>
           {form.submission_count > 0 && (
-            <span className="text-slate-500 ml-1">• {form.submission_count} student{form.submission_count !== 1 ? 's' : ''} submitted</span>
+            <span className="text-[#64748B] ml-1">• {form.submission_count} student{form.submission_count !== 1 ? 's' : ''} submitted</span>
           )}
         </div>
       </div>
 
-      <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-        <CardHeader className="border-b border-[#1B2A40]">
-          <CardTitle className="text-base font-bold">Fill Form</CardTitle>
-          <p className="text-xs text-slate-400">Fields marked with * are required. Your responses will be stored against your account.</p>
+      <Card className="bg-white border-slate-200 text-[#14213D] shadow-xs">
+        <CardHeader className="border-b border-slate-100">
+          <CardTitle className="text-base font-bold text-[#14213D]">Fill Form</CardTitle>
+          <p className="text-xs text-[#64748B]">Fields marked with * are required. Your responses will be stored against your account.</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
             {form.fields.map((field) => (
               <div key={field.name}>
-                <label className="text-xs font-bold text-[#F8FAFC] block mb-1">
+                <label className="text-xs font-bold text-[#14213D] block mb-1">
                   {field.label}
-                  {field.required && <span className="text-red-400 ml-1">*</span>}
+                  {field.required && <span className="text-red-500 ml-1">*</span>}
                 </label>
                 {field.field_type === 'textarea' ? (
                   <textarea
@@ -149,22 +149,22 @@ export const StudentForms: React.FC = () => {
                     onChange={(e) => handleChange(field.name, e.target.value)}
                     placeholder={field.placeholder || ''}
                     rows={3}
-                    className="w-full text-sm p-3 bg-[#0B1628] border border-[#243650] rounded-lg text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6] resize-none"
+                    className="w-full text-sm p-3 bg-white border border-slate-200 rounded-lg text-[#14213D] placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] resize-none"
                   />
                 ) : field.field_type === 'select' && field.options ? (
                   <select
                     required={field.required}
                     value={answers[field.name] || ''}
                     onChange={(e) => handleChange(field.name, e.target.value)}
-                    className="w-full text-sm p-3 bg-[#0B1628] border border-[#243650] rounded-lg text-[#F8FAFC] focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full text-sm p-3 bg-white border border-slate-200 rounded-lg text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                   >
                     <option value="">Select an option...</option>
                     {field.options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
                 ) : field.field_type === 'checkbox' ? (
                   <div className="flex items-center gap-2">
-                    <input type="checkbox" id={'field-' + field.name} checked={!!answers[field.name]} onChange={(e) => handleChange(field.name, e.target.checked)} className="w-4 h-4 accent-blue-500" />
-                    <label htmlFor={'field-' + field.name} className="text-sm text-slate-300">{field.placeholder || 'Yes'}</label>
+                    <input type="checkbox" id={'field-' + field.name} checked={!!answers[field.name]} onChange={(e) => handleChange(field.name, e.target.checked)} className="w-4 h-4 accent-[#2563EB]" />
+                    <label htmlFor={'field-' + field.name} className="text-sm text-[#475569]">{field.placeholder || 'Yes'}</label>
                   </div>
                 ) : (
                   <input
@@ -174,14 +174,14 @@ export const StudentForms: React.FC = () => {
                     onChange={(e) => handleChange(field.name, field.field_type === 'number' ? parseFloat(e.target.value) : e.target.value)}
                     placeholder={field.placeholder || ''}
                     step={field.field_type === 'number' ? '0.01' : undefined}
-                    className="w-full text-sm p-3 bg-[#0B1628] border border-[#243650] rounded-lg text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full text-sm p-3 bg-white border border-slate-200 rounded-lg text-[#14213D] placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                   />
                 )}
               </div>
             ))}
 
             {submitError && (
-              <div className="p-3 rounded-lg bg-red-900/30 border border-red-500/40 text-red-300 text-xs flex items-center gap-2">
+              <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 {submitError}
               </div>
@@ -192,7 +192,6 @@ export const StudentForms: React.FC = () => {
                 type="submit"
                 variant="primary"
                 size="sm"
-                className="bg-blue-600 hover:bg-blue-500 text-white font-bold"
                 icon={submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
                 disabled={submitting}
               >

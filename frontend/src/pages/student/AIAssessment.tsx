@@ -806,7 +806,7 @@ export const AIAssessment: React.FC = () => {
             onClick={() => setIsAdaptiveModeEnabled(!isAdaptiveModeEnabled)}
             className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border text-xs font-semibold transition-all duration-300 shadow-md ${
               isAdaptiveModeEnabled
-                ? 'bg-gradient-to-r from-purple-900/60 to-cyan-900/60 border-purple-500/60 text-purple-200 shadow-purple-500/20'
+                ? 'bg-gradient-to-r from-purple-900/60 to-blue-900/60 border-purple-500/60 text-purple-200 shadow-purple-500/20'
                 : 'bg-slate-800/80 border-slate-700/80 text-slate-400 hover:bg-slate-800'
             }`}
             title="Toggle CAT Adaptive Difficulty System & Spaced Repetition Engine"
@@ -850,9 +850,9 @@ export const AIAssessment: React.FC = () => {
           <Button
             variant="secondary"
             onClick={() => setIsPracticeStudioOpen(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-900/40 to-blue-900/40 border-cyan-500/40 text-cyan-200 hover:text-white hover:bg-cyan-800/40 font-semibold"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-900/40 to-blue-900/40 border-blue-500/40 text-blue-200 hover:text-white hover:bg-blue-800/40 font-semibold"
           >
-            <BrainCircuit className="w-4 h-4 text-cyan-400" />
+            <BrainCircuit className="w-4 h-4 text-blue-400" />
             🎙️ AI Interview Practice Studio
           </Button>
 
@@ -884,7 +884,7 @@ export const AIAssessment: React.FC = () => {
             <CardHeader className="border-b border-slate-800/80 pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
                     <Bot className="w-6 h-6" />
                   </div>
                   <div>
@@ -897,7 +897,7 @@ export const AIAssessment: React.FC = () => {
                 </div>
 
                 {resumeSkills.length > 0 ? (
-                  <span className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs rounded-full font-medium">
+                  <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs rounded-full font-medium">
                     {resumeSkills.length} Resume Skills Active
                   </span>
                 ) : (
@@ -916,7 +916,7 @@ export const AIAssessment: React.FC = () => {
                   className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.sender === 'bot' && (
-                    <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 flex-shrink-0 mt-1">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 flex-shrink-0 mt-1">
                       <Sparkles className="w-4 h-4" />
                     </div>
                   )}
@@ -937,7 +937,7 @@ export const AIAssessment: React.FC = () => {
                           <button
                             key={i}
                             onClick={() => handleActionClick(act)}
-                            className="px-3 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 text-xs rounded-lg font-medium transition-colors flex items-center gap-1.5 shadow-sm"
+                            className="px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/40 text-blue-300 text-xs rounded-lg font-medium transition-colors flex items-center gap-1.5 shadow-sm"
                           >
                             {act.label}
                             <ArrowRight className="w-3 h-3" />
@@ -951,7 +951,7 @@ export const AIAssessment: React.FC = () => {
 
               {isChatSending && (
                 <div className="flex gap-3 justify-start items-center">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
                     <Loader2 className="w-4 h-4 animate-spin" />
                   </div>
                   <div className="bg-slate-800/80 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs text-slate-400 flex items-center gap-2">
@@ -976,7 +976,7 @@ export const AIAssessment: React.FC = () => {
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   placeholder="e.g. Test my DSA skills, Give me an aptitude test, Practice my weak areas..."
-                  className="flex-1 bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+                  className="flex-1 bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
                 />
                 <Button
                   type="submit"
@@ -996,7 +996,7 @@ export const AIAssessment: React.FC = () => {
             <Card className="bg-slate-900/60 border-slate-800">
               <CardHeader>
                 <CardTitle className="text-white text-base flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-cyan-400" />
+                  <Sparkles className="w-4 h-4 text-blue-400" />
                   Detected Resume Skills
                 </CardTitle>
               </CardHeader>
@@ -1046,7 +1046,7 @@ export const AIAssessment: React.FC = () => {
                     <h4 className="text-white text-sm font-medium">Standard Placement Test</h4>
                     <p className="text-slate-400 text-xs">5 Coding + 5 Aptitude • 30 Mins</p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition" />
+                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition" />
                 </button>
 
                 <button
@@ -1057,7 +1057,7 @@ export const AIAssessment: React.FC = () => {
                     <h4 className="text-white text-sm font-medium">Core DSA Sprint</h4>
                     <p className="text-slate-400 text-xs">5 Coding Problems • 25 Mins</p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition" />
+                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition" />
                 </button>
 
                 <button
@@ -1068,7 +1068,7 @@ export const AIAssessment: React.FC = () => {
                     <h4 className="text-white text-sm font-medium">Speed Aptitude Round</h4>
                     <p className="text-slate-400 text-xs">10 MCQs • 15 Mins</p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 transition" />
+                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition" />
                 </button>
               </CardContent>
             </Card>
@@ -1122,7 +1122,7 @@ export const AIAssessment: React.FC = () => {
               {/* Topic Mastery Progress Bars */}
               <div className="space-y-3">
                 <h5 className="text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                  <BarChart3 className="w-3.5 h-3.5 text-cyan-400" /> Topic Mastery Index Breakdown
+                  <BarChart3 className="w-3.5 h-3.5 text-blue-400" /> Topic Mastery Index Breakdown
                 </h5>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -1142,11 +1142,11 @@ export const AIAssessment: React.FC = () => {
                           setSelectedTopics([topicName]);
                           startAssessment({ topics: [topicName], difficulty: 'Medium', type: 'CODING', question_count: 5 });
                         }}
-                        className="bg-slate-950/90 border border-slate-800 hover:border-cyan-500/60 rounded-xl p-3.5 space-y-2.5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10 group relative"
+                        className="bg-slate-950/90 border border-slate-800 hover:border-blue-500/60 rounded-xl p-3.5 space-y-2.5 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group relative"
                         title={`Click to start a focused practice test on ${topicName}`}
                       >
                         <div className="flex items-center justify-between text-xs">
-                          <span className="font-semibold text-slate-100 group-hover:text-cyan-300 transition-colors truncate max-w-[130px]" title={topicName}>
+                          <span className="font-semibold text-slate-100 group-hover:text-blue-300 transition-colors truncate max-w-[130px]" title={topicName}>
                             {topicName}
                           </span>
                           <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold font-mono ${
@@ -1155,7 +1155,7 @@ export const AIAssessment: React.FC = () => {
                               : status === 'Strong'
                               ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                               : status === 'Moderate'
-                              ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                              ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                               : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                           }`}>
                             {status === 'Unattempted' ? '📌 Unattempted' : status === 'Strong' ? '✅ Strong' : status === 'Moderate' ? '⚡ Moderate' : '⚠️ Needs Practice'} ({percentage}%)
@@ -1169,7 +1169,7 @@ export const AIAssessment: React.FC = () => {
                               percentage >= 80
                                 ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
                                 : percentage >= 50
-                                ? 'bg-gradient-to-r from-cyan-500 to-blue-400'
+                                ? 'bg-gradient-to-r from-blue-500 to-blue-400'
                                 : percentage > 0
                                 ? 'bg-gradient-to-r from-amber-500 to-red-400'
                                 : 'bg-slate-800'
@@ -1182,7 +1182,7 @@ export const AIAssessment: React.FC = () => {
                         <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-0.5">
                           <span className="flex items-center gap-1.5">
                             <span className="text-emerald-400 font-semibold">E:{metrics.easy || 0}</span>
-                            <span className="text-cyan-400 font-semibold">M:{metrics.medium || 0}</span>
+                            <span className="text-blue-400 font-semibold">M:{metrics.medium || 0}</span>
                             <span className="text-red-400 font-semibold">H:{metrics.hard || 0}</span>
                           </span>
                           <span>Clean: {metrics.clean || 0}/{metrics.attempts || 0}</span>
@@ -1194,8 +1194,8 @@ export const AIAssessment: React.FC = () => {
                             <Clock className="w-3 h-3 text-slate-500" />
                             {relativeTime}
                           </span>
-                          <span className="text-cyan-400 group-hover:underline font-semibold flex items-center gap-0.5 text-[10px]">
-                            Practice <Play className="w-2.5 h-2.5 fill-cyan-400" />
+                          <span className="text-blue-400 group-hover:underline font-semibold flex items-center gap-0.5 text-[10px]">
+                            Practice <Play className="w-2.5 h-2.5 fill-blue-400" />
                           </span>
                         </div>
                       </div>
@@ -1215,7 +1215,7 @@ export const AIAssessment: React.FC = () => {
         <Card className="bg-slate-900/60 backdrop-blur-md border-slate-800">
           <CardHeader>
             <CardTitle className="text-white text-lg flex items-center gap-2">
-              <Compass className="w-5 h-5 text-cyan-400" />
+              <Compass className="w-5 h-5 text-blue-400" />
               Configure Custom Placement Assessment
             </CardTitle>
           </CardHeader>
@@ -1235,7 +1235,7 @@ export const AIAssessment: React.FC = () => {
                     onClick={() => setTestType(t.key as any)}
                     className={`p-4 rounded-xl text-left border transition ${
                       testType === t.key
-                        ? 'bg-cyan-500/20 border-cyan-500/80 text-white shadow-lg shadow-cyan-500/10'
+                        ? 'bg-blue-500/20 border-blue-500/80 text-white shadow-lg shadow-blue-500/10'
                         : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
                     }`}
                   >
@@ -1279,7 +1279,7 @@ export const AIAssessment: React.FC = () => {
                       onClick={() => setQuestionCount(cnt)}
                       className={`flex-1 py-2.5 rounded-lg border text-sm font-medium transition ${
                         questionCount === cnt
-                          ? 'bg-cyan-500/20 border-cyan-500 text-cyan-300'
+                          ? 'bg-blue-500/20 border-blue-500 text-blue-300'
                           : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-800'
                       }`}
                     >
@@ -1293,7 +1293,7 @@ export const AIAssessment: React.FC = () => {
             <div className="space-y-3 bg-slate-950/80 border border-slate-800 rounded-xl p-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <label className="text-white text-sm font-semibold flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-cyan-400" />
+                  <Clock className="w-4 h-4 text-blue-400" />
                   Assessment Timer System Mode
                 </label>
 
@@ -1315,7 +1315,7 @@ export const AIAssessment: React.FC = () => {
                     onClick={() => setTimerMode('CUSTOM')}
                     className={`px-3 py-1.5 rounded-md font-semibold transition ${
                       timerMode === 'CUSTOM'
-                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-sm'
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-600 text-white shadow-sm'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
@@ -1357,7 +1357,7 @@ export const AIAssessment: React.FC = () => {
                         }}
                         className={`px-3.5 py-2 rounded-lg text-xs font-semibold border transition ${
                           customTimerPreset === item.val && !customMinutesInput
-                            ? 'bg-cyan-500/20 border-cyan-500 text-cyan-300 shadow-md shadow-cyan-500/10'
+                            ? 'bg-blue-500/20 border-blue-500 text-blue-300 shadow-md shadow-blue-500/10'
                             : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
                         }`}
                       >
@@ -1378,10 +1378,10 @@ export const AIAssessment: React.FC = () => {
                       onChange={(e) => {
                         setCustomMinutesInput(e.target.value);
                       }}
-                      className="bg-slate-900 border border-slate-800 text-white rounded-lg px-3 py-1.5 text-xs w-32 focus:outline-none focus:border-cyan-500 font-mono"
+                      className="bg-slate-900 border border-slate-800 text-white rounded-lg px-3 py-1.5 text-xs w-32 focus:outline-none focus:border-blue-500 font-mono"
                     />
                     {customMinutesInput && !isNaN(parseInt(customMinutesInput)) && (
-                      <span className="text-xs text-cyan-400 font-mono">Custom Duration: {customMinutesInput} mins</span>
+                      <span className="text-xs text-blue-400 font-mono">Custom Duration: {customMinutesInput} mins</span>
                     )}
                   </div>
                 </div>
@@ -1416,7 +1416,7 @@ export const AIAssessment: React.FC = () => {
           {isAdaptiveModeEnabled ? (
             <div className="bg-slate-900/90 border border-purple-500/40 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg shadow-purple-500/5">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 text-purple-400">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-500/30 text-purple-400">
                   <Zap className="w-5 h-5 animate-pulse" />
                 </div>
                 <div>
@@ -1464,7 +1464,7 @@ export const AIAssessment: React.FC = () => {
           {/* Header Bar */}
           <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-4 z-20 shadow-xl">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold">
                 Q{currentQIndex + 1}
               </div>
               <div>
@@ -1490,11 +1490,11 @@ export const AIAssessment: React.FC = () => {
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono font-bold text-sm border shadow-lg transition-colors ${
                     secondsRemaining < 300
                       ? 'bg-red-500/20 border-red-500/60 text-red-400 animate-pulse shadow-red-500/20'
-                      : 'bg-slate-800/90 border-slate-700 text-cyan-400 shadow-cyan-500/10'
+                      : 'bg-slate-800/90 border-slate-700 text-blue-400 shadow-blue-500/10'
                   }`}
                   title={secondsRemaining < 300 ? "Warning: Less than 5 minutes remaining!" : "Time Remaining"}
                 >
-                  <Clock className={`w-4 h-4 ${secondsRemaining < 300 ? 'text-red-400' : 'text-cyan-400'}`} />
+                  <Clock className={`w-4 h-4 ${secondsRemaining < 300 ? 'text-red-400' : 'text-blue-400'}`} />
                   <span>{formatTimer(secondsRemaining)}</span>
                 </div>
               )}
@@ -1527,7 +1527,7 @@ export const AIAssessment: React.FC = () => {
                   }}
                   className={`w-9 h-9 rounded-lg font-mono text-xs font-semibold flex items-center justify-center transition border ${
                     isCurrent
-                      ? 'border-cyan-400 bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/20 scale-105'
+                      ? 'border-blue-400 bg-blue-500 text-slate-950 font-bold shadow-lg shadow-blue-500/20 scale-105'
                       : isMarked
                       ? 'border-amber-500/60 bg-amber-500/20 text-amber-300'
                       : isAnswered
@@ -1550,7 +1550,7 @@ export const AIAssessment: React.FC = () => {
                 <CardHeader className="border-b border-slate-800/80 pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-white text-base flex items-center gap-2">
-                      <Code2 className="w-5 h-5 text-cyan-400" />
+                      <Code2 className="w-5 h-5 text-blue-400" />
                       {activeSession.questions[currentQIndex]?.question}
                     </CardTitle>
                     <span className="px-2.5 py-0.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs rounded-md">
@@ -1628,11 +1628,11 @@ export const AIAssessment: React.FC = () => {
               <Card className="bg-slate-950 border-slate-800 h-[620px] flex flex-col">
                 <CardHeader className="border-b border-slate-800/80 p-3 bg-slate-900/60 flex flex-row items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <FileCode2 className="w-4 h-4 text-cyan-400" />
+                    <FileCode2 className="w-4 h-4 text-blue-400" />
                     <select
                       value={selectedLanguage}
                       onChange={(e) => setSelectedLanguage(e.target.value)}
-                      className="bg-slate-800 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1 focus:outline-none focus:border-cyan-500"
+                      className="bg-slate-800 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1 focus:outline-none focus:border-blue-500"
                     >
                       <option value="python">Python 3</option>
                       <option value="javascript">JavaScript (Node.js)</option>
@@ -1703,7 +1703,7 @@ export const AIAssessment: React.FC = () => {
                   <div className="flex items-center justify-between mb-2 text-slate-400 border-b border-slate-800/60 pb-2">
                     <div className="flex items-center gap-2">
                       <span className="flex items-center gap-1.5 text-slate-300 font-semibold">
-                        <Terminal className="w-3.5 h-3.5 text-cyan-400" /> Output Console
+                        <Terminal className="w-3.5 h-3.5 text-blue-400" /> Output Console
                       </span>
                       {runOutput && (
                         <span
@@ -1729,9 +1729,9 @@ export const AIAssessment: React.FC = () => {
                         variant="secondary"
                         onClick={handleAnalyzeComplexity}
                         disabled={isAnalyzingComplexity}
-                        className="text-[11px] py-0.5 px-2.5 bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 flex items-center gap-1"
+                        className="text-[11px] py-0.5 px-2.5 bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500/20 flex items-center gap-1"
                       >
-                        {isAnalyzingComplexity ? <Loader2 className="w-3 h-3 animate-spin text-cyan-400" /> : <BrainCircuit className="w-3 h-3 text-cyan-400" />}
+                        {isAnalyzingComplexity ? <Loader2 className="w-3 h-3 animate-spin text-blue-400" /> : <BrainCircuit className="w-3 h-3 text-blue-400" />}
                         Analyze Complexity
                       </Button>
                     </div>
@@ -1840,13 +1840,13 @@ export const AIAssessment: React.FC = () => {
 
                     {/* Complexity Analysis Card */}
                     {complexityMap[activeSession.questions[currentQIndex]?.id] && (
-                      <div className="mt-2 bg-slate-950 border border-cyan-500/30 rounded-lg p-2.5 text-xs text-slate-200 font-sans space-y-1.5">
-                        <div className="flex items-center justify-between font-semibold text-cyan-300 border-b border-cyan-500/20 pb-1">
-                          <span className="flex items-center gap-1"><BrainCircuit className="w-3.5 h-3.5 text-cyan-400" /> AI Complexity Breakdown</span>
+                      <div className="mt-2 bg-slate-950 border border-blue-500/30 rounded-lg p-2.5 text-xs text-slate-200 font-sans space-y-1.5">
+                        <div className="flex items-center justify-between font-semibold text-blue-300 border-b border-blue-500/20 pb-1">
+                          <span className="flex items-center gap-1"><BrainCircuit className="w-3.5 h-3.5 text-blue-400" /> AI Complexity Breakdown</span>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-slate-300 font-mono text-[11px]">
-                          <div><span className="text-cyan-400 font-bold">Time Complexity:</span> {complexityMap[activeSession.questions[currentQIndex]?.id].complexity_time}</div>
-                          <div><span className="text-cyan-400 font-bold">Space Complexity:</span> {complexityMap[activeSession.questions[currentQIndex]?.id].complexity_space}</div>
+                          <div><span className="text-blue-400 font-bold">Time Complexity:</span> {complexityMap[activeSession.questions[currentQIndex]?.id].complexity_time}</div>
+                          <div><span className="text-blue-400 font-bold">Space Complexity:</span> {complexityMap[activeSession.questions[currentQIndex]?.id].complexity_space}</div>
                         </div>
                         <div className="text-slate-300 text-[11px]">
                           <span className="text-amber-400 font-semibold">💡 Optimization Tip:</span> {complexityMap[activeSession.questions[currentQIndex]?.id].optimization_tip}
@@ -1889,7 +1889,7 @@ export const AIAssessment: React.FC = () => {
                         }}
                         className={`w-full p-4 rounded-xl text-left border flex items-center justify-between transition ${
                           isSelected
-                            ? 'bg-cyan-500/20 border-cyan-400 text-white shadow-md shadow-cyan-500/10'
+                            ? 'bg-blue-500/20 border-blue-400 text-white shadow-md shadow-blue-500/10'
                             : 'bg-slate-800/60 border-slate-700/80 text-slate-300 hover:bg-slate-800'
                         }`}
                       >
@@ -1897,7 +1897,7 @@ export const AIAssessment: React.FC = () => {
                           <span
                             className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold ${
                               isSelected
-                                ? 'border-cyan-400 bg-cyan-500 text-slate-950'
+                                ? 'border-blue-400 bg-blue-500 text-slate-950'
                                 : 'border-slate-600 text-slate-400'
                             }`}
                           >
@@ -1905,7 +1905,7 @@ export const AIAssessment: React.FC = () => {
                           </span>
                           <span className="text-sm font-medium">{opt}</span>
                         </div>
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
+                        {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-400" />}
                       </button>
                     );
                   })}
@@ -1984,7 +1984,7 @@ export const AIAssessment: React.FC = () => {
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-6">
                   {/* Circular Score Gauge */}
-                  <div className="w-24 h-24 rounded-full border-4 border-cyan-500 bg-slate-950 flex flex-col items-center justify-center shadow-lg shadow-cyan-500/20">
+                  <div className="w-24 h-24 rounded-full border-4 border-blue-500 bg-slate-950 flex flex-col items-center justify-center shadow-lg shadow-blue-500/20">
                     <span className="text-2xl font-bold text-white font-mono">{assessmentResult.percentage}%</span>
                     <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Overall</span>
                   </div>
@@ -2011,7 +2011,7 @@ export const AIAssessment: React.FC = () => {
                 <div className="flex gap-4">
                   <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-4 text-center min-w-[110px]">
                     <div className="text-xs text-slate-400 font-medium">Coding Score</div>
-                    <div className="text-xl font-bold text-cyan-400 mt-1 font-mono">{assessmentResult.coding_score}%</div>
+                    <div className="text-xl font-bold text-blue-400 mt-1 font-mono">{assessmentResult.coding_score}%</div>
                   </div>
                   <div className="bg-slate-950/60 border border-slate-800 rounded-xl p-4 text-center min-w-[110px]">
                     <div className="text-xs text-slate-400 font-medium">Aptitude Score</div>
@@ -2028,7 +2028,7 @@ export const AIAssessment: React.FC = () => {
             <Card className="bg-slate-900/60 border-slate-800">
               <CardHeader>
                 <CardTitle className="text-white text-base flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-cyan-400" />
+                  <TrendingUp className="w-4 h-4 text-blue-400" />
                   Topic-Wise Performance Breakdown
                 </CardTitle>
               </CardHeader>
@@ -2037,7 +2037,7 @@ export const AIAssessment: React.FC = () => {
                   <div key={idx} className="space-y-1.5">
                     <div className="flex justify-between text-xs font-medium">
                       <span className="text-slate-200">{tp.topic}</span>
-                      <span className="text-cyan-400 font-mono">{tp.percentage}%</span>
+                      <span className="text-blue-400 font-mono">{tp.percentage}%</span>
                     </div>
                     <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
                       <div
@@ -2080,7 +2080,7 @@ export const AIAssessment: React.FC = () => {
                   <ul className="space-y-2 text-xs">
                     {assessmentResult.recommendations.map((rec, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
                         <span>{rec}</span>
                       </li>
                     ))}

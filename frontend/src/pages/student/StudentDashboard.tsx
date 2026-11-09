@@ -15,13 +15,87 @@ import {
   Award,
   Layers,
   BrainCircuit,
+  UserCheck,
+  Building2,
+  Clock,
+  User,
+  Check,
+  ChevronRight,
 } from 'lucide-react';
-import { PageHeader } from '../../components/ui/PageHeader';
-import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useAuth } from '../../context/AuthContext';
 import { apiService } from '../../services/api';
 import { ProfileCompletionWidget } from '../../components/student/ProfileCompletionWidget';
+
+// Student Graduation Cap and Books SVG Illustration for Welcome Banner
+const StudentIllustration: React.FC = () => (
+  <svg
+    className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 drop-shadow-md select-none pointer-events-none"
+    viewBox="0 0 200 200"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Soft subtle glow behind books */}
+    <circle cx="100" cy="110" r="70" fill="#DBEAFE" fillOpacity="0.6" />
+
+    {/* Bottom Book */}
+    <path
+      d="M40 145 C40 145 65 140 100 140 C135 140 160 145 160 145 L160 160 C160 160 135 155 100 155 C65 155 40 160 40 160 Z"
+      fill="#2563EB"
+    />
+    <path
+      d="M42 147 C50 145 75 142 100 142 C125 142 150 145 158 147 L158 150 C150 148 125 145 100 145 C75 145 50 148 42 150 Z"
+      fill="#93C5FD"
+    />
+    <path
+      d="M40 160 C65 155 135 155 160 160 L158 165 C135 160 65 160 42 165 Z"
+      fill="#1D4ED8"
+    />
+
+    {/* Middle Book */}
+    <path
+      d="M48 125 C48 125 70 120 100 120 C130 120 152 125 152 125 L152 140 C152 140 130 135 100 135 C70 135 48 140 48 140 Z"
+      fill="#3B82F6"
+    />
+    <path
+      d="M50 127 C60 125 80 122 100 122 C120 122 140 125 150 127 L150 130 C140 128 120 125 100 125 C80 125 60 128 50 130 Z"
+      fill="#EFF6FF"
+    />
+
+    {/* Graduation Cap Top Diamond */}
+    <path
+      d="M100 60 L160 85 L100 110 L40 85 Z"
+      fill="#14213D"
+    />
+    <path
+      d="M100 63 L152 85 L100 105 L48 85 Z"
+      fill="#1E293B"
+    />
+
+    {/* Cap Skull Base */}
+    <path
+      d="M65 96 C65 110 80 122 100 122 C120 122 135 110 135 96 L135 90 C125 98 112 102 100 102 C88 102 75 98 65 90 Z"
+      fill="#0F172A"
+    />
+
+    {/* Button / Tassel Center */}
+    <circle cx="100" cy="85" r="4.5" fill="#FCD34D" />
+
+    {/* Tassel Cord */}
+    <path
+      d="M100 85 C125 90 145 100 150 118"
+      stroke="#FCD34D"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      fill="none"
+    />
+    {/* Tassel Fringe */}
+    <path
+      d="M148 118 L152 118 L154 132 L146 132 Z"
+      fill="#F59E0B"
+    />
+  </svg>
+);
 
 export const StudentDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -52,8 +126,7 @@ export const StudentDashboard: React.FC = () => {
           if (studentAsses) setAllocatedAssessments(studentAsses);
         }
       } catch (err) {
-
-        console.warn('Failed to load dynamic student dashboard, using auth identity fallback');
+        console.warn('Failed to load dynamic student dashboard, using fallback');
         if (isMounted) {
           setDashboardData({
             student: {
@@ -101,6 +174,7 @@ export const StudentDashboard: React.FC = () => {
     readinessScore: 0,
   };
 
+  const studentFirstName = student.name ? student.name.split(' ')[0] : 'Student';
   const hasResume = dashboardData?.hasResume || false;
   const isProfileComplete = dashboardData?.isProfileComplete ?? (student.skills?.length > 0 && hasResume);
   const profileCompletion = dashboardData?.profileCompletion ?? (hasResume ? (isProfileComplete ? 100 : 75) : 0);
@@ -109,34 +183,247 @@ export const StudentDashboard: React.FC = () => {
   const studentProjects: any[] = student.projects || [];
   const studentExperience: any[] = student.experience || [];
   const studentCertifications: any[] = student.certifications || [];
+  const appliedDrivesCount = dashboardData?.appliedDriveIds?.length || myApplications.length || 0;
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-[#94A3B8]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#3B82F6]" />
-        <p className="text-xs font-semibold">Loading your personalized student placement workspace...</p>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-slate-400">
+        <Loader2 className="w-8 h-8 animate-spin text-[#2563EB]" />
+        <p className="text-xs font-semibold">Loading student workspace...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 pb-12">
-      <PageHeader
-        title={`Welcome back, ${student.name.split(' ')[0]}`}
-        subtitle="Track your personalized placement journey and discover your best campus recruitment opportunities."
-        icon={<GraduationCap className="w-5 h-5 text-white" />}
-        action={
-          <Button
-            variant="primary"
-            icon={<Sparkles className="w-4 h-4 text-white" />}
-            onClick={() => navigate('/student/resume')}
-          >
-            {hasResume ? 'Update Resume' : 'Upload Resume'}
-          </Button>
-        }
-      />
+    <div className="space-y-6 sm:space-y-8 pb-12 text-[#14213D]">
+      {/* 1. WELCOME HERO SECTION (Matching placemind-dashboard-reference.png) */}
+      <div className="relative rounded-3xl bg-gradient-to-r from-[#E8F0FE] via-[#F8FAFC] to-white border border-[#CBD5E1]/90 p-6 sm:p-8 md:p-10 overflow-hidden shadow-xs">
+        {/* Soft background curve accent */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
 
-      {/* PROFILE COMPLETION & PLACEMENT ELIGIBILITY GAUGE */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-3 max-w-xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#14213D] tracking-tight">
+              Welcome back, {studentFirstName}! 👋
+            </h1>
+            <p className="text-sm sm:text-base text-[#475569] font-medium leading-relaxed">
+              Your placement journey continues here.
+            </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
+              <span className="px-4 py-1.5 rounded-full bg-[#2563EB] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-xs">
+                <span>Dream Big &bull; Get Placed</span>
+              </span>
+              <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-semibold">
+                {student.branch || 'CSE'} &bull; Batch {student.batch || '2027'}
+              </span>
+              {student.cgpa > 0 && (
+                <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-semibold">
+                  CGPA: <strong>{student.cgpa}</strong>
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Right Illustration */}
+          <div className="flex justify-center md:justify-end shrink-0">
+            <StudentIllustration />
+          </div>
+        </div>
+      </div>
+
+      {/* 2. THREE KEY METRIC CARDS (Matching placemind-dashboard-reference.png) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        {/* Card 1: My Applications */}
+        <div
+          onClick={() => navigate('/student/applications')}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-blue-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2563EB] shadow-xs group-hover:scale-105 transition-transform">
+              <FileText className="w-6 h-6" />
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              My Applications
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {myApplications.length}
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-[#2563EB] transition-colors">
+            <span>View Details</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* Card 2: Placement Drives */}
+        <div
+          onClick={() => navigate('/student/drives')}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-purple-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#7C3AED] shadow-xs group-hover:scale-105 transition-transform">
+              <Calendar className="w-6 h-6" />
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              Placement Drives
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {appliedDrivesCount}
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-[#7C3AED] transition-colors">
+            <span>Explore Drives</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* Card 3: Profile Status */}
+        <div
+          onClick={() => navigate('/student/profile')}
+          className="bg-white rounded-3xl p-6 border border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-teal-400/80 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 ease-in-out cursor-pointer flex flex-col justify-between space-y-4 group motion-reduce:transform-none"
+        >
+          <div className="flex items-start justify-between">
+            <div className="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center text-[#0D9488] shadow-xs group-hover:scale-105 transition-transform">
+              <UserCheck className="w-6 h-6" />
+            </div>
+          </div>
+
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#475569] block">
+              Profile Status
+            </span>
+            <div className="text-3xl sm:text-4xl font-black text-[#14213D] mt-1">
+              {profileCompletion}%
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-1 text-xs font-bold text-[#475569] group-hover:text-[#0D9488] transition-colors">
+            <span>View Profile</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </div>
+
+      {/* 3. RECENT ACTIVITY & QUICK ACTIONS ROW (Matching placemind-dashboard-reference.png) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Recent Activity */}
+        <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-7 border border-[#CBD5E1]/90 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 className="text-base sm:text-lg font-black text-[#14213D]">
+              Recent Activity
+            </h2>
+            <button
+              onClick={() => navigate('/student/applications')}
+              className="text-xs font-bold text-[#2563EB] hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Activity Content: Either actual records or the reference empty state */}
+          {myApplications.length === 0 ? (
+            <div className="py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400">
+                <FileText className="w-7 h-7" />
+              </div>
+              <div className="space-y-1 max-w-sm">
+                <h3 className="text-sm font-bold text-[#14213D]">
+                  No recent activity yet
+                </h3>
+                <p className="text-xs text-[#475569] font-medium leading-relaxed">
+                  Your activities will appear here once you apply for drives.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-100">
+              {myApplications.slice(0, 4).map((app) => (
+                <div
+                  key={app.id || app.drive_id}
+                  className="py-3.5 flex items-center justify-between gap-3 hover:bg-slate-50/80 rounded-xl px-2.5 transition-colors"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2563EB] shrink-0 font-bold text-xs">
+                      {app.company_name ? app.company_name[0] : 'C'}
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-xs font-bold text-[#14213D] truncate">
+                        {app.company_name}
+                      </h4>
+                      <p className="text-[11px] text-[#475569] font-medium truncate">
+                        {app.job_title}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span
+                      className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold border ${
+                        app.status === 'SHORTLISTED'
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          : app.status === 'REJECTED'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200'
+                          : 'bg-blue-50 text-blue-700 border-blue-200'
+                      }`}
+                    >
+                      {app.status || 'Applied'}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium hidden sm:inline">
+                      {app.applied_at || 'Recent'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right Column: Quick Actions */}
+        <div className="lg:col-span-4 bg-white rounded-3xl p-6 sm:p-7 border border-[#CBD5E1]/90 shadow-xs space-y-4">
+          <h2 className="text-base sm:text-lg font-black text-[#14213D] pb-3 border-b border-slate-100">
+            Quick Actions
+          </h2>
+
+          <div className="space-y-3">
+            <button
+              onClick={() => navigate('/student/drives')}
+              className="w-full py-3 px-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 shadow-xs transition-all cursor-pointer"
+            >
+              <Briefcase className="w-4 h-4" />
+              <span>Browse Placement Drives</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/student/resume')}
+              className="w-full py-3 px-4 rounded-2xl bg-[#F8FAFC] hover:bg-slate-100 text-slate-800 border border-slate-300 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-2xs"
+            >
+              <User className="w-4 h-4 text-slate-600" />
+              <span>Update Your Profile</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/student/assessment')}
+              className="w-full py-2.5 px-4 rounded-2xl bg-[#E8F0FE] hover:bg-blue-100 text-[#2563EB] border border-blue-200 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Launch PrepBot AI</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. PRESERVED EXISTING STUDENT CAPABILITIES */}
+      {/* Profile Completion Checklist */}
       <ProfileCompletionWidget
         completion={profileCompletion}
         isComplete={isProfileComplete}
@@ -144,157 +431,42 @@ export const StudentDashboard: React.FC = () => {
         checklist={dashboardData?.checklist}
       />
 
-      {/* MY PLACEMENT READINESS SCORE HERO CARD */}
-      <Card className="p-6 bg-[#101D31] border-[#243650] shadow-[0_12px_35px_rgba(0,0,0,0.22)] text-[#F8FAFC]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#3B82F6]" />
-              <h2 className="text-xl font-black text-[#F8FAFC]">{student.name}</h2>
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30">
-                {student.branch || 'CSE'} &bull; Batch {student.batch || '2027'}
-              </span>
-            </div>
-            <p className="text-xs text-[#CBD5E1] font-medium">
-              {student.cgpa > 0 ? (
-                <>
-                  CGPA: <strong className="text-white">{student.cgpa}</strong> &bull;{' '}
-                </>
-              ) : null}
-              {dashboardData?.appliedDriveIds?.length > 0 ? (
-                <span>Applied to {dashboardData.appliedDriveIds.length} Active Drive(s)</span>
-              ) : (
-                <span className="text-[#94A3B8]">0 Drive Applications Submitted</span>
-              )}
-            </p>
-          </div>
-
-          <div className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] shadow-md flex items-center gap-4 shrink-0">
-            <div className="relative w-16 h-16 flex items-center justify-center">
-              <svg className="w-16 h-16 transform -rotate-90">
-                <circle cx="32" cy="32" r="26" stroke="#17253A" strokeWidth="5" fill="transparent" />
-                <circle
-                  cx="32"
-                  cy="32"
-                  r="26"
-                  stroke={readinessScore > 0 ? '#3B82F6' : '#64748B'}
-                  strokeWidth="5"
-                  fill="transparent"
-                  strokeDasharray="163"
-                  strokeDashoffset={163 - (163 * Math.min(100, Math.max(0, readinessScore))) / 100}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="absolute text-sm font-black text-[#FFFFFF]">
-                {readinessScore > 0 ? readinessScore : '--'}
-              </span>
-            </div>
-            <div>
-              <span className="text-xs font-bold text-[#F8FAFC] block">Placement Readiness</span>
-              <span className="text-[11px] text-[#94A3B8] block">
-                {readinessScore > 0 ? `${readinessScore} / 100 Score` : 'Not Calculated Yet'}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-1 text-[11px] py-1 bg-[#101D31] border-[#243650] text-[#CBD5E1] hover:text-white"
-                icon={<ArrowRight className="w-3 h-3" />}
-                onClick={() => navigate(hasResume ? '/student/drives' : '/student/resume')}
-              >
-                {hasResume ? 'Explore Placement Drives' : 'Upload Resume'}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Card>
-
-      {/* AI PLACEMENT ASSESSMENT / PREPBOT WIDGET */}
-      <Card className="p-5 bg-[#101D31] border-[#243650] shadow-md">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
-              <BrainCircuit className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-[#F8FAFC]">AI Placement Assessment &amp; PrepBot</h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                  {assessmentData?.has_data ? 'Active Benchmark' : 'Ready'}
-                </span>
-              </div>
-              <p className="text-xs text-[#94A3B8] mt-0.5">
-                {assessmentData?.has_data
-                  ? `Completed ${assessmentData.assessments_count} personalized assessment(s). Keep practicing weak areas to optimize shortlisting.`
-                  : 'Take personalized coding and aptitude tests generated from your resume skills.'}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4">
-            {/* Coding KPI */}
-            <div className="px-3 py-2 bg-[#0B1628] rounded-xl border border-[#243650] text-center min-w-[90px]">
-              <span className="text-[10px] text-[#94A3B8] block uppercase tracking-wider font-semibold">Coding</span>
-              <span className="text-sm font-bold text-cyan-400 font-mono">
-                {assessmentData?.coding_average !== null && assessmentData?.coding_average !== undefined
-                  ? `${assessmentData.coding_average}%`
-                  : 'Not Assessed'}
-              </span>
-            </div>
-
-            {/* Aptitude KPI */}
-            <div className="px-3 py-2 bg-[#0B1628] rounded-xl border border-[#243650] text-center min-w-[90px]">
-              <span className="text-[10px] text-[#94A3B8] block uppercase tracking-wider font-semibold">Aptitude</span>
-              <span className="text-sm font-bold text-purple-400 font-mono">
-                {assessmentData?.aptitude_average !== null && assessmentData?.aptitude_average !== undefined
-                  ? `${assessmentData.aptitude_average}%`
-                  : 'Not Assessed'}
-              </span>
-            </div>
-
-            <Button
-              variant="primary"
-              onClick={() => navigate('/student/assessment')}
-              className="flex items-center gap-1.5 text-xs py-2 px-4 whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              {assessmentData?.has_data ? 'Practice Weak Areas' : 'Launch PrepBot'}
-            </Button>
-          </div>
-        </div>
-      </Card>
-
-      {/* ALLOCATED APTITUDE ASSESSMENT CARD */}
+      {/* ALLOCATED APTITUDE ASSESSMENT CARD (Preserved) */}
       {(() => {
-        const allocatedAptitude = (allocatedAssessments || []).find((a: any) => a.status === 'ALLOCATED' || a.round_type === 'APTITUDE');
+        const allocatedAptitude = (allocatedAssessments || []).find(
+          (a: any) => a.status === 'ALLOCATED' || a.round_type === 'APTITUDE'
+        );
         if (!allocatedAptitude) return null;
         return (
-          <Card className="p-5 bg-gradient-to-r from-[#101D31] to-[#14243B] border border-cyan-500/40 shadow-lg text-[#F8FAFC]">
+          <div className="p-6 bg-gradient-to-r from-blue-50/80 to-white border border-blue-200/80 rounded-3xl shadow-sm text-[#14213D]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xl shrink-0 mt-0.5">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-2xl bg-blue-100/80 border border-blue-200 text-[#2563EB] font-bold text-xl shrink-0">
                   🧠
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-base font-bold text-[#F8FAFC]">Aptitude Assessment</h3>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                    <h3 className="text-base font-bold text-[#14213D]">Aptitude Assessment</h3>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-[#2563EB] border border-blue-200">
                       Status: Allocated
                     </span>
                   </div>
-                  <div className="mt-1 text-xs text-[#CBD5E1]">
-                    Company: <strong className="text-white">{allocatedAptitude.company || allocatedAptitude.company_name}</strong> &bull; Role: <strong className="text-[#60A5FA]">{allocatedAptitude.job_title || allocatedAptitude.role_title}</strong>
+                  <div className="mt-1 text-xs text-slate-600">
+                    Company: <strong>{allocatedAptitude.company || allocatedAptitude.company_name}</strong> &bull; Role:{' '}
+                    <strong className="text-[#2563EB]">{allocatedAptitude.job_title || allocatedAptitude.role_title}</strong>
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-[#94A3B8]">
-                    <span>📅 Scheduled: <strong className="text-[#F8FAFC]">{allocatedAptitude.scheduled_at || 'TBD'}</strong></span>
-                    <span>⏳ Deadline: <strong className="text-[#F8FAFC]">{allocatedAptitude.deadline || 'TBD'}</strong></span>
-                    <span>⏱️ Duration: <strong className="text-[#F8FAFC]">{allocatedAptitude.duration_minutes || 30} mins</strong></span>
+                  <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-slate-500">
+                    <span>📅 Scheduled: <strong>{allocatedAptitude.scheduled_at || 'TBD'}</strong></span>
+                    <span>⏳ Deadline: <strong>{allocatedAptitude.deadline || 'TBD'}</strong></span>
+                    <span>⏱️ Duration: <strong>{allocatedAptitude.duration_minutes || 30} mins</strong></span>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2 self-start sm:self-center shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-white"
                   onClick={() => setSelectedAllocatedModal(allocatedAptitude)}
                 >
                   Details
@@ -303,54 +475,63 @@ export const StudentDashboard: React.FC = () => {
                   <Button
                     variant="primary"
                     size="sm"
-                    className="bg-[#3B82F6] hover:bg-[#2563EB] text-white"
+                    className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white"
                     icon={<Sparkles className="w-4 h-4" />}
-                    onClick={() => navigate(`/student/assessments/${allocatedAptitude.id || allocatedAptitude.assessment_id}`)}
+                    onClick={() =>
+                      navigate(`/student/assessments/${allocatedAptitude.id || allocatedAptitude.assessment_id}`)
+                    }
                   >
                     {allocatedAptitude.status === 'IN_PROGRESS' ? 'Continue Test' : 'Start Aptitude Test'}
                   </Button>
                 ) : (
-                  <Button variant="outline" size="sm" disabled className="text-emerald-400 border-emerald-500/40">
+                  <span className="text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 text-xs font-bold">
                     Test Completed
-                  </Button>
+                  </span>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
         );
       })()}
 
-      {/* ALLOCATED TECHNICAL ROUND CARD */}
+      {/* ALLOCATED TECHNICAL ROUND CARD (Preserved) */}
       {(() => {
-        const allocatedTechnical = (allocatedAssessments || []).find((a: any) => a.round_type === 'TECHNICAL' || a.type === 'TECHNICAL' || a.status === 'TECHNICAL_ALLOCATED');
+        const allocatedTechnical = (allocatedAssessments || []).find(
+          (a: any) =>
+            a.round_type === 'TECHNICAL' ||
+            a.type === 'TECHNICAL' ||
+            a.status === 'TECHNICAL_ALLOCATED'
+        );
         if (!allocatedTechnical) return null;
         return (
-          <Card className="p-5 bg-gradient-to-r from-[#101D31] to-[#1E1B4B] border border-indigo-500/40 shadow-lg text-[#F8FAFC]">
+          <div className="p-6 bg-gradient-to-r from-purple-50/60 to-indigo-50/40 border border-purple-200/80 rounded-3xl shadow-sm text-[#14213D]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold text-xl shrink-0 mt-0.5">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-2xl bg-purple-100/80 border border-purple-200 text-purple-700 font-bold text-xl shrink-0">
                   💻
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-base font-bold text-[#F8FAFC]">Technical Round</h3>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                    <h3 className="text-base font-bold text-[#14213D]">Technical Round</h3>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200">
                       Status: Allocated
                     </span>
                   </div>
-                  <div className="mt-1 text-xs text-[#CBD5E1]">
-                    Company: <strong className="text-white">{allocatedTechnical.company || allocatedTechnical.company_name}</strong> &bull; Role: <strong className="text-[#818CF8]">{allocatedTechnical.job_title || allocatedTechnical.role_title}</strong>
+                  <div className="mt-1 text-xs text-slate-600">
+                    Company: <strong>{allocatedTechnical.company || allocatedTechnical.company_name}</strong> &bull; Role:{' '}
+                    <strong className="text-[#7C3AED]">{allocatedTechnical.job_title || allocatedTechnical.role_title}</strong>
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-[#94A3B8]">
-                    <span>📅 Scheduled: <strong className="text-[#F8FAFC]">{allocatedTechnical.scheduled_at || 'To Be Announced'}</strong></span>
-                    <span>⏳ Duration: <strong className="text-[#F8FAFC]">{allocatedTechnical.duration_minutes || 45} mins</strong></span>
+                  <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-slate-500">
+                    <span>📅 Scheduled: <strong>{allocatedTechnical.scheduled_at || 'To Be Announced'}</strong></span>
+                    <span>⏳ Duration: <strong>{allocatedTechnical.duration_minutes || 45} mins</strong></span>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2 self-start sm:self-center shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-white"
                   onClick={() => setSelectedAllocatedModal(allocatedTechnical)}
                 >
                   Details
@@ -359,481 +540,278 @@ export const StudentDashboard: React.FC = () => {
                   <Button
                     variant="primary"
                     size="sm"
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white"
+                    className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
                     icon={<Sparkles className="w-4 h-4" />}
-                    onClick={() => navigate(`/student/assessments/${allocatedTechnical.id || allocatedTechnical.assessment_id}`)}
+                    onClick={() =>
+                      navigate(`/student/assessments/${allocatedTechnical.id || allocatedTechnical.assessment_id}`)
+                    }
                   >
-                    {allocatedTechnical.status === 'IN_PROGRESS' ? 'Continue Technical Test' : 'Start Technical Test'}
+                    {allocatedTechnical.status === 'IN_PROGRESS' ? 'Continue Test' : 'Start Technical Test'}
                   </Button>
                 ) : (
-                  <Button variant="outline" size="sm" disabled className="text-emerald-400 border-emerald-500/40">
+                  <span className="text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 text-xs font-bold">
                     Technical Test Completed
-                  </Button>
+                  </span>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
         );
       })()}
 
-      {/* ALLOCATED / SCHEDULED HR INTERVIEW CARD */}
+      {/* ALLOCATED / SCHEDULED HR INTERVIEW CARD (Preserved) */}
       {(() => {
-        const hrInterview = (myApplications || []).find((app: any) => 
-          ['HR_INTERVIEW_ALLOCATED', 'INTERVIEW_SCHEDULED', 'INTERVIEW_COMPLETED'].includes(app.status) || 
-          ['HR_INTERVIEW_ALLOCATED', 'INTERVIEW_SCHEDULED', 'INTERVIEW_COMPLETED'].includes(app.stage) ||
-          app.hr_status === 'ALLOCATED'
-        ) || ((dashboardData as any)?.interviews || []).find((i: any) => i.status !== 'CANCELLED');
-
+        const hrInterview =
+          (myApplications || []).find(
+            (app: any) =>
+              ['HR_INTERVIEW_ALLOCATED', 'INTERVIEW_SCHEDULED', 'INTERVIEW_COMPLETED'].includes(app.status) ||
+              ['HR_INTERVIEW_ALLOCATED', 'INTERVIEW_SCHEDULED', 'INTERVIEW_COMPLETED'].includes(app.stage) ||
+              app.hr_status === 'ALLOCATED'
+          ) ||
+          ((dashboardData as any)?.interviews || []).find((i: any) => i.status !== 'CANCELLED');
 
         if (!hrInterview) return null;
 
-        const isScheduled = hrInterview.status === 'scheduled' || hrInterview.status === 'INTERVIEW_SCHEDULED' || hrInterview.stage === 'INTERVIEW_SCHEDULED' || !!(hrInterview.date || hrInterview.scheduled_date);
-        const isCompleted = hrInterview.status === 'completed' || hrInterview.status === 'COMPLETED' || hrInterview.stage === 'INTERVIEW_COMPLETED';
+        const isScheduled =
+          hrInterview.status === 'scheduled' ||
+          hrInterview.status === 'INTERVIEW_SCHEDULED' ||
+          hrInterview.stage === 'INTERVIEW_SCHEDULED' ||
+          !!(hrInterview.date || hrInterview.scheduled_date);
+        const isCompleted =
+          hrInterview.status === 'completed' ||
+          hrInterview.status === 'COMPLETED' ||
+          hrInterview.stage === 'INTERVIEW_COMPLETED';
 
         return (
-          <Card className="p-5 bg-gradient-to-r from-[#101D31] to-[#062C44] border border-cyan-500/40 shadow-lg text-[#F8FAFC]">
+          <div className="p-6 bg-gradient-to-r from-teal-50/60 to-emerald-50/40 border border-teal-200/80 rounded-3xl shadow-sm text-[#14213D]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xl shrink-0 mt-0.5">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-2xl bg-teal-100/80 border border-teal-200 text-teal-700 font-bold text-xl shrink-0">
                   👔
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-base font-bold text-[#F8FAFC]">HR / Interview Round</h3>
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
-                      isCompleted 
-                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                        : isScheduled 
-                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/40' 
-                        : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
-                    }`}>
-                      Status: {isCompleted ? 'INTERVIEW COMPLETED' : (isScheduled ? 'INTERVIEW SCHEDULED' : 'Awaiting Schedule')}
+                    <h3 className="text-base font-bold text-[#14213D]">HR / Interview Round</h3>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                        isCompleted
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                          : isScheduled
+                          ? 'bg-purple-100 text-purple-800 border-purple-200'
+                          : 'bg-teal-100 text-teal-800 border-teal-200'
+                      }`}
+                    >
+                      Status: {isCompleted ? 'INTERVIEW COMPLETED' : isScheduled ? 'INTERVIEW SCHEDULED' : 'Awaiting Schedule'}
                     </span>
                   </div>
-                  <div className="mt-1 text-xs text-[#CBD5E1]">
-                    Company: <strong className="text-white">{hrInterview.companyName || hrInterview.company_name || hrInterview.company}</strong> &bull; Role: <strong className="text-[#60A5FA]">{hrInterview.roleTitle || hrInterview.job_title || hrInterview.role_title}</strong>
+                  <div className="mt-1 text-xs text-slate-600">
+                    Company: <strong>{hrInterview.companyName || hrInterview.company_name || hrInterview.company}</strong> &bull; Role:{' '}
+                    <strong className="text-[#0D9488]">{hrInterview.roleTitle || hrInterview.job_title || hrInterview.role_title}</strong>
                   </div>
 
                   {isScheduled ? (
-                    <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-[#94A3B8]">
-                      <span>👥 Panel: <strong className="text-[#F8FAFC]">{hrInterview.panelName || hrInterview.panel_name || 'HR Panel'}</strong></span>
-                      <span>📍 Room: <strong className="text-[#F8FAFC]">{hrInterview.roomName || hrInterview.room_name || 'Main Hall'}</strong></span>
-                      <span>📅 Date: <strong className="text-[#F8FAFC]">{hrInterview.date || hrInterview.scheduled_date || 'TBD'}</strong></span>
-                      <span>⏰ Time: <strong className="text-[#F8FAFC]">{hrInterview.timeSlot || hrInterview.time || hrInterview.startTime || 'TBD'}</strong></span>
+                    <div className="mt-2 flex flex-wrap gap-4 text-[11px] text-slate-500">
+                      <span>👥 Panel: <strong>{hrInterview.panelName || hrInterview.panel_name || 'HR Panel'}</strong></span>
+                      <span>📍 Room: <strong>{hrInterview.roomName || hrInterview.room_name || 'Main Hall'}</strong></span>
+                      <span>📅 Date: <strong>{hrInterview.date || hrInterview.scheduled_date || 'TBD'}</strong></span>
+                      <span>⏰ Time: <strong>{hrInterview.timeSlot || hrInterview.time || hrInterview.startTime || 'TBD'}</strong></span>
                     </div>
                   ) : (
-                    <div className="mt-2 text-[11px] text-[#94A3B8]">
-                      <span>HR / Interview allocated by Placement Office. Panel, Room, Date & Time scheduling in progress.</span>
+                    <div className="mt-2 text-[11px] text-slate-500">
+                      HR round allocated. Venue and room scheduling in progress.
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2 self-start sm:self-center shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-white"
                   onClick={() => setSelectedAllocatedModal(hrInterview)}
                 >
                   Details
                 </Button>
                 {isCompleted ? (
-                  <Button variant="outline" size="sm" disabled className="text-emerald-400 border-emerald-500/40">
+                  <span className="text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 text-xs font-bold">
                     Interview Completed
-                  </Button>
+                  </span>
                 ) : isScheduled ? (
-                  <Button variant="outline" size="sm" disabled className="text-purple-300 border-purple-500/40">
+                  <span className="text-purple-700 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200 text-xs font-bold">
                     Scheduled
-                  </Button>
+                  </span>
                 ) : (
-                  <Button variant="outline" size="sm" disabled className="text-cyan-300 border-cyan-500/40">
+                  <span className="text-teal-700 bg-teal-50 px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold">
                     Awaiting Schedule
-                  </Button>
+                  </span>
                 )}
               </div>
             </div>
-          </Card>
+          </div>
         );
       })()}
 
-
-
-
-
-      {/* ALLOCATION DETAILS MODAL */}
-      {selectedAllocatedModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-[#0B1628] rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.5)] w-full max-w-md border border-[#243650] overflow-hidden text-[#F8FAFC]">
-            <div className="px-6 py-4 bg-[#101D31] border-b border-[#243650] flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <span className="text-lg">🧠</span>
-                <h3 className="text-base font-bold text-[#F8FAFC]">Aptitude Allocation Details</h3>
-              </div>
-              <button
-                onClick={() => setSelectedAllocatedModal(null)}
-                className="p-1 text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="p-6 space-y-4 text-xs">
-              <div className="p-3 bg-[#101D31] rounded-xl border border-[#243650] space-y-1">
-                <span className="text-[10px] uppercase font-bold text-[#94A3B8]">Assessment Title</span>
-                <p className="text-sm font-bold text-white">{selectedAllocatedModal.title || 'Aptitude Assessment'}</p>
-                <p className="text-xs text-[#60A5FA]">{selectedAllocatedModal.job_title || selectedAllocatedModal.role_title} at {selectedAllocatedModal.company || selectedAllocatedModal.company_name}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-[#101D31] rounded-xl border border-[#243650]">
-                  <span className="text-[10px] text-[#94A3B8] uppercase block font-bold">Round Type</span>
-                  <span className="text-xs font-bold text-amber-400 mt-0.5 block">Aptitude Round</span>
-                </div>
-                <div className="p-3 bg-[#101D31] rounded-xl border border-[#243650]">
-                  <span className="text-[10px] text-[#94A3B8] uppercase block font-bold">Status</span>
-                  <span className="text-xs font-bold text-cyan-400 mt-0.5 block">Allocated</span>
-                </div>
-              </div>
-
-              <div className="space-y-2 p-3 bg-[#101D31] rounded-xl border border-[#243650]">
-                <div className="flex items-center justify-between">
-                  <span className="text-[#94A3B8]">Scheduled Time:</span>
-                  <span className="font-bold text-white">{selectedAllocatedModal.scheduled_at || 'To Be Announced'}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#94A3B8]">Submission Deadline:</span>
-                  <span className="font-bold text-white">{selectedAllocatedModal.deadline || 'To Be Announced'}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#94A3B8]">Allowed Duration:</span>
-                  <span className="font-bold text-white">{selectedAllocatedModal.duration_minutes || 30} Minutes</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-medium leading-relaxed">
-                ℹ️ Your aptitude test round has been allocated by the Placement Office. Test activation and questions will be enabled when the round session begins.
-              </div>
-
-              <div className="pt-2 flex justify-end gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSelectedAllocatedModal(null)}
-                >
-                  Close
-                </Button>
-                {selectedAllocatedModal.status !== 'COMPLETED' && (
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    className="bg-[#3B82F6] hover:bg-[#2563EB] text-white"
-                    icon={<Sparkles className="w-4 h-4" />}
-                    onClick={() => {
-                      const assId = selectedAllocatedModal.id || selectedAllocatedModal.assessment_id;
-                      setSelectedAllocatedModal(null);
-                      navigate(`/student/assessments/${assId}`);
-                    }}
-                  >
-                    Start Test
-                  </Button>
-                )}
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )}
-
-
-      {/* GRID: VERIFIED SKILLS, PROJECTS & EXPERIENCE */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Verified Skills */}
-        <Card className="p-5 space-y-3 bg-[#101D31] border-[#243650]">
-          <h3 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#22C55E]" /> Verified Technical Skills
+      {/* VERIFIED SKILLS, PROJECTS & EXPERIENCE (Preserved & Redesigned) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Skills */}
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] space-y-3">
+          <h3 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>Verified Technical Skills</span>
           </h3>
           {studentSkills.length > 0 ? (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 pt-1">
               {studentSkills.map((skill: string, i: number) => (
                 <span
                   key={i}
-                  className="px-3 py-1 rounded-lg bg-[rgba(34,197,94,0.10)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)] text-xs font-semibold"
+                  className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium"
                 >
                   ✓ {skill}
                 </span>
               ))}
             </div>
           ) : (
-            <div className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] text-center space-y-1.5">
-              <Code className="w-6 h-6 text-[#64748B] mx-auto" />
-              <p className="text-xs font-bold text-[#F8FAFC]">No skills detected yet</p>
-              <p className="text-[11px] text-[#94A3B8]">Upload your resume to extract verified skills.</p>
-              <button
-                onClick={() => navigate('/student/resume')}
-                className="text-xs font-bold text-[#60A5FA] hover:underline block pt-1"
-              >
-                Upload Resume &rarr;
-              </button>
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center space-y-1">
+              <Code className="w-6 h-6 text-slate-300 mx-auto" />
+              <p className="text-xs font-bold text-slate-700">No skills detected</p>
+              <p className="text-[11px] text-slate-500">Upload resume to extract skills.</p>
             </div>
           )}
-        </Card>
+        </div>
 
-        {/* Projects Extracted */}
-        <Card className="p-5 space-y-3 bg-[#101D31] border-[#243650]">
-          <h3 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-            <Layers className="w-4 h-4 text-[#06B6D4]" /> Technical Projects
+        {/* Projects */}
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] space-y-3">
+          <h3 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
+            <Layers className="w-4 h-4 text-[#2563EB]" />
+            <span>Technical Projects</span>
           </h3>
           {studentProjects.length > 0 ? (
-            <div className="space-y-2">
-              {studentProjects.map((p: any, i: number) => (
-                <div key={i} className="p-2.5 bg-[#0B1628] rounded-lg border border-[#243650] text-xs">
-                  <span className="font-bold text-[#F8FAFC] block">{p.name || p.title}</span>
-                  {p.description && <p className="text-[11px] text-[#94A3B8] line-clamp-1">{p.description}</p>}
+            <div className="space-y-2 pt-1">
+              {studentProjects.slice(0, 3).map((p: any, i: number) => (
+                <div key={i} className="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                  <span className="font-bold text-[#14213D] block">{p.name || p.title}</span>
+                  {p.description && <p className="text-[11px] text-slate-500 line-clamp-1">{p.description}</p>}
                 </div>
               ))}
             </div>
           ) : (
-            <div className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] text-center space-y-1.5">
-              <Layers className="w-6 h-6 text-[#64748B] mx-auto" />
-              <p className="text-xs font-bold text-[#F8FAFC]">No projects detected yet</p>
-              <p className="text-[11px] text-[#94A3B8]">Highlighted projects from your resume will appear here.</p>
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center space-y-1">
+              <Layers className="w-6 h-6 text-slate-300 mx-auto" />
+              <p className="text-xs font-bold text-slate-700">No projects recorded</p>
+              <p className="text-[11px] text-slate-500">Projects will populate from resume.</p>
             </div>
           )}
-        </Card>
+        </div>
 
         {/* Certifications & Experience */}
-        <Card className="p-5 space-y-3 bg-[#101D31] border-[#243650]">
-          <h3 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-            <Award className="w-4 h-4 text-[#F59E0B]" /> Certifications &amp; Experience
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] space-y-3">
+          <h3 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
+            <Award className="w-4 h-4 text-amber-500" />
+            <span>Certifications &amp; Experience</span>
           </h3>
           {studentCertifications.length > 0 || studentExperience.length > 0 ? (
-            <div className="space-y-2">
-              {studentCertifications.map((c: any, i: number) => (
-                <div key={i} className="p-2 bg-[#0B1628] rounded-lg border border-[#243650] text-xs">
-                  <span className="font-bold text-[#FCD34D] block">{c.name}</span>
-                  {c.issuer && <span className="text-[10px] text-[#94A3B8]">{c.issuer}</span>}
+            <div className="space-y-2 pt-1">
+              {studentCertifications.slice(0, 2).map((c: any, i: number) => (
+                <div key={i} className="p-2 bg-amber-50/60 rounded-xl border border-amber-100 text-xs">
+                  <span className="font-bold text-amber-900 block">{c.name}</span>
+                  {c.issuer && <span className="text-[10px] text-amber-700">{c.issuer}</span>}
                 </div>
               ))}
-              {studentExperience.map((e: any, i: number) => (
-                <div key={i} className="p-2 bg-[#0B1628] rounded-lg border border-[#243650] text-xs">
-                  <span className="font-bold text-[#86EFAC] block">{e.role} &bull; {e.company}</span>
+              {studentExperience.slice(0, 2).map((e: any, i: number) => (
+                <div key={i} className="p-2 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                  <span className="font-bold text-slate-800 block">{e.role} &bull; {e.company}</span>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] text-center space-y-1.5">
-              <Award className="w-6 h-6 text-[#64748B] mx-auto" />
-              <p className="text-xs font-bold text-[#F8FAFC]">No experience or certs detected</p>
-              <p className="text-[11px] text-[#94A3B8]">Extracted credentials will populate upon resume analysis.</p>
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center space-y-1">
+              <Award className="w-6 h-6 text-slate-300 mx-auto" />
+              <p className="text-xs font-bold text-slate-700">No experience or certs</p>
+              <p className="text-[11px] text-slate-500">Credentials will populate from resume.</p>
             </div>
           )}
-        </Card>
+        </div>
       </div>
 
-      {/* AI RESUME ANALYZER PROMINENT DASHBOARD CARD */}
-      <Card className="p-6 ai-card-surface text-[#F8FAFC]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-xl">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-[#06B6D4]" /> AI Resume Profile Builder
-              </span>
-              <span className="text-xs text-[#94A3B8] font-semibold">
-                &bull; {hasResume ? 'Active Profile Analysis' : 'Resume Required for Application Gate'}
-              </span>
+      {/* ALLOCATION DETAILS MODAL */}
+      {selectedAllocatedModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-slate-200 p-6 space-y-4 text-[#14213D]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">📋</span>
+                <h3 className="text-base font-bold text-[#14213D]">Allocation Details</h3>
+              </div>
+              <button
+                onClick={() => setSelectedAllocatedModal(null)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                ✕
+              </button>
             </div>
-            <h3 className="text-xl font-black tracking-tight text-[#F8FAFC]">
-              AI Resume Analyzer
-            </h3>
-            <p className="text-xs text-[#CBD5E1] leading-relaxed font-medium">
-              Upload your resume to automatically extract your skills, calculate your placement readiness score, and unlock placement drive applications.
-            </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs">
-              <div>
-                <span className="text-[#94A3B8] block font-semibold">Resume Status</span>
-                <span className={hasResume ? 'text-[#86EFAC] font-bold' : 'text-[#FCD34D] font-bold'}>
-                  {hasResume ? 'Uploaded & Analyzed' : 'No Resume Uploaded'}
-                </span>
+            <div className="space-y-3 text-xs">
+              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-slate-400">Assessment Title</span>
+                <p className="text-sm font-bold text-[#14213D]">{selectedAllocatedModal.title || 'Placement Assessment'}</p>
+                <p className="text-xs text-[#2563EB]">
+                  {selectedAllocatedModal.job_title || selectedAllocatedModal.role_title} at {selectedAllocatedModal.company || selectedAllocatedModal.company_name}
+                </p>
               </div>
-              <div className="h-6 w-px bg-[#243650]" />
-              <div>
-                <span className="text-[#94A3B8] block font-semibold">Readiness Score</span>
-                <span className="text-white font-bold">{readinessScore > 0 ? `${readinessScore} / 100` : 'Not Calculated'}</span>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                  <span className="text-[10px] text-slate-400 uppercase font-bold block">Status</span>
+                  <span className="text-xs font-bold text-[#2563EB] mt-0.5 block">Allocated</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                  <span className="text-[10px] text-slate-400 uppercase font-bold block">Duration</span>
+                  <span className="text-xs font-bold text-slate-800 mt-0.5 block">
+                    {selectedAllocatedModal.duration_minutes || 30} mins
+                  </span>
+                </div>
               </div>
-              <div className="h-6 w-px bg-[#243650]" />
-              <div>
-                <span className="text-[#94A3B8] block font-semibold">Application Eligibility</span>
-                <span className={isProfileComplete ? 'text-[#86EFAC] font-bold' : 'text-[#FCD34D] font-bold'}>
-                  {isProfileComplete ? 'Eligible to Apply' : 'Gated (Incomplete Profile)'}
-                </span>
+
+              <div className="space-y-2 p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500">Scheduled:</span>
+                  <span className="font-bold text-slate-800">{selectedAllocatedModal.scheduled_at || 'TBA'}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500">Deadline:</span>
+                  <span className="font-bold text-slate-800">{selectedAllocatedModal.deadline || 'TBA'}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-            <Button
-              variant="primary"
-              className="py-2.5 px-4"
-              icon={<Sparkles className="w-4 h-4" />}
-              onClick={() => navigate('/student/resume')}
-            >
-              {hasResume ? 'Re-Analyze Resume' : 'Upload Resume Now'}
-            </Button>
-            <Button
-              variant="secondary"
-              className="py-2.5 px-4"
-              icon={<ArrowRight className="w-4 h-4" />}
-              onClick={() => navigate('/student/drives')}
-            >
-              View Drives
-            </Button>
+            <div className="pt-2 flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSelectedAllocatedModal(null)}
+              >
+                Close
+              </Button>
+              {selectedAllocatedModal.status !== 'COMPLETED' && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white"
+                  icon={<Sparkles className="w-4 h-4" />}
+                  onClick={() => {
+                    const assId = selectedAllocatedModal.id || selectedAllocatedModal.assessment_id;
+                    setSelectedAllocatedModal(null);
+                    navigate(`/student/assessments/${assId}`);
+                  }}
+                >
+                  Start Test
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-      </Card>
-
-      {/* MY PLACEMENT APPLICATIONS */}
-      {myApplications.length > 0 && (
-        <Card className="p-5 space-y-3 bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-[#3B82F6]" /> My Placement Applications ({myApplications.length})
-            </h3>
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-xs py-1 px-2.5 bg-[#0B1628] border-[#243650] text-[#CBD5E1]"
-              onClick={() => navigate('/student/applications')}
-            >
-              View All Applications &rarr;
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {myApplications.map((app) => {
-              const isShortlisted = app.status === 'SHORTLISTED';
-              return (
-                <div
-                  key={app.id || `${app.drive_id}-${app.applied_at}`}
-                  className={`p-3.5 rounded-xl border transition-all ${
-                    isShortlisted
-                      ? 'bg-[rgba(34,197,94,0.08)] border-[rgba(34,197,94,0.30)]'
-                      : 'bg-[#0B1628] border-[#243650]'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="text-xs font-bold text-[#F8FAFC]">{app.company_name}</h4>
-                        {app.source === 'external' && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-[#8B5CF6]/20 text-[#C4B5FD] border border-[#8B5CF6]/30">
-                            External
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-[#94A3B8] font-medium">{app.job_title}</p>
-                    </div>
-                    <span
-                      className={`text-[10px] px-2 py-0.5 rounded-full font-bold border flex items-center gap-1 shrink-0 ${
-                        isShortlisted
-                          ? 'bg-[rgba(34,197,94,0.20)] text-[#86EFAC] border-[rgba(34,197,94,0.40)]'
-                          : app.status === 'EXTERNAL_APPLICATION_COMPLETED'
-                          ? 'bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border-[rgba(34,197,94,0.30)]'
-                          : app.status === 'APPLICATION_STARTED'
-                          ? 'bg-[rgba(245,158,11,0.15)] text-[#FCD34D] border-[rgba(245,158,11,0.30)]'
-                          : 'bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border-[rgba(59,130,246,0.30)]'
-                      }`}
-                    >
-                      {isShortlisted ? <CheckCircle2 className="w-2.5 h-2.5 text-[#22C55E]" /> : null}
-                      {isShortlisted
-                        ? 'Shortlisted'
-                        : app.status === 'EXTERNAL_APPLICATION_COMPLETED'
-                        ? '✓ Application Completed'
-                        : app.status === 'APPLICATION_STARTED'
-                        ? 'Application Started'
-                        : 'Applied'}
-                    </span>
-                  </div>
-                  {app.interview && (
-                    <div className="mt-2 p-2 bg-[#101D31] rounded-lg border border-[rgba(34,197,94,0.30)] text-[10px] space-y-1">
-                      <div className="flex items-center justify-between text-[#86EFAC] font-bold">
-                        <span>📅 {app.interview.date}</span>
-                        <span>⏰ {app.interview.time}</span>
-                      </div>
-                      <div className="text-[#CBD5E1] text-[9px] flex items-center justify-between">
-                        <span>👥 {app.interview.panel_name}</span>
-                        <span>🏢 {app.interview.block ? `${app.interview.block}, ` : ''}{app.interview.room_number || app.interview.room_name}</span>
-                      </div>
-                      {app.interview.panel_members && app.interview.panel_members.length > 0 && (
-                        <div className="text-[8.5px] text-[#94A3B8] truncate">
-                          Members: {app.interview.panel_members.join(', ')}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className="mt-2.5 pt-2 border-t border-[#243650]/60 flex items-center justify-between text-[10px] text-[#94A3B8]">
-                    <span>Applied: <strong className="text-[#CBD5E1]">{app.applied_at}</strong></span>
-                    {app.verification_type === 'self_confirmed' && (
-                      <span className="text-[10px] text-[#86EFAC] font-semibold">Self-confirmed ✓</span>
-                    )}
-                    {isShortlisted && (
-                      <span className="text-[#86EFAC] font-bold">Interview Ready ✓</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Card>
       )}
-
-      {/* QUICK LINKS GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card
-          className="p-4 flex items-center justify-between cursor-pointer bg-[#101D31] border-[#243650] hover:bg-[#14243B] hover:border-[#31527A] transition-all text-[#F8FAFC]"
-          onClick={() => navigate('/student/resume')}
-        >
-          <div>
-            <h4 className="text-sm font-bold text-[#F8FAFC]">AI Resume Analyzer</h4>
-            <p className="text-xs text-[#94A3B8] font-medium">Extract skills &amp; build profile</p>
-          </div>
-          <Sparkles className="w-5 h-5 text-[#3B82F6]" />
-        </Card>
-
-        <Card
-          className="p-4 flex items-center justify-between cursor-pointer bg-[#101D31] border-[#243650] hover:bg-[#14243B] hover:border-[#31527A] transition-all text-[#F8FAFC]"
-          onClick={() => navigate('/student/drives')}
-        >
-          <div>
-            <h4 className="text-sm font-bold text-[#F8FAFC]">Active Placement Drives</h4>
-            <p className="text-xs text-[#94A3B8] font-medium">Explore company opportunities</p>
-          </div>
-          <Briefcase className="w-5 h-5 text-[#3B82F6]" />
-        </Card>
-
-        <Card
-          className="p-4 flex items-center justify-between cursor-pointer bg-[#101D31] border-[#243650] hover:bg-[#14243B] hover:border-[#31527A] transition-all text-[#F8FAFC]"
-          onClick={() => navigate('/student/applications')}
-        >
-          <div>
-            <h4 className="text-sm font-bold text-[#F8FAFC]">My Applications</h4>
-            <p className="text-xs text-[#94A3B8] font-medium">Track your recruitment status</p>
-          </div>
-          <Briefcase className="w-5 h-5 text-[#22C55E]" />
-        </Card>
-
-        <Card
-          className="p-4 flex items-center justify-between cursor-pointer bg-[#101D31] border-[#243650] hover:bg-[#14243B] hover:border-[#31527A] transition-all text-[#F8FAFC]"
-          onClick={() => navigate('/student/interviews')}
-        >
-          <div>
-            <h4 className="text-sm font-bold text-[#F8FAFC]">My Interview Schedule</h4>
-            <p className="text-xs text-[#94A3B8] font-medium">View scheduled technical slots</p>
-          </div>
-          <Calendar className="w-5 h-5 text-[#3B82F6]" />
-        </Card>
-      </div>
     </div>
   );
 };

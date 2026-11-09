@@ -2,19 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Award,
-  Building2,
   Calendar,
   CheckCircle2,
   Clock,
   MapPin,
-  Sparkles,
   AlertTriangle,
-  ArrowRight,
   Loader2,
-  ShieldCheck,
-  Briefcase,
   X,
-  FileCheck,
   Check,
 } from 'lucide-react';
 import { PageHeader } from '../../components/ui/PageHeader';
@@ -99,7 +93,7 @@ export const StudentOffers: React.FC = () => {
         notes: studentNotes.trim() || undefined,
       };
 
-      const updated = await apiService.respondToOffer(selectedOffer.id, payload);
+      await apiService.respondToOffer(selectedOffer.id, payload);
       triggerToast(`🎉 Congratulations! You have successfully accepted the offer from ${selectedOffer.company_name}!`, 'success');
       setIsAcceptModalOpen(false);
       fetchOffers();
@@ -143,20 +137,20 @@ export const StudentOffers: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-12">
+    <div className="space-y-6 max-w-7xl mx-auto pb-12 text-[#14213D]">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader
           title="Placement Offers &amp; Joining"
           subtitle="Review official employment letters, compensation packages, and confirm onboarding logistics."
-          icon={<Award className="w-5 h-5 text-emerald-400" />}
+          icon={<Award className="w-5 h-5 text-[#2563EB]" />}
         />
 
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
             onClick={() => navigate('/student/drives')}
-            className="text-xs text-[#CBD5E1] border-[#243650]"
+            className="text-xs text-[#14213D] border-slate-200 hover:bg-slate-50"
           >
             Browse Active Drives
           </Button>
@@ -165,23 +159,23 @@ export const StudentOffers: React.FC = () => {
 
       {loading ? (
         <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+          <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
         </div>
       ) : offers.length === 0 ? (
         /* Empty State */
-        <Card className="bg-[#101D31] border-[#243650] text-center py-16 px-4">
-          <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-4">
+        <Card className="bg-[#F8FAFC] border-[#CBD5E1]/90 text-center py-16 px-4 shadow-xs">
+          <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB] flex items-center justify-center mx-auto mb-4">
             <Award className="w-8 h-8" />
           </div>
-          <h3 className="text-white font-bold text-lg">No placement offers released yet</h3>
-          <p className="text-slate-400 text-xs max-w-md mx-auto mt-2 leading-relaxed">
+          <h3 className="text-[#14213D] font-bold text-lg">No placement offers released yet</h3>
+          <p className="text-[#475569] text-xs max-w-md mx-auto mt-2 leading-relaxed">
             When recruiters finalize round selections, official employment offer letters and compensation breakdowns will be delivered here for your review and formal acceptance.
           </p>
           <div className="mt-6">
             <Button
               variant="primary"
               onClick={() => navigate('/student/applications')}
-              className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs"
+              className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs"
             >
               View My Applications
             </Button>
@@ -192,7 +186,7 @@ export const StudentOffers: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Navigation: Offers List */}
           <div className="lg:col-span-4 space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8] px-1">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#475569] px-1">
               Received Offers ({offers.length})
             </h3>
             {offers.map((off) => {
@@ -204,39 +198,39 @@ export const StudentOffers: React.FC = () => {
                 <div
                   key={off.id}
                   onClick={() => setSelectedOffer(off)}
-                  className={`p-4 rounded-xl border transition-all cursor-pointer ${
+                  className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer hover:-translate-y-0.5 active:translate-y-0 motion-reduce:transform-none ${
                     isSelected
-                      ? 'bg-[#14243B] border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]'
-                      : 'bg-[#101D31] border-[#243650] hover:border-[#31527A]'
+                      ? 'bg-blue-50/60 border-[#2563EB] shadow-sm'
+                      : 'bg-white border-[#CBD5E1]/90 hover:border-blue-400/80 shadow-xs'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
+                      <h4 className="text-sm font-bold text-[#14213D]">
                         {off.company_name}
                       </h4>
-                      <p className="text-xs font-semibold text-cyan-400 mt-0.5">{off.designation || off.job_title}</p>
+                      <p className="text-xs font-semibold text-[#2563EB] mt-0.5">{off.designation || off.job_title}</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-sm font-black text-emerald-400">₹{off.package_lpa?.toFixed(1)} LPA</span>
+                      <span className="text-sm font-black text-emerald-800">₹{off.package_lpa?.toFixed(1)} LPA</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#1C2C42] text-[11px]">
-                    <span className="text-[#94A3B8] flex items-center gap-1">
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 text-[11px]">
+                    <span className="text-[#475569] font-medium flex items-center gap-1">
                       <Calendar className="w-3 h-3" /> Joining: {off.joining_date}
                     </span>
                     {isAccepted && (
-                      <span className="text-emerald-400 font-bold flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Accepted
+                      <span className="text-emerald-800 font-bold flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Accepted
                       </span>
                     )}
                     {isDeclined && (
-                      <span className="text-rose-400 font-bold">Declined</span>
+                      <span className="text-red-700 font-bold">Declined</span>
                     )}
                     {!isAccepted && !isDeclined && (
-                      <span className="text-amber-400 font-bold flex items-center gap-1 animate-pulse">
-                        <Clock className="w-3 h-3" /> Action Required
+                      <span className="text-amber-800 font-bold flex items-center gap-1 animate-pulse">
+                        <Clock className="w-3 h-3 text-amber-600" /> Action Required
                       </span>
                     )}
                   </div>
@@ -254,7 +248,7 @@ export const StudentOffers: React.FC = () => {
                 onDecline={() => openDeclineModal(selectedOffer)}
               />
             ) : (
-              <div className="p-12 text-center text-[#94A3B8]">Select an offer to inspect details.</div>
+              <div className="p-12 text-center text-[#475569]">Select an offer to inspect details.</div>
             )}
           </div>
         </div>
@@ -262,16 +256,16 @@ export const StudentOffers: React.FC = () => {
 
       {/* ACCEPT OFFER MODAL */}
       {isAcceptModalOpen && selectedOffer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-          <div className="bg-[#101D31] border border-[#243650] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
-            <div className="p-4 sm:p-5 border-b border-[#243650] flex items-center justify-between bg-[#14243B] shrink-0 gap-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in overflow-y-auto">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg overflow-hidden shadow-xl flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
+            <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-[#F8FAFC] shrink-0 gap-3">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-                  <CheckCircle2 className="w-5 h-5" />
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-base sm:text-lg font-black text-white truncate">Accept Employment Offer</h3>
-                  <p className="text-[11px] sm:text-xs text-[#94A3B8] truncate">
+                  <h3 className="text-base sm:text-lg font-bold text-[#14213D] truncate">Accept Employment Offer</h3>
+                  <p className="text-[11px] sm:text-xs text-[#64748B] truncate">
                     {selectedOffer.company_name} — {selectedOffer.designation || selectedOffer.job_title}
                   </p>
                 </div>
@@ -279,84 +273,84 @@ export const StudentOffers: React.FC = () => {
               <button
                 onClick={() => setIsAcceptModalOpen(false)}
                 aria-label="Close"
-                className="w-8 h-8 rounded-lg bg-[#0B1628] border border-[#243650] text-[#94A3B8] hover:text-white flex items-center justify-center shrink-0"
+                className="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center shrink-0 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleConfirmAccept} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
-              <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs text-emerald-300 leading-relaxed">
+            <form onSubmit={handleConfirmAccept} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0 text-[#334155]">
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 leading-relaxed font-medium">
                 🎉 By accepting, your student profile will be officially marked as <strong>Placed</strong> and your confirmed joining date will be communicated to {selectedOffer.company_name}.
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-emerald-400" /> Confirmed Date of Joining *
+                <label className="text-xs font-semibold text-[#14213D] block mb-1.5 flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-emerald-600" /> Confirmed Date of Joining *
                 </label>
                 <input
                   type="date"
                   required
                   value={joiningDate}
                   onChange={(e) => setJoiningDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl text-sm font-semibold focus:outline-none focus:border-emerald-600 shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-cyan-400" /> Preferred Joining Location
+                <label className="text-xs font-semibold text-[#14213D] block mb-1.5 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> Preferred Joining Location
                 </label>
                 <input
                   type="text"
                   required
                   value={preferredLocation}
                   onChange={(e) => setPreferredLocation(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl text-sm font-medium focus:outline-none focus:border-emerald-600 shadow-xs"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">Emergency Contact Name</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1.5">Emergency Contact Name</label>
                   <input
                     type="text"
                     placeholder="e.g. Parent / Guardian"
                     value={emergencyName}
                     onChange={(e) => setEmergencyName(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-xs focus:outline-none focus:border-emerald-400"
+                    className="w-full px-3 py-2 bg-white border border-slate-200 text-[#14213D] rounded-xl text-xs focus:outline-none focus:border-emerald-600 shadow-xs"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">Emergency Contact Phone</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1.5">Emergency Contact Phone</label>
                   <input
                     type="tel"
                     placeholder="+91 98765 43210"
                     value={emergencyPhone}
                     onChange={(e) => setEmergencyPhone(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-xs focus:outline-none focus:border-emerald-400"
+                    className="w-full px-3 py-2 bg-white border border-slate-200 text-[#14213D] rounded-xl text-xs focus:outline-none focus:border-emerald-600 shadow-xs"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">Student Remarks / Notes (Optional)</label>
+                <label className="text-xs font-semibold text-[#14213D] block mb-1.5">Student Remarks / Notes (Optional)</label>
                 <textarea
                   rows={2}
                   placeholder="Any dietary preferences, onboarding queries, or relocation notes."
                   value={studentNotes}
                   onChange={(e) => setStudentNotes(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-xs focus:outline-none focus:border-emerald-400"
+                  className="w-full px-3 py-2 bg-white border border-slate-200 text-[#14213D] rounded-xl text-xs focus:outline-none focus:border-emerald-600 shadow-xs"
                 />
               </div>
 
-              <div className="pt-4 border-t border-[#243650] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
+              <div className="pt-4 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setIsAcceptModalOpen(false)}
                   disabled={accepting}
-                  className="border-[#243650] text-[#CBD5E1] w-full sm:w-auto"
+                  className="border-slate-200 text-[#64748B] w-full sm:w-auto hover:bg-slate-50"
                 >
                   Cancel
                 </Button>
@@ -364,7 +358,7 @@ export const StudentOffers: React.FC = () => {
                   type="submit"
                   variant="primary"
                   disabled={accepting}
-                  className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center justify-center gap-2 w-full sm:w-auto shadow-xs"
                 >
                   {accepting ? (
                     <>
@@ -384,50 +378,50 @@ export const StudentOffers: React.FC = () => {
 
       {/* DECLINE OFFER MODAL */}
       {isDeclineModalOpen && selectedOffer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-          <div className="bg-[#101D31] border border-[#243650] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
-            <div className="p-4 sm:p-5 border-b border-[#243650] flex items-center justify-between bg-[#14243B] shrink-0 gap-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in overflow-y-auto">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md overflow-hidden shadow-xl flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
+            <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-[#F8FAFC] shrink-0 gap-3">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 shrink-0">
                   <AlertTriangle className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-base sm:text-lg font-black text-white truncate">Decline Offer Letter</h3>
-                  <p className="text-[11px] sm:text-xs text-[#94A3B8] truncate">{selectedOffer.company_name}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-[#14213D] truncate">Decline Offer Letter</h3>
+                  <p className="text-[11px] sm:text-xs text-[#64748B] truncate">{selectedOffer.company_name}</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsDeclineModalOpen(false)}
                 aria-label="Close"
-                className="w-8 h-8 rounded-lg bg-[#0B1628] border border-[#243650] text-[#94A3B8] hover:text-white flex items-center justify-center shrink-0"
+                className="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center shrink-0 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleConfirmDecline} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
-              <p className="text-xs text-[#CBD5E1] leading-relaxed">
+            <form onSubmit={handleConfirmDecline} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0 text-[#334155]">
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 Are you sure you want to decline this employment offer from <strong>{selectedOffer.company_name}</strong>? This action will notify the placement cell and cannot be undone.
               </p>
 
               <div>
-                <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">Reason for Declining (Optional)</label>
+                <label className="text-xs font-semibold text-[#14213D] block mb-1.5">Reason for Declining (Optional)</label>
                 <textarea
                   rows={3}
-                  placeholder="e.g. Pursuing higher studies, accepted another off-campus/dream opportunity, or location constraints."
+                  placeholder="e.g. Pursuing higher studies, accepted another opportunity, or location constraints."
                   value={declineReason}
                   onChange={(e) => setDeclineReason(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-xs focus:outline-none focus:border-rose-400"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl text-xs focus:outline-none focus:border-red-500 shadow-xs"
                 />
               </div>
 
-              <div className="pt-4 border-t border-[#243650] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
+              <div className="pt-4 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setIsDeclineModalOpen(false)}
                   disabled={declining}
-                  className="border-[#243650] text-[#CBD5E1] w-full sm:w-auto"
+                  className="border-slate-200 text-[#64748B] w-full sm:w-auto hover:bg-slate-50"
                 >
                   Cancel
                 </Button>
@@ -435,7 +429,7 @@ export const StudentOffers: React.FC = () => {
                   type="submit"
                   variant="primary"
                   disabled={declining}
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-bold flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold flex items-center justify-center gap-2 w-full sm:w-auto shadow-xs"
                 >
                   {declining ? (
                     <>

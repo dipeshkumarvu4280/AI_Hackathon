@@ -46,7 +46,7 @@ export const CompanyLogo: React.FC<CompanyLogoProps> = ({
 
   return (
     <div
-      className={`rounded-xl bg-[#0B1628] border border-[#243650] text-[#3B82F6] flex items-center justify-center shrink-0 overflow-hidden shadow-sm select-none ${sizeClasses[size]} ${className}`}
+      className={`rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] flex items-center justify-center shrink-0 overflow-hidden shadow-xs select-none ${sizeClasses[size]} ${className}`}
       title={cleanName}
     >
       {isUrl && !imgError ? (
@@ -58,9 +58,9 @@ export const CompanyLogo: React.FC<CompanyLogoProps> = ({
           loading="lazy"
         />
       ) : initials ? (
-        <span className="leading-none tracking-tight">{initials}</span>
+        <span className="leading-none tracking-tight font-bold">{initials}</span>
       ) : (
-        <Building2 className="w-4 h-4 text-[#3B82F6]" />
+        <Building2 className="w-4 h-4 text-[#2563EB]" />
       )}
     </div>
   );

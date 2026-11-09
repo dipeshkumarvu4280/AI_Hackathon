@@ -1247,6 +1247,19 @@ export const apiService = {
     return res.data;
   },
 
+  async getDynamicInterviewSessions(): Promise<PracticeSessionSummaryItem[]> {
+    return this.getPracticeInterviewHistory();
+  },
+
+  async deleteDynamicInterviewSession(sessionId: string): Promise<{ status: string; message: string; session_id: string }> {
+    return this.deletePracticeSession(sessionId);
+  },
+
+  async getResumeProfile(studentId?: string): Promise<any> {
+    const res = await apiClient.get<any>(studentId ? `/resumes/latest/${studentId}` : '/auth/me');
+    return res.data;
+  },
+
   // =========================================================================
   // OFFERS & JOINING WORKFLOW API
   // =========================================================================
@@ -1411,6 +1424,8 @@ export interface PracticeSessionSummaryItem {
   answers_count: number;
   overall_score?: number;
 }
+
+export type DynamicInterviewSession = PracticeSessionSummaryItem;
 
 
 

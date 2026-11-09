@@ -197,17 +197,17 @@ export const AIMatching: React.FC = () => {
       />
 
       {/* DRIVE SELECTOR & AI RUN ACTION CARD */}
-      <Card className="p-6 bg-[#101D31] border-[#243650]">
+      <Card className="p-6 bg-white border-[#CBD5E1]/90 shadow-xs">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
-            <span className="text-xs font-bold text-[#60A5FA] uppercase tracking-wider block">
+            <span className="text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
               Active Placement Drive Target
             </span>
             <div className="flex items-center gap-3">
               <select
                 value={selectedDriveId}
                 onChange={(e) => setSelectedDriveId(e.target.value)}
-                className="text-base font-bold bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#3B82F6] cursor-pointer"
+                className="text-base font-bold bg-[#F8FAFC] focus:bg-white border border-slate-300 text-[#14213D] rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#2563EB] cursor-pointer"
               >
                 {drives.map((d) => (
                   <option key={d.id} value={d.id}>
@@ -216,7 +216,7 @@ export const AIMatching: React.FC = () => {
                 ))}
               </select>
             </div>
-            <p className="text-xs text-[#CBD5E1] leading-relaxed">
+            <p className="text-xs text-[#475569] font-medium leading-relaxed">
               Evaluating candidates against required competencies: {selectedDrive?.preferredSkills?.join(', ') || (selectedDrive as any)?.eligibilityCriteria?.skills?.join(', ') || 'Core Skills'}.
             </p>
           </div>
@@ -228,7 +228,7 @@ export const AIMatching: React.FC = () => {
               icon={<Bot className="w-5 h-5" />}
               onClick={handleRunMatching}
               disabled={isMatching}
-              className="shadow-lg shadow-[#3B82F6]/20 font-bold"
+              className="shadow-sm font-bold"
             >
               {isMatching ? 'Running Neural Matching...' : 'Re-Evaluate Drive Candidates'}
             </Button>
@@ -237,36 +237,36 @@ export const AIMatching: React.FC = () => {
 
         {/* Dynamic AI Execution Stepper */}
         {isMatching && (
-          <div className="mt-6 pt-6 border-t border-[#1B2A40] space-y-3 animate-in fade-in duration-300">
-            <div className="flex items-center justify-between text-xs font-semibold text-[#CBD5E1]">
+          <div className="mt-6 pt-6 border-t border-slate-100 space-y-3 animate-in fade-in duration-300">
+            <div className="flex items-center justify-between text-xs font-semibold text-[#475569]">
               <span>Neural Processing Pipeline</span>
-              <span className="text-[#3B82F6]">Phase {matchingStep} of 4</span>
+              <span className="text-[#2563EB]">Phase {matchingStep} of 4</span>
             </div>
-            <div className="w-full h-2 bg-[#0B1628] rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] transition-all duration-500 rounded-full"
+                className="h-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] transition-all duration-500 rounded-full"
                 style={{ width: `${(matchingStep / 4) * 100}%` }}
               />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px] text-[#94A3B8]">
-              <span className={matchingStep >= 1 ? 'text-[#86EFAC] font-medium' : ''}>1. Parsing Resume Profiles</span>
-              <span className={matchingStep >= 2 ? 'text-[#86EFAC] font-medium' : ''}>2. Semantic Skill Alignment</span>
-              <span className={matchingStep >= 3 ? 'text-[#86EFAC] font-medium' : ''}>3. Academic Verification</span>
-              <span className={matchingStep >= 4 ? 'text-[#86EFAC] font-medium' : ''}>4. Ranking Fit Index</span>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px] text-[#475569]">
+              <span className={matchingStep >= 1 ? 'text-emerald-700 font-bold' : ''}>1. Parsing Resume Profiles</span>
+              <span className={matchingStep >= 2 ? 'text-emerald-700 font-bold' : ''}>2. Semantic Skill Alignment</span>
+              <span className={matchingStep >= 3 ? 'text-emerald-700 font-bold' : ''}>3. Academic Verification</span>
+              <span className={matchingStep >= 4 ? 'text-emerald-700 font-bold' : ''}>4. Ranking Fit Index</span>
             </div>
           </div>
         )}
       </Card>
 
       {/* FILTER CONTROLS BAR */}
-      <Card className="p-4 bg-[#101D31] border-[#243650]">
+      <Card className="p-4 bg-white border-slate-200">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-[10px] font-bold uppercase text-[#94A3B8] mb-1">Match Score</label>
+            <label className="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Match Score</label>
             <select
               value={scoreFilter}
               onChange={(e) => setScoreFilter(e.target.value)}
-              className="w-full text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+              className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
             >
               <option value="all">All Match Scores</option>
               <option value="90+">90%+ Excellent Match</option>
@@ -276,11 +276,11 @@ export const AIMatching: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold uppercase text-[#94A3B8] mb-1">Branch</label>
+            <label className="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Branch</label>
             <select
               value={branchFilter}
               onChange={(e) => setBranchFilter(e.target.value)}
-              className="w-full text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+              className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
             >
               <option value="all">All Branches</option>
               <option value="CSE">CSE</option>
@@ -290,11 +290,11 @@ export const AIMatching: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold uppercase text-[#94A3B8] mb-1">Shortlist Status</label>
+            <label className="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Shortlist Status</label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+              className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
             >
               <option value="all">All Candidates</option>
               <option value="shortlisted">Shortlisted Only</option>
@@ -303,13 +303,13 @@ export const AIMatching: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold uppercase text-[#94A3B8] mb-1">Skill Filter</label>
+            <label className="block text-[10px] font-bold uppercase text-[#64748B] mb-1">Skill Filter</label>
             <input
               type="text"
               placeholder="Search skill (e.g. Python, SQL)..."
               value={skillFilter === 'all' ? '' : skillFilter}
               onChange={(e) => setSkillFilter(e.target.value || 'all')}
-              className="w-full text-xs p-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+              className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg focus:outline-none focus:border-[#2563EB]"
             />
           </div>
         </div>
@@ -318,15 +318,15 @@ export const AIMatching: React.FC = () => {
       {/* RANKED CANDIDATE MATCH RESULTS LIST */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-bold text-[#F8FAFC]">Ranked Candidate Evaluation List</h3>
-          <span className="text-xs text-[#94A3B8] font-medium">Showing {filteredMatches.length} candidates</span>
+          <h3 className="text-base font-bold text-[#14213D]">Ranked Candidate Evaluation List</h3>
+          <span className="text-xs text-[#475569] font-medium">Showing {filteredMatches.length} candidates</span>
         </div>
 
         {filteredMatches.length === 0 ? (
-          <Card className="p-12 text-center text-[#94A3B8] bg-[#101D31] border-[#243650] space-y-2">
-            <Users className="w-8 h-8 text-[#64748B] mx-auto opacity-50" />
-            <p className="text-sm font-bold text-[#F8FAFC]">No applicants for this placement drive yet</p>
-            <p className="text-xs text-[#64748B]">When students submit applications, neural matching and ranking will evaluate them here.</p>
+          <Card className="p-12 text-center text-[#475569] bg-[#F8FAFC] border-[#CBD5E1]/90 space-y-2">
+            <Users className="w-8 h-8 text-[#94A3B8] mx-auto opacity-50" />
+            <p className="text-sm font-bold text-[#14213D]">No applicants for this placement drive yet</p>
+            <p className="text-xs text-[#475569]">When students submit applications, neural matching and ranking will evaluate them here.</p>
           </Card>
         ) : (
           filteredMatches.map((m, idx) => {
@@ -336,7 +336,12 @@ export const AIMatching: React.FC = () => {
             const score = m.match_score ?? m.readiness_score ?? null;
 
             return (
-              <Card key={m.id || m.student_id} className={`p-5 transition-all bg-[#101D31] border-[#243650] ${isShortlisted ? 'bg-[#3B82F6]/10 border-[#3B82F6]/40' : ''}`}>
+              <Card
+                key={m.id || m.student_id}
+                className={`p-5 transition-all duration-200 bg-white border-[#CBD5E1]/90 shadow-xs hover:shadow-md hover:border-blue-400/80 hover:-translate-y-1 active:translate-y-0 motion-reduce:transform-none ${
+                  isShortlisted ? 'bg-blue-50/40 border-blue-200' : ''
+                }`}
+              >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   {/* Checkbox & Student Basic Info */}
                   <div className="flex items-start gap-4">
@@ -344,23 +349,23 @@ export const AIMatching: React.FC = () => {
                       type="checkbox"
                       checked={isSelectedForComp}
                       onChange={() => toggleSelectForComparison(m.student_id)}
-                      className="mt-2.5 w-4 h-4 rounded border-[#243650] text-[#3B82F6] focus:ring-[#3B82F6] cursor-pointer"
+                      className="mt-2.5 w-4 h-4 rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] cursor-pointer"
                       title="Select to compare"
                     />
-                    <div className="w-7 h-7 rounded-full bg-[#14243B] text-[#F8FAFC] border border-[#243650] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-slate-100 text-[#14213D] border border-slate-200 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
                       #{idx + 1}
                     </div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center font-bold text-white text-base shadow-sm shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2563EB] to-[#7C3AED] flex items-center justify-center font-bold text-white text-base shadow-sm shrink-0">
                       {m.student_name?.charAt(0) || 'S'}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-base font-bold text-[#F8FAFC]">{m.student_name}</h4>
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-[#14243B] text-[#CBD5E1] border border-[#243650]">
+                        <h4 className="text-base font-bold text-[#14213D]">{m.student_name}</h4>
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-[#64748B] border border-slate-200">
                           {m.branch} &bull; CGPA {m.cgpa}
                         </span>
                         {isShortlisted && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)]">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                             Shortlisted
                           </span>
                         )}
@@ -368,7 +373,7 @@ export const AIMatching: React.FC = () => {
 
                       <div className="flex flex-wrap gap-1.5 mt-2">
                         {(m.skills || []).map((s: string, i: number) => (
-                          <span key={i} className="px-2 py-0.5 rounded bg-[#0B1628] text-[#CBD5E1] border border-[#243650] text-[11px] font-medium">
+                          <span key={i} className="px-2 py-0.5 rounded bg-slate-100 text-[#14213D] border border-slate-200 text-[11px] font-medium">
                             {s}
                           </span>
                         ))}
@@ -385,14 +390,14 @@ export const AIMatching: React.FC = () => {
                         variant={isShortlisted ? 'outline' : 'primary'}
                         size="sm"
                         onClick={() => setSelectedForShortlist(m)}
-                        icon={isShortlisted ? <Check className="w-4 h-4 text-[#22C55E]" /> : undefined}
+                        icon={isShortlisted ? <Check className="w-4 h-4 text-emerald-600" /> : undefined}
                       >
                         {isShortlisted ? 'Update Shortlist' : 'Shortlist'}
                       </Button>
 
                       <button
                         onClick={() => toggleExpandWhy(m.student_id)}
-                        className="p-1.5 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer"
+                        className="p-1.5 text-[#64748B] hover:text-[#14213D] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                         title="View AI Analysis Breakdown"
                       >
                         {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -403,21 +408,21 @@ export const AIMatching: React.FC = () => {
 
                 {/* Expanded "Why this candidate?" Section */}
                 {isExpanded && (
-                  <div className="mt-4 pt-4 border-t border-[#1B2A40] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs animate-in fade-in duration-200">
-                    <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1.5">
-                      <span className="font-bold text-[#86EFAC] flex items-center gap-1">
+                  <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs animate-in fade-in duration-200">
+                    <div className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 space-y-1.5">
+                      <span className="font-bold text-emerald-700 flex items-center gap-1">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Technical Strengths
                       </span>
-                      <p className="text-[#CBD5E1] text-[11px]">
+                      <p className="text-[#14213D] text-[11px]">
                         Strong alignment in {(m.skills || []).slice(0, 4).join(', ')}. Verified CGPA of {m.cgpa}.
                       </p>
                     </div>
 
-                    <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1.5">
-                      <span className="font-bold text-[#60A5FA] flex items-center gap-1">
+                    <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100 space-y-1.5">
+                      <span className="font-bold text-[#2563EB] flex items-center gap-1">
                         <FolderGit2 className="w-3.5 h-3.5" /> Projects Evaluated
                       </span>
-                      <p className="text-[#CBD5E1] text-[11px]">
+                      <p className="text-[#14213D] text-[11px]">
                         {(m.projects || []).length > 0
                           ? m.projects.map((p: any) => p.name || p.title || p).join(', ')
                           : 'Demonstrated core capabilities during resume evaluation.'}

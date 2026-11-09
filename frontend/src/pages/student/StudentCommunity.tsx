@@ -17,16 +17,10 @@ import {
   ShieldCheck,
   BrainCircuit,
   MessageSquare,
-  Award,
-  ChevronRight,
-  HelpCircle,
-  ExternalLink,
-  BookOpen,
-  Plus,
   ClipboardList,
 } from 'lucide-react';
 import { PageHeader } from '../../components/ui/PageHeader';
-import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { CompanyLogo } from '../../components/ui/CompanyLogo';
@@ -39,6 +33,7 @@ import {
   CommunityResponseItem,
   PlacementForm,
 } from '../../services/api';
+
 const BRANCH_CANONICALS: Record<string, string[]> = {
   CSE: ['CSE', 'CS', 'COMPUTER SCIENCE', 'COMPUTER SCIENCE & ENGINEERING', 'COMPUTER SCIENCE AND ENGINEERING', 'COMPUTER ENGINEERING'],
   IT: ['IT', 'INFORMATION TECHNOLOGY', 'INFO TECH', 'INFORMATION SCIENCE', 'ISE'],
@@ -234,7 +229,6 @@ export const StudentCommunity: React.FC = () => {
       );
       setIsRegisterModalOpen(false);
 
-      // Refresh responses if officer
       if (isOfficer) {
         const updatedResponses = await apiService.getCommunityResponses(activeDriveId);
         setResponses(updatedResponses);
@@ -249,8 +243,8 @@ export const StudentCommunity: React.FC = () => {
 
   if (loading && !community) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-[#94A3B8]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#3B82F6]" />
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-[#64748B]">
+        <Loader2 className="w-8 h-8 animate-spin text-[#2563EB]" />
         <p className="text-xs font-semibold">Loading Placement Community Workspace...</p>
       </div>
     );
@@ -258,16 +252,16 @@ export const StudentCommunity: React.FC = () => {
 
   if (!community && !loading) {
     return (
-      <div className="space-y-6 pb-12 text-[#CBD5E1]">
+      <div className="space-y-6 pb-12 text-[#14213D]">
         <PageHeader
           title="Placement Communities"
           subtitle="Discover active placement drive communication communities."
-          icon={<Users className="w-5 h-5 text-white" />}
+          icon={<Users className="w-5 h-5 text-[#2563EB]" />}
         />
-        <Card className="p-12 text-center bg-[#101D31] border-[#243650] space-y-3">
-          <Building2 className="w-12 h-12 text-[#64748B] mx-auto opacity-50" />
-          <h3 className="text-base font-bold text-[#F8FAFC]">No active placement communities</h3>
-          <p className="text-xs text-[#94A3B8]">
+        <Card className="p-12 text-center bg-white border border-slate-200 shadow-xs space-y-3">
+          <Building2 className="w-12 h-12 text-slate-400 mx-auto opacity-50" />
+          <h3 className="text-base font-bold text-[#14213D]">No active placement communities</h3>
+          <p className="text-xs text-[#64748B]">
             Communities are created automatically once Placement Officers approve recruiter placement drives.
           </p>
           <Button variant="primary" onClick={() => navigate('/student/drives')}>
@@ -279,27 +273,27 @@ export const StudentCommunity: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 pb-12 text-[#CBD5E1]">
+    <div className="space-y-6 pb-12 text-[#14213D]">
       {/* Top Breadcrumb & Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={() => navigate('/student/drives')}
-          className="inline-flex items-center gap-2 text-xs font-bold text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#64748B] hover:text-[#14213D] transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Placement Drives
         </button>
 
         {/* Other Active Communities Quick Selector */}
         {allCommunities.length > 1 && (
-          <div className="flex items-center gap-2 bg-[#101D31] px-3 py-1.5 rounded-xl border border-[#243650] text-xs">
-            <span className="text-[#94A3B8] font-medium hidden sm:inline">Active Communities:</span>
+          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200 text-xs shadow-xs">
+            <span className="text-[#64748B] font-medium hidden sm:inline">Active Communities:</span>
             <select
               value={activeDriveId}
               onChange={(e) => navigate(`/student/community/${e.target.value}`)}
-              className="bg-transparent font-bold text-[#F8FAFC] focus:outline-none cursor-pointer"
+              className="bg-transparent font-semibold text-[#14213D] focus:outline-none cursor-pointer"
             >
               {allCommunities.map((c) => (
-                <option key={c.drive_id} value={c.drive_id} className="bg-[#0B1628] text-[#F8FAFC]">
+                <option key={c.drive_id} value={c.drive_id} className="bg-white text-[#14213D]">
                   {c.company_name} — {c.role_title}
                 </option>
               ))}
@@ -309,9 +303,7 @@ export const StudentCommunity: React.FC = () => {
       </div>
 
       {/* COMMUNITY HERO BANNER */}
-      <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-[#101D31] via-[#0B1628] to-[#14243B] border border-[#243650] shadow-[0_12px_35px_rgba(0,0,0,0.3)] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#3B82F6]/5 rounded-full blur-3xl pointer-events-none" />
-
+      <div className="p-6 md:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs relative overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div className="flex items-start gap-4">
             <CompanyLogo
@@ -321,39 +313,39 @@ export const StudentCommunity: React.FC = () => {
             />
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30 uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-[#2563EB] border border-blue-200 uppercase tracking-wider">
                   Placement Community
                 </span>
                 <StatusBadge status={(community?.status || 'active').toLowerCase() as any} />
                 {isEligible ? (
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#22C55E]/15 text-[#86EFAC] border border-[#22C55E]/30 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-[#22C55E]" /> Eligible
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Eligible
                   </span>
                 ) : (
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EF4444]/15 text-[#FCA5A5] border border-[#EF4444]/30 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3 text-[#EF4444]" /> Not Eligible
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3 text-red-600" /> Not Eligible
                   </span>
                 )}
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-black text-[#F8FAFC] tracking-tight mt-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#14213D] tracking-tight mt-2">
                 {community?.company_name} — {community?.role_title}
               </h1>
 
-              <div className="flex items-center gap-4 text-xs font-semibold text-[#CBD5E1] mt-3 flex-wrap">
+              <div className="flex items-center gap-4 text-xs font-medium text-[#64748B] mt-3 flex-wrap">
                 {community?.package_lpa && (
-                  <span className="text-[#86EFAC] font-bold">
+                  <span className="text-emerald-700 font-bold">
                     ₹{community.package_lpa} LPA {community.salary_text ? `(${community.salary_text})` : ''}
                   </span>
                 )}
                 {community?.location && (
                   <span className="flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#3B82F6]" /> {community.location}
+                    <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> {community.location}
                   </span>
                 )}
-                <span className="flex items-center gap-1 text-[#FCD34D]">
-                  <Users className="w-3.5 h-3.5 text-[#F59E0B]" />
-                  <strong>Registered Students: {community?.registered_count ?? 0}</strong>
+                <span className="flex items-center gap-1 text-amber-700 font-semibold">
+                  <Users className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Registered Students: {community?.registered_count ?? 0}</span>
                 </span>
               </div>
             </div>
@@ -362,30 +354,29 @@ export const StudentCommunity: React.FC = () => {
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             {isRegistered ? (
-              <div className="px-4 py-2.5 rounded-xl bg-[#22C55E]/15 border border-[#22C55E]/30 text-[#86EFAC] text-xs font-bold flex items-center justify-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" /> Registered ✓
+              <div className="px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Registered ✓
               </div>
             ) : isEligible ? (
               <Button
                 variant="primary"
                 icon={<Sparkles className="w-4 h-4" />}
                 onClick={() => setIsRegisterModalOpen(true)}
-                className="shadow-glow-brand"
               >
                 Register for Placement Drive
               </Button>
             ) : (
               <div
-                className="px-4 py-2.5 rounded-xl bg-[#EF4444]/15 border border-[#EF4444]/30 text-[#FCA5A5] text-xs font-bold flex items-center justify-center gap-2 shadow-sm"
+                className="px-4 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center justify-center gap-2 shadow-xs"
                 title={!isCgpaEligible ? `CGPA ${studentCgpa} is below minimum requirement ${minCgpa}` : `Branch ${studentBranch} is not in eligible branches [${eligibleBranches.join(', ')}]`}
               >
-                <AlertCircle className="w-4 h-4 text-[#EF4444]" /> Not Eligible to Register
+                <AlertCircle className="w-4 h-4 text-red-600" /> Not Eligible to Register
               </div>
             )}
 
             <Button
               variant="outline"
-              icon={<BrainCircuit className="w-4 h-4 text-[#3B82F6]" />}
+              icon={<BrainCircuit className="w-4 h-4 text-[#2563EB]" />}
               onClick={() => navigate(`/student/assessment?drive_id=${encodeURIComponent(activeDriveId)}`)}
             >
               Prepare for This Drive
@@ -395,13 +386,13 @@ export const StudentCommunity: React.FC = () => {
       </div>
 
       {/* COMMUNITY TABS NAVIGATION */}
-      <div className="flex items-center gap-2 border-b border-[#243650] pb-2 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer shrink-0 ${
+          className={`px-4 py-2 text-xs font-semibold rounded-xl transition-colors cursor-pointer shrink-0 ${
             activeTab === 'overview'
-              ? 'bg-[#3B82F6] text-white shadow-sm'
-              : 'bg-[#101D31] text-[#CBD5E1] hover:bg-[#14243B] hover:text-white border border-[#243650]'
+              ? 'bg-[#2563EB] text-white shadow-xs'
+              : 'bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#14213D] border border-slate-200'
           }`}
         >
           <div className="flex items-center gap-1.5">
@@ -411,10 +402,10 @@ export const StudentCommunity: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('announcements')}
-          className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer shrink-0 ${
+          className={`px-4 py-2 text-xs font-semibold rounded-xl transition-colors cursor-pointer shrink-0 ${
             activeTab === 'announcements'
-              ? 'bg-[#3B82F6] text-white shadow-sm'
-              : 'bg-[#101D31] text-[#CBD5E1] hover:bg-[#14243B] hover:text-white border border-[#243650]'
+              ? 'bg-[#2563EB] text-white shadow-xs'
+              : 'bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#14213D] border border-slate-200'
           }`}
         >
           <div className="flex items-center gap-1.5">
@@ -424,10 +415,10 @@ export const StudentCommunity: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('forms')}
-          className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer shrink-0 ${
+          className={`px-4 py-2 text-xs font-semibold rounded-xl transition-colors cursor-pointer shrink-0 ${
             activeTab === 'forms'
-              ? 'bg-[#3B82F6] text-white shadow-sm'
-              : 'bg-[#101D31] text-[#CBD5E1] hover:bg-[#14243B] hover:text-white border border-[#243650]'
+              ? 'bg-[#2563EB] text-white shadow-xs'
+              : 'bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#14213D] border border-slate-200'
           }`}
         >
           <div className="flex items-center gap-1.5">
@@ -437,10 +428,10 @@ export const StudentCommunity: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('preparation')}
-          className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer shrink-0 ${
+          className={`px-4 py-2 text-xs font-semibold rounded-xl transition-colors cursor-pointer shrink-0 ${
             activeTab === 'preparation'
-              ? 'bg-[#3B82F6] text-white shadow-sm'
-              : 'bg-[#101D31] text-[#CBD5E1] hover:bg-[#14243B] hover:text-white border border-[#243650]'
+              ? 'bg-[#2563EB] text-white shadow-xs'
+              : 'bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#14213D] border border-slate-200'
           }`}
         >
           <div className="flex items-center gap-1.5">
@@ -451,10 +442,10 @@ export const StudentCommunity: React.FC = () => {
         {isOfficer && (
           <button
             onClick={() => setActiveTab('responses')}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer shrink-0 ${
+            className={`px-4 py-2 text-xs font-semibold rounded-xl transition-colors cursor-pointer shrink-0 ${
               activeTab === 'responses'
-                ? 'bg-[#3B82F6] text-white shadow-sm'
-                : 'bg-[#101D31] text-[#CBD5E1] hover:bg-[#14243B] hover:text-white border border-[#243650]'
+                ? 'bg-[#2563EB] text-white shadow-xs'
+                : 'bg-white text-[#64748B] hover:bg-slate-50 hover:text-[#14213D] border border-slate-200'
             }`}
           >
             <div className="flex items-center gap-1.5">
@@ -470,19 +461,19 @@ export const StudentCommunity: React.FC = () => {
           {/* Main Drive Info */}
           <div className="lg:col-span-2 space-y-6">
             {/* Description Card */}
-            <Card className="p-6 bg-[#101D31] border-[#243650] space-y-4">
-              <h3 className="text-base font-bold text-[#F8FAFC]">Role &amp; Job Description</h3>
-              <p className="text-xs text-[#CBD5E1] leading-relaxed whitespace-pre-line font-medium">
+            <Card className="p-6 bg-white border border-slate-200 shadow-xs space-y-4">
+              <h3 className="text-base font-bold text-[#14213D]">Role &amp; Job Description</h3>
+              <p className="text-xs text-[#334155] leading-relaxed whitespace-pre-line font-medium">
                 {drive?.description ||
                   `Join ${community?.company_name} as a ${community?.role_title}. You will work on cutting-edge systems, collaborate with cross-functional product teams, and develop enterprise solutions.`}
               </p>
             </Card>
 
             {/* Skills & Tech Stack */}
-            <Card className="p-6 bg-[#101D31] border-[#243650] space-y-4">
-              <h3 className="text-base font-bold text-[#F8FAFC]">Technical Requirements</h3>
+            <Card className="p-6 bg-white border border-slate-200 shadow-xs space-y-4">
+              <h3 className="text-base font-bold text-[#14213D]">Technical Requirements</h3>
               <div>
-                <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider block mb-2">
+                <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider block mb-2">
                   Mandatory Required Skills
                 </span>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -490,27 +481,27 @@ export const StudentCommunity: React.FC = () => {
                     drive.requiredSkills.map((s) => (
                       <span
                         key={s}
-                        className="px-3 py-1 bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30 text-xs font-bold rounded-lg"
+                        className="px-3 py-1 bg-blue-50 text-[#2563EB] border border-blue-200 text-xs font-semibold rounded-full"
                       >
                         {s}
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-[#94A3B8]">Standard technical fundamentals</span>
+                    <span className="text-xs text-[#64748B]">Standard technical fundamentals</span>
                   )}
                 </div>
               </div>
 
               {drive?.preferredSkills && drive.preferredSkills.length > 0 && (
                 <div className="pt-2">
-                  <span className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider block mb-2">
+                  <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider block mb-2">
                     Preferred / Good-to-have Skills
                   </span>
                   <div className="flex items-center gap-2 flex-wrap">
                     {drive.preferredSkills.map((s) => (
                       <span
                         key={s}
-                        className="px-3 py-1 bg-[#14243B] text-[#CBD5E1] border border-[#243650] text-xs font-semibold rounded-lg"
+                        className="px-3 py-1 bg-slate-50 text-[#64748B] border border-slate-200 text-xs font-medium rounded-full"
                       >
                         {s}
                       </span>
@@ -524,35 +515,35 @@ export const StudentCommunity: React.FC = () => {
           {/* Sidebar Metadata */}
           <div className="space-y-6">
             {/* Eligibility Check Card */}
-            <Card className="p-5 bg-[#101D31] border-[#243650] space-y-3">
-              <h4 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#3B82F6]" /> Eligibility Criteria
+            <Card className="p-5 bg-white border border-slate-200 shadow-xs space-y-3">
+              <h4 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#2563EB]" /> Eligibility Criteria
               </h4>
 
-              <div className="space-y-2 text-xs divide-y divide-[#1B2A40]">
+              <div className="space-y-2 text-xs divide-y divide-slate-100">
                 <div className="flex items-center justify-between py-1.5">
-                  <span className="text-[#94A3B8]">Minimum CGPA</span>
-                  <span className="font-bold text-[#F8FAFC]">
+                  <span className="text-[#64748B]">Minimum CGPA</span>
+                  <span className="font-bold text-[#14213D]">
                     {minCgpa} (Your CGPA: {studentCgpa})
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-1.5">
-                  <span className="text-[#94A3B8]">Eligible Branches</span>
-                  <span className="font-bold text-[#F8FAFC]">
+                  <span className="text-[#64748B]">Eligible Branches</span>
+                  <span className="font-bold text-[#14213D]">
                     {eligibleBranches.join(', ')} (You: {studentBranch})
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-1.5">
-                  <span className="text-[#94A3B8]">Target Batch</span>
-                  <span className="font-bold text-[#F8FAFC]">{drive?.graduationYear || 2027}</span>
+                  <span className="text-[#64748B]">Target Batch</span>
+                  <span className="font-bold text-[#14213D]">{drive?.graduationYear || 2027}</span>
                 </div>
               </div>
 
               <div
                 className={`p-3 rounded-xl text-xs font-semibold mt-2 ${
                   isEligible
-                    ? 'bg-[#22C55E]/10 border border-[#22C55E]/20 text-[#86EFAC]'
-                    : 'bg-[#EF4444]/10 border border-[#EF4444]/20 text-[#FCA5A5]'
+                    ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+                    : 'bg-red-50 border border-red-200 text-red-700'
                 }`}
               >
                 {isEligible
@@ -564,15 +555,15 @@ export const StudentCommunity: React.FC = () => {
             </Card>
 
             {/* Quick Registration Status */}
-            <Card className="p-5 bg-[#101D31] border-[#243650] space-y-3">
-              <h4 className="text-sm font-bold text-[#F8FAFC]">Registration Status</h4>
+            <Card className="p-5 bg-white border border-slate-200 shadow-xs space-y-3">
+              <h4 className="text-sm font-bold text-[#14213D]">Registration Status</h4>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-[#94A3B8]">Total Candidates Registered:</span>
-                <strong className="text-xl font-black text-[#F8FAFC]">{community?.registered_count ?? 0}</strong>
+                <span className="text-[#64748B]">Total Candidates Registered:</span>
+                <strong className="text-xl font-bold text-[#14213D]">{community?.registered_count ?? 0}</strong>
               </div>
 
               {isRegistered ? (
-                <div className="p-3 bg-[#22C55E]/10 border border-[#22C55E]/20 text-[#86EFAC] rounded-xl text-xs font-bold text-center">
+                <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold text-center">
                   You are registered for this placement drive.
                 </div>
               ) : (
@@ -592,60 +583,60 @@ export const StudentCommunity: React.FC = () => {
       {/* TAB 2: OFFICER ANNOUNCEMENTS & FORMS FEED */}
       {activeTab === 'announcements' && (
         <div className="space-y-4">
-          <Card className="p-4 bg-[#101D31] border-[#243650]">
+          <Card className="p-4 bg-white border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-[#F8FAFC]">Placement Officer Broadcast Feed</h3>
-                <p className="text-xs text-[#94A3B8]">Official placement notices, registration forms, and interview updates</p>
+                <h3 className="text-sm font-bold text-[#14213D]">Placement Officer Broadcast Feed</h3>
+                <p className="text-xs text-[#64748B]">Official placement notices, registration forms, and interview updates</p>
               </div>
-              <span className="px-2.5 py-1 bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30 text-xs font-bold rounded-lg">
+              <span className="px-2.5 py-1 bg-blue-50 text-[#2563EB] border border-blue-200 text-xs font-semibold rounded-full">
                 {messages.length} Announcements
               </span>
             </div>
           </Card>
 
           {messages.length === 0 ? (
-            <Card className="p-12 text-center bg-[#101D31] border-[#243650] space-y-2">
-              <MessageSquare className="w-8 h-8 text-[#64748B] mx-auto opacity-50" />
-              <p className="text-sm font-bold text-[#F8FAFC]">No announcements yet</p>
-              <p className="text-xs text-[#94A3B8]">Placement Officer messages will appear here in real time.</p>
+            <Card className="p-12 text-center bg-white border border-slate-200 space-y-2 shadow-xs">
+              <MessageSquare className="w-8 h-8 text-slate-400 mx-auto opacity-50" />
+              <p className="text-sm font-bold text-[#14213D]">No announcements yet</p>
+              <p className="text-xs text-[#64748B]">Placement Officer messages will appear here in real time.</p>
             </Card>
           ) : (
             <div className="space-y-4">
               {messages.map((msg) => (
                 <Card
                   key={msg.id}
-                  className="p-5 bg-[#101D31] border-[#243650] hover:border-[#3B82F6]/50 transition-all space-y-3"
+                  className="p-5 bg-white border border-slate-200 hover:border-blue-200 transition-all space-y-3 shadow-xs"
                 >
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-full bg-[#3B82F6] text-white font-bold flex items-center justify-center text-xs">
+                      <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white font-bold flex items-center justify-center text-xs">
                         PO
                       </div>
                       <div>
-                        <span className="text-xs font-bold text-[#F8FAFC] block">{msg.author_name}</span>
-                        <span className="text-[10px] text-[#94A3B8] font-medium uppercase">Placement Officer</span>
+                        <span className="text-xs font-bold text-[#14213D] block">{msg.author_name}</span>
+                        <span className="text-[10px] text-[#64748B] font-medium uppercase">Placement Officer</span>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#3B82F6]/20 text-[#60A5FA] uppercase border border-[#3B82F6]/30">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-[#2563EB] uppercase border border-blue-200">
                         {msg.message_type || 'ANNOUNCEMENT'}
                       </span>
-                      <span className="text-[11px] text-[#94A3B8] flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-[#3B82F6]" />
+                      <span className="text-[11px] text-[#64748B] flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-[#2563EB]" />
                         {msg.created_at ? new Date(msg.created_at).toLocaleString() : 'Recent'}
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#F8FAFC] leading-relaxed font-medium whitespace-pre-line">
+                  <p className="text-xs text-[#334155] leading-relaxed font-medium whitespace-pre-line">
                     {msg.content}
                   </p>
 
                   {/* CLICKABLE ACTION BUTTONS */}
                   {(msg.action_type || msg.message_type === 'REGISTRATION' || msg.message_type === 'FORM' || msg.form_id) && (
-                    <div className="pt-2 border-t border-[#1B2A40] flex items-center gap-2 flex-wrap">
+                    <div className="pt-2 border-t border-slate-100 flex items-center gap-2 flex-wrap">
                       {msg.action_type === 'START_ASSESSMENT' ? (
                         <Button
                           variant="primary"
@@ -677,7 +668,7 @@ export const StudentCommunity: React.FC = () => {
                         <Button
                           variant="primary"
                           size="sm"
-                          className="bg-violet-600 hover:bg-violet-500 text-white shadow-sm"
+                          className="bg-purple-600 hover:bg-purple-700 text-white shadow-xs"
                           icon={<ClipboardList className="w-4 h-4" />}
                           onClick={() => navigate(`/student/forms/${msg.form_id}`)}
                         >
@@ -706,31 +697,31 @@ export const StudentCommunity: React.FC = () => {
       {activeTab === 'forms' && (
         <div className="space-y-4">
           {forms.length === 0 ? (
-            <Card className="p-8 text-center bg-[#101D31] border-[#243650] space-y-3">
-              <ClipboardList className="w-10 h-10 text-slate-500 mx-auto" />
-              <h3 className="text-base font-bold text-white">No forms uploaded yet</h3>
-              <p className="text-xs text-slate-400">The Placement Office has not uploaded any custom forms or surveys for this drive yet.</p>
+            <Card className="p-8 text-center bg-white border border-slate-200 shadow-xs space-y-3">
+              <ClipboardList className="w-10 h-10 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-[#14213D]">No forms uploaded yet</h3>
+              <p className="text-xs text-[#64748B]">The Placement Office has not uploaded any custom forms or surveys for this drive yet.</p>
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {forms.map((f) => (
-                <Card key={f.id} className="p-5 bg-[#101D31] border-[#243650] hover:border-violet-500/40 transition-all flex flex-col justify-between">
+                <Card key={f.id} className="p-5 bg-white border border-slate-200 hover:border-purple-200 transition-all shadow-xs flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-900/30 text-violet-300 border border-violet-700/30">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
                         {f.fields.length} FIELDS
                       </span>
-                      <span className="text-[10px] text-slate-400">By {f.created_by_name}</span>
+                      <span className="text-[10px] text-[#64748B]">By {f.created_by_name}</span>
                     </div>
-                    <h4 className="text-sm font-bold text-white">{f.title}</h4>
-                    {f.description && <p className="text-xs text-slate-300 line-clamp-2">{f.description}</p>}
+                    <h4 className="text-sm font-bold text-[#14213D]">{f.title}</h4>
+                    {f.description && <p className="text-xs text-[#64748B] line-clamp-2">{f.description}</p>}
                   </div>
-                  <div className="pt-4 mt-4 border-t border-[#1B2A40] flex items-center justify-between">
-                    <span className="text-xs text-slate-400">{f.submission_count} submissions</span>
+                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-xs text-[#64748B]">{f.submission_count} submissions</span>
                     <Button
                       variant="primary"
                       size="sm"
-                      className="bg-violet-600 hover:bg-violet-500 text-white"
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
                       icon={<ClipboardList className="w-4 h-4" />}
                       onClick={() => navigate(`/student/forms/${f.id}`)}
                     >
@@ -747,13 +738,13 @@ export const StudentCommunity: React.FC = () => {
       {/* TAB 3: PREPARATION & SKILL GAP */}
       {activeTab === 'preparation' && (
         <div className="space-y-6">
-          <Card className="p-6 bg-[#101D31] border-[#243650] space-y-4">
+          <Card className="p-6 bg-white border border-slate-200 shadow-xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-base font-bold text-[#F8FAFC] flex items-center gap-2">
-                  <BrainCircuit className="w-5 h-5 text-[#3B82F6]" /> Personalized AI Exam &amp; Prep
+                <h3 className="text-base font-bold text-[#14213D] flex items-center gap-2">
+                  <BrainCircuit className="w-5 h-5 text-[#2563EB]" /> Personalized AI Exam &amp; Prep
                 </h3>
-                <p className="text-xs text-[#94A3B8]">
+                <p className="text-xs text-[#64748B]">
                   AI generates focused coding &amp; aptitude tests based on {community?.company_name} requirements.
                 </p>
               </div>
@@ -762,16 +753,16 @@ export const StudentCommunity: React.FC = () => {
                 variant="primary"
                 icon={<Sparkles className="w-4 h-4" />}
                 onClick={() => navigate(`/student/assessment?drive_id=${encodeURIComponent(activeDriveId)}`)}
-                className="shadow-glow-brand shrink-0"
+                className="shrink-0"
               >
                 Launch Focused Drive Assessment
               </Button>
             </div>
 
             {/* Skill Gap Matrix */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-[#1B2A40]">
-              <div className="p-4 rounded-xl bg-[#0B1628] border border-[#243650] space-y-2">
-                <span className="text-xs font-bold text-[#86EFAC] uppercase tracking-wider block">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
                   ✓ Matched Technical Skills
                 </span>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -779,19 +770,19 @@ export const StudentCommunity: React.FC = () => {
                     skillGap.matched_skills.map((s: string) => (
                       <span
                         key={s}
-                        className="px-2.5 py-1 bg-[#22C55E]/15 text-[#86EFAC] border border-[#22C55E]/30 text-xs font-bold rounded-lg"
+                        className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold rounded-full"
                       >
                         {s}
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-[#94A3B8]">Analyze your resume to see skill matches</span>
+                    <span className="text-xs text-[#64748B]">Analyze your resume to see skill matches</span>
                   )}
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0B1628] border border-[#243650] space-y-2">
-                <span className="text-xs font-bold text-[#FCD34D] uppercase tracking-wider block">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block">
                   ⚠ Missing / Weak Skills to Practice
                 </span>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -799,13 +790,13 @@ export const StudentCommunity: React.FC = () => {
                     skillGap.missing_skills.map((s: string) => (
                       <span
                         key={s}
-                        className="px-2.5 py-1 bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/30 text-xs font-bold rounded-lg"
+                        className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-full"
                       >
                         {s}
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-[#94A3B8]">No critical skill gaps detected for this role</span>
+                    <span className="text-xs text-[#64748B]">No critical skill gaps detected for this role</span>
                   )}
                 </div>
               </div>
@@ -816,18 +807,18 @@ export const StudentCommunity: React.FC = () => {
 
       {/* TAB 4: OFFICER VIEW RESPONSES */}
       {activeTab === 'responses' && isOfficer && (
-        <Card className="p-6 bg-[#101D31] border-[#243650] space-y-4">
+        <Card className="p-6 bg-white border border-slate-200 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-[#F8FAFC]">Registered Candidate Responses</h3>
-              <p className="text-xs text-[#94A3B8]">Live registration records submitted via this placement community</p>
+              <h3 className="text-base font-bold text-[#14213D]">Registered Candidate Responses</h3>
+              <p className="text-xs text-[#64748B]">Live registration records submitted via this placement community</p>
             </div>
-            <span className="text-sm font-bold text-[#86EFAC]">Total: {responses.length} Candidates</span>
+            <span className="text-sm font-bold text-emerald-700">Total: {responses.length} Candidates</span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[#14243B] text-[#CBD5E1] uppercase font-bold border-b border-[#243650]">
+            <table className="w-full text-left text-xs text-[#14213D]">
+              <thead className="bg-[#F8FAFC] text-[#64748B] uppercase font-bold border-b border-slate-200">
                 <tr>
                   <th className="p-3 pl-4">Candidate</th>
                   <th className="p-3">Roll Number</th>
@@ -838,28 +829,28 @@ export const StudentCommunity: React.FC = () => {
                   <th className="p-3 pr-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1B2A40]">
+              <tbody className="divide-y divide-slate-100">
                 {responses.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="p-8 text-center text-[#94A3B8]">
+                    <td colSpan={7} className="p-8 text-center text-[#64748B]">
                       No responses yet. Be the first student to register!
                     </td>
                   </tr>
                 ) : (
                   responses.map((r) => (
-                    <tr key={r.id} className="hover:bg-[#14243B] transition-colors">
-                      <td className="p-3 pl-4 font-bold text-[#F8FAFC]">{r.student_name}</td>
-                      <td className="p-3 font-mono text-[#CBD5E1]">{r.roll_number || 'N/A'}</td>
-                      <td className="p-3 font-bold text-[#F8FAFC]">{r.branch || 'CSE'}</td>
-                      <td className="p-3 font-bold text-[#86EFAC]">{r.cgpa != null ? r.cgpa : 'N/A'}</td>
-                      <td className="p-3 text-[#94A3B8]">
+                    <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="p-3 pl-4 font-bold text-[#14213D]">{r.student_name}</td>
+                      <td className="p-3 font-mono text-[#64748B]">{r.roll_number || 'N/A'}</td>
+                      <td className="p-3 font-semibold text-[#14213D]">{r.branch || 'CSE'}</td>
+                      <td className="p-3 font-bold text-emerald-700">{r.cgpa != null ? r.cgpa : 'N/A'}</td>
+                      <td className="p-3 text-[#64748B]">
                         {(r.skills || []).slice(0, 3).join(', ') || 'Technical candidate'}
                       </td>
-                      <td className="p-3 text-[#CBD5E1]">
+                      <td className="p-3 text-[#64748B]">
                         {r.registered_at ? new Date(r.registered_at).toLocaleDateString() : 'Today'}
                       </td>
                       <td className="p-3 pr-4">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#22C55E]/15 text-[#86EFAC] border border-[#22C55E]/30 uppercase">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">
                           {r.status || 'APPLIED'}
                         </span>
                       </td>
@@ -874,25 +865,25 @@ export const StudentCommunity: React.FC = () => {
 
       {/* STUDENT REGISTRATION MODAL */}
       {isRegisterModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#0B1628] rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden border border-[#243650] text-[#F8FAFC]">
-            <div className="px-6 py-4 bg-[#101D31] border-b border-[#243650] flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-slate-200 text-[#14213D]">
+            <div className="px-6 py-4 bg-[#F8FAFC] border-b border-slate-100 flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold text-[#F8FAFC]">Placement Drive Registration</h3>
-                <p className="text-xs text-[#94A3B8]">{community?.company_name} — {community?.role_title}</p>
+                <h3 className="text-base font-bold text-[#14213D]">Placement Drive Registration</h3>
+                <p className="text-xs text-[#64748B]">{community?.company_name} — {community?.role_title}</p>
               </div>
               <button
                 onClick={() => setIsRegisterModalOpen(false)}
-                className="text-[#94A3B8] hover:text-white transition-colors cursor-pointer text-sm font-bold"
+                className="text-slate-400 hover:text-slate-700 transition-colors cursor-pointer text-sm font-bold"
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleRegisterSubmit} className="p-6 space-y-4 text-xs">
+            <form onSubmit={handleRegisterSubmit} className="p-6 space-y-4 text-xs text-[#334155]">
               {!isEligible && (
-                <div className="p-3 rounded-xl bg-[#EF4444]/15 border border-[#EF4444]/30 text-[#FCA5A5] text-xs font-semibold flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-[#EF4444] shrink-0" />
+                <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
                   <span>
                     You do not satisfy the drive eligibility criteria ({!isCgpaEligible ? `CGPA below ${minCgpa}. ` : ''}{!isBranchEligible ? `Branch ${studentBranch} is not eligible.` : ''}).
                   </span>
@@ -901,85 +892,85 @@ export const StudentCommunity: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Full Name</label>
+                  <label className="block text-xs font-semibold text-[#14213D] mb-1">Full Name</label>
                   <input
                     type="text"
                     required
                     value={registerFormData.name}
                     onChange={(e) => setRegisterFormData({ ...registerFormData, name: e.target.value })}
-                    className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Roll Number</label>
+                  <label className="block text-xs font-semibold text-[#14213D] mb-1">Roll Number</label>
                   <input
                     type="text"
                     required
                     value={registerFormData.roll_number}
                     onChange={(e) => setRegisterFormData({ ...registerFormData, roll_number: e.target.value })}
-                    className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Branch</label>
+                  <label className="block text-xs font-semibold text-[#14213D] mb-1">Branch</label>
                   <input
                     type="text"
                     required
                     value={registerFormData.branch}
                     onChange={(e) => setRegisterFormData({ ...registerFormData, branch: e.target.value })}
-                    className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Current CGPA</label>
+                  <label className="block text-xs font-semibold text-[#14213D] mb-1">Current CGPA</label>
                   <input
                     type="number"
                     step="0.01"
                     required
                     value={registerFormData.cgpa}
                     onChange={(e) => setRegisterFormData({ ...registerFormData, cgpa: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Phone Number</label>
+                <label className="block text-xs font-semibold text-[#14213D] mb-1">Phone Number</label>
                 <input
                   type="text"
                   placeholder="+91 98765 43210"
                   value={registerFormData.phone}
                   onChange={(e) => setRegisterFormData({ ...registerFormData, phone: e.target.value })}
-                  className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                  className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Preferred Location</label>
+                <label className="block text-xs font-semibold text-[#14213D] mb-1">Preferred Location</label>
                 <input
                   type="text"
                   placeholder="e.g. Bengaluru / Hyderabad / Remote"
                   value={registerFormData.preferred_location}
                   onChange={(e) => setRegisterFormData({ ...registerFormData, preferred_location: e.target.value })}
-                  className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                  className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#CBD5E1] mb-1">Cover Note / Remarks (Optional)</label>
+                <label className="block text-xs font-semibold text-[#14213D] mb-1">Cover Note / Remarks (Optional)</label>
                 <textarea
                   rows={3}
                   placeholder="Briefly state your relevant project experience or technical highlights..."
                   value={registerFormData.cover_note}
                   onChange={(e) => setRegisterFormData({ ...registerFormData, cover_note: e.target.value })}
-                  className="w-full p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                  className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] shadow-xs"
                 />
               </div>
 
-              <div className="pt-4 border-t border-[#243650] flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
                 <Button
                   variant="outline"
                   type="button"

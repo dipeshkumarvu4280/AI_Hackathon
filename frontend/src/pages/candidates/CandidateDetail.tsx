@@ -134,9 +134,9 @@ export const CandidateDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-[#94A3B8]">
-        <RefreshCw className="w-8 h-8 animate-spin text-[#3B82F6]" />
-        <p className="text-sm font-bold text-[#F8FAFC]">Loading candidate profile...</p>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-slate-500">
+        <RefreshCw className="w-8 h-8 animate-spin text-[#2563EB]" />
+        <p className="text-sm font-bold text-[#14213D]">Loading candidate profile...</p>
       </div>
     );
   }
@@ -166,7 +166,7 @@ export const CandidateDetail: React.FC = () => {
   const hasInterview = !!candidate.interview;
 
   return (
-    <div className="space-y-6 pb-12 text-[#F8FAFC]">
+    <div className="space-y-6 pb-12 text-[#14213D]">
       {/* PAGE HEADER */}
       <PageHeader
         title={`Candidate: ${candidate.student_name || 'Student Profile'}`}
@@ -209,7 +209,7 @@ export const CandidateDetail: React.FC = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-red-500/40 text-red-400 hover:bg-red-500/10"
+                  className="border-red-300 text-red-600 hover:bg-red-50"
                   onClick={handleRejectInterview}
                 >
                   Reject After Interview
@@ -235,61 +235,61 @@ export const CandidateDetail: React.FC = () => {
       />
 
       {/* PROFILE SUMMARY HERO CARD */}
-      <Card className="p-6 bg-[#101D31] border-[#243650]">
+      <Card className="p-6 bg-white border-[#CBD5E1]/90 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center font-bold text-white text-2xl shadow-md shrink-0">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#2563EB] to-[#7C3AED] flex items-center justify-center font-bold text-white text-2xl shadow-md shrink-0">
               {candidate.student_name?.charAt(0) || 'S'}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl font-black text-[#F8FAFC]">{candidate.student_name}</h2>
+                <h2 className="text-xl font-black text-[#14213D]">{candidate.student_name}</h2>
                 {isShortlisted && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)]">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     🟢 Shortlisted
                   </span>
                 )}
                 {stage === 'INTERVIEW_COMPLETED' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200">
                     🤝 Interview Completed
                   </span>
                 )}
                 {isSelected && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     🏆 Selected / Placed
                   </span>
                 )}
                 {stage === 'OFFER_EXTENDED' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     📄 Offer Extended
                   </span>
                 )}
                 {stage === 'OFFER_ACCEPTED' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     ✅ Offer Accepted
                   </span>
                 )}
                 {stage === 'JOINED' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     🎉 Joined Company
                   </span>
                 )}
                 {isRejected && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(239,68,68,0.15)] text-[#F87171] border border-[rgba(239,68,68,0.30)]">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-50 text-red-700 border border-red-200">
                     🔴 {stage === 'REJECTED_AT_HR' ? 'Rejected at Interview' : stage === 'REJECTED_AT_TECHNICAL' ? 'Rejected at Technical' : stage === 'REJECTED_AT_APTITUDE' ? 'Rejected at Aptitude' : 'Not Shortlisted'}
                   </span>
                 )}
                 {stage === 'APPLIED' && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200">
                     🔵 Applied
                   </span>
                 )}
               </div>
-              <p className="text-xs font-bold text-[#CBD5E1] mt-1">
-                Roll No: <span className="font-mono text-[#F8FAFC]">{candidate.rollNumber}</span> &bull; {candidate.branch} (Class of {candidate.graduation_year || 2027})
+              <p className="text-xs font-bold text-[#64748B] mt-1">
+                Roll No: <span className="font-mono text-[#14213D]">{candidate.rollNumber}</span> &bull; {candidate.branch} (Class of {candidate.graduation_year || 2027})
               </p>
-              <div className="flex items-center gap-4 text-xs text-[#CBD5E1] mt-2 flex-wrap">
-                <span className="flex items-center gap-1 font-medium font-mono text-[#F8FAFC]">
+              <div className="flex items-center gap-4 text-xs text-[#64748B] mt-2 flex-wrap">
+                <span className="flex items-center gap-1 font-medium font-mono text-[#14213D]">
                   📱 {candidate.mobile || candidate.applicant?.mobile || 'Mobile N/A'}
                 </span>
                 <span className="flex items-center gap-1 font-medium">
@@ -299,19 +299,19 @@ export const CandidateDetail: React.FC = () => {
                   📍 {candidate.location || candidate.applicant?.location || 'Bengaluru'}
                 </span>
               </div>
-              <div className="flex items-center gap-4 text-xs text-[#CBD5E1] mt-2 flex-wrap">
+              <div className="flex items-center gap-4 text-xs text-[#64748B] mt-2 flex-wrap">
                 <span className="flex items-center gap-1 font-medium">
-                  <Mail className="w-3.5 h-3.5 text-[#3B82F6]" /> {candidate.student_email}
+                  <Mail className="w-3.5 h-3.5 text-[#2563EB]" /> {candidate.student_email}
                 </span>
-                <span className="flex items-center gap-1 font-bold text-[#F8FAFC]">
-                  <GraduationCap className="w-3.5 h-3.5 text-[#3B82F6]" /> CGPA: {candidate.cgpa}
+                <span className="flex items-center gap-1 font-bold text-[#14213D]">
+                  <GraduationCap className="w-3.5 h-3.5 text-[#2563EB]" /> CGPA: {candidate.cgpa}
                 </span>
                 <span className="flex items-center gap-1 text-[#94A3B8]">
-                  <Calendar className="w-3.5 h-3.5 text-[#3B82F6]" /> Applied on: {candidate.applied_at}
+                  <Calendar className="w-3.5 h-3.5 text-[#2563EB]" /> Applied on: {candidate.applied_at}
                 </span>
                 {candidate.resume_url && candidate.resume_url !== '#' && (
-                  <span className="flex items-center gap-1 text-[#60A5FA] font-semibold">
-                    <FileText className="w-3.5 h-3.5 text-[#3B82F6]" /> Resume: {candidate.resume_url}
+                  <span className="flex items-center gap-1 text-[#2563EB] font-semibold">
+                    <FileText className="w-3.5 h-3.5 text-[#2563EB]" /> Resume: {candidate.resume_url}
                   </span>
                 )}
               </div>
@@ -319,15 +319,15 @@ export const CandidateDetail: React.FC = () => {
           </div>
 
           {/* READINESS GAUGE */}
-          <div className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] shadow-sm flex items-center gap-4 shrink-0">
+          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 shrink-0">
             <div className="relative w-16 h-16 flex items-center justify-center">
               <svg className="w-16 h-16 transform -rotate-90">
-                <circle cx="32" cy="32" r="26" stroke="#17253A" strokeWidth="5" fill="transparent" />
+                <circle cx="32" cy="32" r="26" stroke="#E2E8F0" strokeWidth="5" fill="transparent" />
                 <circle
                   cx="32"
                   cy="32"
                   r="26"
-                  stroke="#3B82F6"
+                  stroke="#2563EB"
                   strokeWidth="5"
                   fill="transparent"
                   strokeDasharray="163"
@@ -335,12 +335,12 @@ export const CandidateDetail: React.FC = () => {
                   strokeLinecap="round"
                 />
               </svg>
-              <span className="absolute text-sm font-black text-[#FFFFFF]">{candidate.readiness_score || 0}</span>
+              <span className="absolute text-sm font-black text-[#14213D]">{candidate.readiness_score || 0}</span>
             </div>
             <div>
-              <span className="text-xs font-bold text-[#F8FAFC] block">Placement Readiness</span>
-              <span className="text-[11px] text-[#CBD5E1] block">Score: {candidate.readiness_score || 0} / 100</span>
-              <span className="text-[10px] font-bold text-[#86EFAC] bg-[rgba(34,197,94,0.10)] px-2 py-0.5 rounded border border-[rgba(34,197,94,0.25)] mt-1 inline-block">
+              <span className="text-xs font-bold text-[#14213D] block">Placement Readiness</span>
+              <span className="text-[11px] text-[#64748B] block">Score: {candidate.readiness_score || 0} / 100</span>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 mt-1 inline-block">
                 Eligible Candidate ✓
               </span>
             </div>
@@ -350,31 +350,31 @@ export const CandidateDetail: React.FC = () => {
 
       {/* SCHEDULED INTERVIEW CARD */}
       {hasInterview && (
-        <Card className="p-5 bg-[#101D31] border-[rgba(34,197,94,0.40)]">
-          <h3 className="text-sm font-bold text-[#4ADE80] mb-3 flex items-center gap-2">
+        <Card className="p-5 bg-emerald-50/40 border-emerald-200">
+          <h3 className="text-sm font-bold text-emerald-700 mb-3 flex items-center gap-2">
             <Calendar className="w-4 h-4" /> Scheduled Placement Interview
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650]">
-              <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Date</span>
-              <span className="font-bold text-[#F8FAFC] mt-0.5 block">{candidate.interview.date}</span>
+            <div className="p-3 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase block">Date</span>
+              <span className="font-bold text-[#14213D] mt-0.5 block">{candidate.interview.date}</span>
             </div>
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650]">
-              <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Time</span>
-              <span className="font-bold text-[#F8FAFC] mt-0.5 block">{candidate.interview.time}</span>
+            <div className="p-3 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase block">Time</span>
+              <span className="font-bold text-[#14213D] mt-0.5 block">{candidate.interview.time}</span>
             </div>
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650]">
-              <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Panel</span>
-              <span className="font-bold text-[#60A5FA] mt-0.5 block">{candidate.interview.panel_name}</span>
+            <div className="p-3 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase block">Panel</span>
+              <span className="font-bold text-[#2563EB] mt-0.5 block">{candidate.interview.panel_name}</span>
               {candidate.interview.panel_members && candidate.interview.panel_members.length > 0 && (
-                <span className="text-[9px] text-[#94A3B8] block truncate mt-0.5">
+                <span className="text-[9px] text-[#64748B] block truncate mt-0.5">
                   {candidate.interview.panel_members.join(', ')}
                 </span>
               )}
             </div>
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650]">
-              <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Venue</span>
-              <span className="font-bold text-[#F8FAFC] mt-0.5 block">
+            <div className="p-3 bg-white rounded-xl border border-emerald-100 shadow-sm">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase block">Venue</span>
+              <span className="font-bold text-[#14213D] mt-0.5 block">
                 {candidate.interview.room_number ? `${candidate.interview.room_number} (${candidate.interview.block})` : candidate.interview.room_name}
               </span>
             </div>
@@ -385,10 +385,10 @@ export const CandidateDetail: React.FC = () => {
       {/* REAL RESUME SKILLS & PROJECTS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* SKILLS */}
-        <Card className="bg-[#101D31] border-[#243650]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="bg-white border-slate-200">
+          <CardHeader className="border-b border-slate-100">
             <CardTitle className="flex items-center gap-2">
-              <Code className="w-4 h-4 text-[#3B82F6]" /> Technical Skills Extracted
+              <Code className="w-4 h-4 text-[#2563EB]" /> Technical Skills Extracted
             </CardTitle>
           </CardHeader>
           <CardContent className="p-5">
@@ -397,7 +397,7 @@ export const CandidateDetail: React.FC = () => {
                 {candidate.skills.map((sk: string) => (
                   <span
                     key={sk}
-                    className="px-3 py-1 rounded-lg bg-[#0B1628] text-[#CBD5E1] border border-[#243650] text-xs font-semibold"
+                    className="px-3 py-1 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200 text-xs font-semibold"
                   >
                     {sk}
                   </span>
@@ -410,24 +410,24 @@ export const CandidateDetail: React.FC = () => {
         </Card>
 
         {/* PROJECTS */}
-        <Card className="bg-[#101D31] border-[#243650]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="bg-white border-slate-200">
+          <CardHeader className="border-b border-slate-100">
             <CardTitle className="flex items-center gap-2">
-              <FolderGit2 className="w-4 h-4 text-[#3B82F6]" /> Technical Projects
+              <FolderGit2 className="w-4 h-4 text-[#2563EB]" /> Technical Projects
             </CardTitle>
           </CardHeader>
           <CardContent className="p-5 space-y-3">
             {(candidate.projects || []).length > 0 ? (
               candidate.projects.map((proj: any, idx: number) => (
-                <div key={idx} className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1">
-                  <h4 className="font-bold text-xs text-[#F8FAFC]">{proj.title || proj.name || proj}</h4>
+                <div key={idx} className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <h4 className="font-bold text-xs text-[#14213D]">{proj.title || proj.name || proj}</h4>
                   {proj.description && (
-                    <p className="text-[11px] text-[#CBD5E1] leading-relaxed">{proj.description}</p>
+                    <p className="text-[11px] text-[#64748B] leading-relaxed">{proj.description}</p>
                   )}
                   {proj.technologies && proj.technologies.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-1.5">
                       {proj.technologies.map((t: string) => (
-                        <span key={t} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#101D31] text-[#94A3B8]">
+                        <span key={t} className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-200/80 text-[#64748B]">
                           {t}
                         </span>
                       ))}
@@ -444,19 +444,19 @@ export const CandidateDetail: React.FC = () => {
 
       {/* EXPERIENCE & CERTIFICATIONS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="bg-[#101D31] border-[#243650]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="bg-white border-slate-200">
+          <CardHeader className="border-b border-slate-100">
             <CardTitle className="flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-[#3B82F6]" /> Experience & Internships
+              <Briefcase className="w-4 h-4 text-[#2563EB]" /> Experience & Internships
             </CardTitle>
           </CardHeader>
           <CardContent className="p-5 space-y-3">
             {(candidate.experience || []).length > 0 ? (
               candidate.experience.map((exp: any, idx: number) => (
-                <div key={idx} className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1">
-                  <h4 className="font-bold text-xs text-[#F8FAFC]">{exp.role || exp.title} at {exp.company}</h4>
-                  <span className="text-[10px] text-[#94A3B8] block">{exp.duration}</span>
-                  {exp.description && <p className="text-[11px] text-[#CBD5E1]">{exp.description}</p>}
+                <div key={idx} className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <h4 className="font-bold text-xs text-[#14213D]">{exp.role || exp.title} at {exp.company}</h4>
+                  <span className="text-[10px] text-[#64748B] block">{exp.duration}</span>
+                  {exp.description && <p className="text-[11px] text-[#64748B]">{exp.description}</p>}
                 </div>
               ))
             ) : (
@@ -465,18 +465,18 @@ export const CandidateDetail: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-[#101D31] border-[#243650]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="bg-white border-slate-200">
+          <CardHeader className="border-b border-slate-100">
             <CardTitle className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-[#3B82F6]" /> Certifications
+              <Award className="w-4 h-4 text-[#2563EB]" /> Certifications
             </CardTitle>
           </CardHeader>
           <CardContent className="p-5 space-y-3">
             {(candidate.certifications || []).length > 0 ? (
               candidate.certifications.map((cert: any, idx: number) => (
-                <div key={idx} className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1">
-                  <h4 className="font-bold text-xs text-[#F8FAFC]">{cert.name || cert.title}</h4>
-                  <span className="text-[10px] text-[#94A3B8] block">{cert.issuer || cert.organization}</span>
+                <div key={idx} className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <h4 className="font-bold text-xs text-[#14213D]">{cert.name || cert.title}</h4>
+                  <span className="text-[10px] text-[#64748B] block">{cert.issuer || cert.organization}</span>
                 </div>
               ))
             ) : (

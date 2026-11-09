@@ -7,9 +7,9 @@ interface SeverityBadgeProps {
 
 export const SeverityBadge: React.FC<SeverityBadgeProps> = ({ severity }) => {
   const styles: Record<ExceptionSeverity, string> = {
-    critical: 'bg-[rgba(239,68,68,0.10)] text-[#FCA5A5] border-[rgba(239,68,68,0.25)]',
-    warning: 'bg-[rgba(245,158,11,0.10)] text-[#FCD34D] border-[rgba(245,158,11,0.25)]',
-    info: 'bg-[rgba(56,189,248,0.10)] text-[#7DD3FC] border-[rgba(56,189,248,0.25)]',
+    critical: 'bg-red-50 text-red-700 border-red-200',
+    warning: 'bg-amber-50 text-amber-700 border-amber-200',
+    info: 'bg-blue-50 text-blue-700 border-blue-200',
   };
 
   return (

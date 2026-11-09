@@ -207,21 +207,21 @@ export const PlacementCopilot: React.FC = () => {
       />
 
       {/* MAIN COPILOT WORKSPACE CARD */}
-      <Card className="p-0 border-[#243650] bg-[#101D31] overflow-hidden shadow-[0_12px_35px_rgba(0,0,0,0.22)]">
+      <Card className="p-0 border-[#CBD5E1]/90 bg-white overflow-hidden shadow-xs">
         {/* COPILOT HEADER */}
-        <div className="p-4 border-b border-[#243650] bg-[#14243B] flex items-center justify-between">
+        <div className="p-4 border-b border-slate-200 bg-[#F8FAFC] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white flex items-center justify-center font-bold shadow-glow-brand">
+            <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 text-[#2563EB] flex items-center justify-center font-bold">
               <Bot className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-[#F8FAFC] flex items-center gap-2">
+              <h3 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
                 <span>PlaceMind Operations Copilot</span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.10)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)]">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
                   Live Database Grounded
                 </span>
               </h3>
-              <p className="text-[11px] text-[#94A3B8]">Powered by Google Gemini &amp; Authoritative MongoDB Context</p>
+              <p className="text-[11px] text-[#475569] font-medium">Powered by Google Gemini &amp; Authoritative MongoDB Context</p>
             </div>
           </div>
         </div>
@@ -230,12 +230,12 @@ export const PlacementCopilot: React.FC = () => {
         <div className="p-6 min-h-[420px] max-h-[520px] overflow-y-auto space-y-4">
           {messages.length === 0 ? (
             <div className="py-12 text-center space-y-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white flex items-center justify-center mx-auto shadow-glow-brand">
+              <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 text-[#2563EB] flex items-center justify-center mx-auto shadow-xs">
                 <Sparkles className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-[#F8FAFC]">How can I assist your recruitment operations today?</h3>
-                <p className="text-xs text-[#CBD5E1] mt-1 max-w-md mx-auto leading-relaxed">
+                <h3 className="text-base font-bold text-[#14213D]">How can I assist your recruitment operations today?</h3>
+                <p className="text-xs text-[#475569] mt-1 max-w-md mx-auto leading-relaxed font-medium">
                   Ask about verified room availability, active placement drives, panel schedules, or top candidate matches. Select a verified prompt or type your query below.
                 </p>
               </div>
@@ -246,12 +246,12 @@ export const PlacementCopilot: React.FC = () => {
                   <button
                     key={p.id}
                     onClick={() => handleSend(p.text)}
-                    className="p-3.5 rounded-xl border border-[#243650] bg-[#14243B] hover:bg-[#192B45] hover:border-[#3B82F6] transition-all text-xs font-semibold text-[#CBD5E1] hover:text-white flex items-start gap-2.5 group cursor-pointer"
+                    className="p-3.5 rounded-xl border border-[#CBD5E1]/90 bg-[#F8FAFC] hover:bg-white hover:border-blue-400/80 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-xs font-semibold text-[#14213D] flex items-start gap-2.5 group cursor-pointer shadow-xs motion-reduce:transform-none"
                   >
-                    <Sparkles className="w-4 h-4 text-[#3B82F6] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                    <Sparkles className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                     <div>
-                      <span className="block text-white">{p.text}</span>
-                      <span className="text-[10px] text-[#94A3B8] block mt-0.5">{p.category}</span>
+                      <span className="block text-[#14213D] font-bold">{p.text}</span>
+                      <span className="text-[10px] text-[#475569] block mt-0.5 font-medium">{p.category}</span>
                     </div>
                   </button>
                 ))}
@@ -267,10 +267,10 @@ export const PlacementCopilot: React.FC = () => {
                 }`}
               >
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-xs shadow-sm ${
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-xs shadow-xs ${
                     msg.sender === 'user'
-                      ? 'bg-[#3B82F6] text-white'
-                      : 'bg-[#14243B] text-[#06B6D4] border border-[#243650]'
+                      ? 'bg-[#2563EB] text-white'
+                      : 'bg-blue-50 text-[#2563EB] border border-blue-200'
                   }`}
                 >
                   {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -279,8 +279,8 @@ export const PlacementCopilot: React.FC = () => {
                 <div
                   className={`max-w-xl space-y-3 ${
                     msg.sender === 'user'
-                      ? 'bg-[#3B82F6] text-white p-3.5 rounded-2xl rounded-tr-none font-medium'
-                      : 'bg-[#14243B] border border-[#243650] text-[#F8FAFC] p-4 rounded-2xl rounded-tl-none'
+                      ? 'bg-[#2563EB] text-white p-3.5 rounded-2xl rounded-tr-none font-medium shadow-xs'
+                      : 'bg-[#F8FAFC] border border-slate-200 text-[#14213D] p-4 rounded-2xl rounded-tl-none shadow-xs'
                   }`}
                 >
                   <p className="whitespace-pre-line leading-relaxed font-medium">{msg.text}</p>
@@ -289,23 +289,23 @@ export const PlacementCopilot: React.FC = () => {
                   {msg.cards && msg.cards.length > 0 && (
                     <div className="space-y-2 pt-1">
                       {msg.cards.map((c, i) => (
-                        <div key={i} className="p-3 rounded-lg bg-[#101D31] border border-[#243650] text-[#F8FAFC] space-y-1 shadow-xs">
+                        <div key={i} className="p-3 rounded-lg bg-white border border-[#CBD5E1]/90 text-[#14213D] space-y-1 shadow-xs">
                           <div className="flex items-center justify-between">
                             <span className="font-bold text-xs">{c.title}</span>
                             {c.badge && (
                               <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
                                 c.badge === 'Available' || c.badge === 'ACTIVE' || c.badge === 'Shortlisted'
-                                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                                   : c.badge === 'Booked' || c.badge === 'Action Needed'
-                                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/30'
-                                  : 'bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border-[rgba(59,130,246,0.30)]'
+                                  ? 'bg-red-50 text-red-700 border-red-200'
+                                  : 'bg-blue-50 text-[#2563EB] border-blue-200'
                               }`}>
                                 {c.badge}
                               </span>
                             )}
                           </div>
-                          {c.subtitle && <p className="text-[11px] font-semibold text-[#CBD5E1]">{c.subtitle}</p>}
-                          {c.detail && <p className="text-[11px] text-[#94A3B8] font-medium">{c.detail}</p>}
+                          {c.subtitle && <p className="text-[11px] font-bold text-[#14213D]">{c.subtitle}</p>}
+                          {c.detail && <p className="text-[11px] text-[#475569] font-medium">{c.detail}</p>}
                         </div>
                       ))}
                     </div>
@@ -313,25 +313,25 @@ export const PlacementCopilot: React.FC = () => {
 
                   {/* INTERACTIVE ACTION PROPOSAL CONFIRMATION CARD */}
                   {msg.actionProposal && !msg.actionProposal.executed && (
-                    <div className="mt-3 p-4 rounded-xl bg-[#0B1528] border border-cyan-500/40 space-y-3 shadow-lg">
+                    <div className="mt-3 p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3 shadow-xs">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-cyan-400" />
-                          <span className="text-xs font-bold text-white uppercase tracking-wider">
+                          <Calendar className="w-4 h-4 text-[#2563EB]" />
+                          <span className="text-xs font-bold text-[#14213D] uppercase tracking-wider">
                             Proposed Placement Action
                           </span>
                         </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
                           Verified Available
                         </span>
                       </div>
 
-                      <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                      <p className="text-xs text-[#475569] leading-relaxed font-medium">
                         {msg.actionProposal.summary}
                       </p>
 
                       {actionError && (
-                        <div className="p-2 rounded bg-rose-500/10 border border-rose-500/30 text-[11px] text-rose-400">
+                        <div className="p-2 rounded bg-red-50 border border-red-200 text-[11px] text-red-700">
                           {actionError}
                         </div>
                       )}
@@ -343,7 +343,7 @@ export const PlacementCopilot: React.FC = () => {
                           size="sm"
                           disabled={isExecutingAction}
                           onClick={() => handleConfirmAction(msg.id, msg.actionProposal!)}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5"
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"
                         >
                           {isExecutingAction ? (
                             <>
@@ -364,7 +364,7 @@ export const PlacementCopilot: React.FC = () => {
                           size="sm"
                           disabled={isExecutingAction}
                           onClick={() => handleCancelAction(msg.id)}
-                          className="text-xs text-slate-400 hover:text-white"
+                          className="text-xs text-[#475569] hover:text-[#14213D]"
                         >
                           Cancel
                         </Button>
@@ -373,8 +373,8 @@ export const PlacementCopilot: React.FC = () => {
                   )}
 
                   {msg.actionProposal && msg.actionProposal.executed && (
-                    <div className="mt-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <div className="mt-2 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 font-bold">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                       <span>Interview confirmed and scheduled in PlaceMind database.</span>
                     </div>
                   )}
@@ -393,7 +393,7 @@ export const PlacementCopilot: React.FC = () => {
                     </div>
                   )}
 
-                  <span className="text-[10px] opacity-70 block text-right font-medium">{msg.timestamp}</span>
+                  <span className={`text-[10px] block text-right font-medium ${msg.sender === 'user' ? 'text-white/80' : 'text-[#64748B]'}`}>{msg.timestamp}</span>
                 </div>
               </div>
             ))
@@ -401,15 +401,15 @@ export const PlacementCopilot: React.FC = () => {
 
           {/* PROCESSING STATE */}
           {isProcessing && (
-            <div className="flex items-center gap-3 text-xs text-[#60A5FA] font-semibold bg-[rgba(59,130,246,0.10)] p-3.5 rounded-xl border border-[rgba(59,130,246,0.25)] animate-pulse">
-              <Bot className="w-4 h-4 animate-spin text-[#3B82F6]" />
+            <div className="flex items-center gap-3 text-xs text-[#2563EB] font-bold bg-blue-50 p-3.5 rounded-xl border border-blue-200 animate-pulse">
+              <Bot className="w-4 h-4 animate-spin text-[#2563EB]" />
               <span>{processingStage}</span>
             </div>
           )}
         </div>
 
         {/* INPUT COMPOSER */}
-        <div className="p-4 border-t border-[#243650] bg-[#0B1628]">
+        <div className="p-4 border-t border-slate-200 bg-[#F8FAFC]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -422,7 +422,7 @@ export const PlacementCopilot: React.FC = () => {
               placeholder="Ask Copilot about room availability, drives, top candidates, or schedule an interview..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="flex-1 text-xs p-3 bg-[#101D31] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-xl focus:outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/20 font-medium"
+              className="flex-1 text-xs p-3 bg-white border border-slate-300 text-[#14213D] placeholder-[#94A3B8] rounded-xl focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 font-medium shadow-xs"
             />
             <Button variant="primary" type="submit" icon={<Send className="w-4 h-4" />} disabled={isProcessing}>
               Send
@@ -439,11 +439,11 @@ export const PlacementCopilot: React.FC = () => {
         maxWidth="max-w-md"
       >
         <div className="space-y-3">
-          <p className="text-xs text-[#94A3B8]">
+          <p className="text-xs text-[#64748B]">
             Review queries asked in this Copilot session. Click any query to re-execute it against live data.
           </p>
           {sessionHistory.length === 0 ? (
-            <div className="p-6 text-center text-xs text-slate-400 bg-[#101D31] rounded-xl border border-[#243650]">
+            <div className="p-6 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
               No queries in this session yet.
             </div>
           ) : (
@@ -456,18 +456,18 @@ export const PlacementCopilot: React.FC = () => {
                     setShowHistoryModal(false);
                     handleSend(item.query);
                   }}
-                  className="w-full text-left p-3 rounded-xl bg-[#101D31] hover:bg-[#15253F] border border-[#243650] hover:border-cyan-500/50 transition-colors cursor-pointer"
+                  className="w-full text-left p-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors cursor-pointer shadow-2xs"
                 >
                   <div className="flex items-center justify-between text-[11px] text-[#94A3B8] mb-1">
                     <span>Query #{i + 1}</span>
                     <span>{item.timestamp}</span>
                   </div>
-                  <p className="text-xs font-semibold text-white truncate">{item.query}</p>
+                  <p className="text-xs font-semibold text-[#14213D] truncate">{item.query}</p>
                 </button>
               ))}
             </div>
           )}
-          <div className="flex justify-end pt-2 border-t border-[#1E293B]">
+          <div className="flex justify-end pt-2 border-t border-slate-200">
             <Button variant="outline" size="sm" onClick={() => setShowHistoryModal(false)}>
               Close
             </Button>

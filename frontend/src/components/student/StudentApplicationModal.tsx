@@ -79,74 +79,56 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
             if (prof.location) setLocation(prof.location);
             if (prof.readinessScore) setReadinessScore(prof.readinessScore);
 
-            const hasRes = Boolean(prof.hasResume || prof.resumeUrl || prof.resumeFilename);
-            setHasExistingResume(hasRes);
-            if (hasRes) {
-              setResumeFilename(prof.resumeFilename || prof.resumeUrl || 'Dipesh_Gupta_Resume.pdf');
+            if (prof.hasResume) {
+              setHasExistingResume(true);
+              setResumeFilename(prof.resumeFilename || 'Uploaded_Resume.pdf');
+            } else {
+              setHasExistingResume(false);
             }
-            if (prof.extractedProfile) {
-              setResumeProfile(prof.extractedProfile);
+          }
+        })
+        .catch(() => {
+          // Fallback gracefully
+        });
+
+      // Also fetch structured profile if available
+      apiService
+        .getResumeProfile()
+        .then((rp: any) => {
+          if (rp) {
+            setResumeProfile(rp);
+            if (rp.filename) {
+              setResumeFilename(rp.filename);
+              setHasExistingResume(true);
             }
           }
         })
         .catch(() => {});
-
-      // Also retrieve latest resume analysis directly if available
-      if (user?.id) {
-        apiService
-          .getLatestResume(user.id)
-          .then((latest) => {
-            if (latest) {
-              setHasExistingResume(true);
-              setResumeFilename(latest.filename || 'Dipesh_Gupta_Resume.pdf');
-              setResumeProfile(latest.profile);
-              if (latest.readiness_score) {
-                setReadinessScore(latest.readiness_score);
-              }
-            }
-          })
-          .catch(() => {});
-      }
     }
   }, [isOpen, user]);
 
   if (!isOpen || !drive) return null;
 
+  const companyName = drive.companyName || drive.company_name || 'Placement Drive';
+  const roleTitle = drive.roleTitle || drive.job_title || 'Campus Placement Role';
   const driveId = drive.id || drive.drive_id || '';
-  const companyName = drive.companyName || drive.company_name || 'Company';
-  const roleTitle = drive.roleTitle || drive.job_title || 'Software Engineer';
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      const validTypes = [
-        'application/pdf',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      ];
-      if (!validTypes.includes(file.type) && !file.name.match(/\.(pdf|doc|docx)$/i)) {
-        setErrorMsg('Please upload a valid PDF, DOC, or DOCX document.');
-        setResumeFile(null);
-        return;
-      }
-      if (file.size > 10 * 1024 * 1024) {
-        setErrorMsg('File size exceeds maximum 10MB limit.');
-        setResumeFile(null);
-        return;
-      }
-      setResumeFile(file);
-      setErrorMsg(null);
+      setResumeFile(e.target.files[0]);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!fullName.trim()) {
-      setErrorMsg('Please enter your full name.');
+      setErrorMsg('Full Name is required.');
       return;
     }
-    if (!resumeFile && !hasExistingResume) {
-      setErrorMsg('Please upload and analyze your resume before applying.');
+
+    if (!hasExistingResume && !resumeFile) {
+      setErrorMsg('Please upload a resume file to proceed with this application.');
       return;
     }
 
@@ -180,13 +162,13 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
       const appUrl = (drive as any).application_url;
       if (appUrl) {
         triggerToast(
-          `You have successfully applied for ${companyName}. Your existing resume has been submitted with this application. Opening company portal...`,
+          `You have successfully applied for ${companyName}. Opening external website...`,
           'success'
         );
         window.open(appUrl, '_blank');
       } else {
         triggerToast(
-          `You have successfully applied for ${companyName}. Your existing resume has been submitted with this application.`,
+          `You have successfully applied for ${companyName}. Your resume has been submitted.`,
           'success'
         );
       }
@@ -206,25 +188,25 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200 text-[#F8FAFC] overflow-y-auto">
-        <div className="bg-[#101D31] border border-[#243650] rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200 text-[#14213D] overflow-y-auto">
+        <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg shadow-xl overflow-hidden flex flex-col max-h-[94vh] sm:max-h-[90vh] my-auto">
           {/* Header */}
-          <div className="shrink-0 flex items-center justify-between p-4 sm:p-5 border-b border-[#243650] bg-[#0B1628] gap-3">
+          <div className="shrink-0 flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-[#F8FAFC] gap-3">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-              <div className="p-2 rounded-xl bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30 shrink-0">
+              <div className="p-2 rounded-xl bg-blue-50 text-[#2563EB] border border-blue-100 shrink-0">
                 <Briefcase className="w-5 h-5" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm sm:text-base font-bold text-[#F8FAFC] truncate">Apply for Placement Drive</h3>
-                <p className="text-[11px] sm:text-xs text-[#94A3B8] truncate">
-                  <strong className="text-[#60A5FA]">{companyName}</strong> &bull; {roleTitle}
+                <h3 className="text-sm sm:text-base font-bold text-[#14213D] truncate">Apply for Placement Drive</h3>
+                <p className="text-[11px] sm:text-xs text-[#64748B] truncate">
+                  <strong className="text-[#2563EB]">{companyName}</strong> &bull; {roleTitle}
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
               aria-label="Close"
-              className="p-1.5 text-[#94A3B8] hover:text-white hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
             >
               <X className="w-5 h-5" />
             </button>
@@ -233,19 +215,19 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
           {/* Form Body */}
           <form
             onSubmit={handleSubmit}
-            className="p-4 sm:p-6 space-y-4 overflow-y-auto text-xs text-[#CBD5E1] flex-1 min-h-0"
+            className="p-4 sm:p-6 space-y-4 overflow-y-auto text-xs text-[#334155] flex-1 min-h-0"
           >
             {errorMsg && (
-              <div className="p-3 bg-[rgba(239,68,68,0.15)] border border-[rgba(239,68,68,0.30)] rounded-xl flex items-center gap-2 text-xs text-[#F87171] font-semibold">
-                <AlertTriangle className="w-4 h-4 shrink-0" />
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-xs text-red-700 font-semibold">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-red-600" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
             {/* 1. Full Name */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-[#3B82F6]" /> Full Name *
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#64748B] mb-1.5 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-[#2563EB]" /> Full Name *
               </label>
               <input
                 type="text"
@@ -253,79 +235,78 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="e.g. Full Name"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-xl focus:outline-none focus:border-[#3B82F6] font-medium"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] font-medium shadow-xs"
               />
             </div>
 
             {/* 2. Mobile Number */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5 flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-[#3B82F6]" /> Mobile Number
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#64748B] mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-[#2563EB]" /> Mobile Number
               </label>
               <input
                 type="tel"
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
                 placeholder="e.g. 9876543210"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-xl focus:outline-none focus:border-[#3B82F6] font-medium"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] font-medium shadow-xs"
               />
             </div>
 
             {/* 3. College Name */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5 flex items-center gap-1.5">
-                <GraduationCap className="w-3.5 h-3.5 text-[#3B82F6]" /> College Name
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#64748B] mb-1.5 flex items-center gap-1.5">
+                <GraduationCap className="w-3.5 h-3.5 text-[#2563EB]" /> College Name
               </label>
               <input
                 type="text"
                 value={collegeName}
                 onChange={(e) => setCollegeName(e.target.value)}
-                placeholder="e.g. BITS Pilani, IIT Bombay"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-xl focus:outline-none focus:border-[#3B82F6] font-medium"
+                placeholder="e.g. Campus University"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] font-medium shadow-xs"
               />
             </div>
 
             {/* 4. Location */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#3B82F6]" /> Location
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#64748B] mb-1.5 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> Location
               </label>
               <input
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. Bengaluru, Karnataka"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded-xl focus:outline-none focus:border-[#3B82F6] font-medium"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] font-medium shadow-xs"
               />
             </div>
 
-            {/* 5. RESUME SECTION (AUTOMATICALLY REUSES EXISTING RESUME) */}
+            {/* 5. RESUME SECTION */}
             <div className="pt-1">
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5 flex items-center justify-between">
+              <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#64748B] mb-1.5 flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-[#3B82F6]" /> Resume
+                  <FileText className="w-3.5 h-3.5 text-[#2563EB]" /> Resume
                 </span>
                 {hasExistingResume && (
-                  <span className="text-[10px] text-[#22C55E] font-bold flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3" /> Attached
+                  <span className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Attached
                   </span>
                 )}
               </label>
 
               {hasExistingResume && !showReplaceUpload ? (
-                /* STATE A: STUDENT ALREADY HAS A RESUME -> SHOW EXISTING RESUME BADGE & VIEW BUTTON (NO UPLOAD INPUT) */
-                <div className="p-3.5 bg-[#0B1628] border border-[#22C55E]/40 rounded-xl shadow-sm space-y-2">
+                <div className="p-3.5 bg-emerald-50/50 border border-emerald-200 rounded-xl shadow-xs space-y-2">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-9 h-9 rounded-xl bg-[rgba(34,197,94,0.15)] border border-[rgba(34,197,94,0.30)] flex items-center justify-center text-[#22C55E] shrink-0">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0">
                         <FileText className="w-5 h-5" />
                       </div>
                       <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-[#86EFAC]">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E] shrink-0" />
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-800">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>Resume already uploaded</span>
                         </div>
-                        <p className="text-[11px] text-[#F8FAFC] font-semibold truncate max-w-[220px] mt-0.5">
+                        <p className="text-[11px] text-[#14213D] font-semibold truncate max-w-[220px] mt-0.5">
                           {resumeFilename || 'Active_Profile_Resume.pdf'}
                         </p>
                       </div>
@@ -336,8 +317,8 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="text-xs py-1.5 px-3 bg-[#101D31] border-[#3B82F6]/40 text-[#60A5FA] hover:bg-[#192B45] hover:text-white flex items-center gap-1"
-                        icon={<Eye className="w-3.5 h-3.5 text-[#60A5FA]" />}
+                        className="text-xs py-1.5 px-3 bg-white border-slate-200 text-[#2563EB] hover:bg-slate-50 flex items-center gap-1 shadow-xs"
+                        icon={<Eye className="w-3.5 h-3.5 text-[#2563EB]" />}
                         onClick={() => setShowResumePreview(true)}
                       >
                         View Resume
@@ -345,50 +326,49 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-[#243650]/60 flex items-center justify-between text-[10px] text-[#94A3B8]">
-                    <span className="flex items-center gap-1 text-[#86EFAC]">
+                  <div className="pt-2 border-t border-emerald-100 flex items-center justify-between text-[10px] text-[#64748B]">
+                    <span className="flex items-center gap-1 text-emerald-700">
                       ✓ Automatically attached to your application
                     </span>
                     <button
                       type="button"
                       onClick={() => setShowReplaceUpload(true)}
-                      className="text-[#60A5FA] hover:underline cursor-pointer"
+                      className="text-[#2563EB] hover:underline cursor-pointer font-semibold"
                     >
                       Replace file
                     </button>
                   </div>
                 </div>
               ) : (
-                /* STATE B: STUDENT HAS NO RESUME OR CHOSE TO REPLACE -> SHOW UPLOAD DROPZONE */
                 <div className="space-y-2">
                   {!hasExistingResume && (
-                    <div className="p-2.5 bg-[rgba(245,158,11,0.12)] border border-[rgba(245,158,11,0.25)] rounded-xl flex items-center gap-2 text-xs text-[#FCD34D] font-semibold">
-                      <AlertTriangle className="w-4 h-4 text-[#F59E0B] shrink-0" />
+                    <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-2 text-xs text-amber-800 font-semibold">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
                       <span>Resume required: Upload your resume to complete this application.</span>
                     </div>
                   )}
 
-                  <div className="relative border-2 border-dashed border-[#243650] hover:border-[#3B82F6] rounded-xl p-4 bg-[#0B1628] text-center transition-all cursor-pointer">
+                  <div className="relative border-2 border-dashed border-slate-200 hover:border-[#2563EB] rounded-xl p-4 bg-[#F8FAFC] text-center transition-all cursor-pointer">
                     <input
                       type="file"
                       accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       onChange={handleFileChange}
                       className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
                     />
-                    <Upload className="w-6 h-6 mx-auto text-[#60A5FA] mb-1.5" />
+                    <Upload className="w-6 h-6 mx-auto text-[#2563EB] mb-1.5" />
                     {resumeFile ? (
                       <div>
-                        <p className="text-xs font-bold text-[#86EFAC]">{resumeFile.name}</p>
-                        <p className="text-[10px] text-[#94A3B8]">
+                        <p className="text-xs font-bold text-emerald-700">{resumeFile.name}</p>
+                        <p className="text-[10px] text-[#64748B]">
                           {(resumeFile.size / 1024).toFixed(1)} KB &bull; Click to change
                         </p>
                       </div>
                     ) : (
                       <div>
-                        <p className="text-xs font-bold text-[#F8FAFC]">
+                        <p className="text-xs font-bold text-[#14213D]">
                           Click to upload or drag &amp; drop
                         </p>
-                        <p className="text-[10px] text-[#94A3B8]">
+                        <p className="text-[10px] text-[#64748B]">
                           Accepted: PDF, DOC, DOCX (Max 10MB)
                         </p>
                       </div>
@@ -403,7 +383,7 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
                           setShowReplaceUpload(false);
                           setResumeFile(null);
                         }}
-                        className="text-[10px] text-[#94A3B8] hover:text-white underline cursor-pointer"
+                        className="text-[10px] text-[#64748B] hover:text-[#14213D] underline cursor-pointer"
                       >
                         Keep existing resume ({resumeFilename})
                       </button>
@@ -414,7 +394,7 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
             </div>
 
             {/* Footer Action Buttons */}
-            <div className="pt-4 border-t border-[#243650] flex items-center justify-end gap-3">
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
               <Button variant="ghost" type="button" onClick={onClose} disabled={isSubmitting}>
                 Cancel
               </Button>
@@ -435,73 +415,73 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
         </div>
       </div>
 
-      {/* RESUME PREVIEW MODAL / DIALOG */}
+      {/* RESUME PREVIEW MODAL */}
       {showResumePreview && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150 text-[#F8FAFC]">
-          <div className="bg-[#101D31] border border-[#243650] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-            <div className="flex items-center justify-between p-4 border-b border-[#243650] bg-[#0B1628]">
+        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-150 text-[#14213D]">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div className="flex items-center justify-between p-4 border-b border-slate-100 bg-[#F8FAFC]">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#3B82F6]/20 text-[#60A5FA] flex items-center justify-center border border-[#3B82F6]/30">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center border border-blue-100">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-[#F8FAFC]">Attached Student Resume</h4>
-                  <p className="text-[11px] text-[#94A3B8] truncate max-w-[240px]">
+                  <h4 className="text-sm font-bold text-[#14213D]">Attached Student Resume</h4>
+                  <p className="text-[11px] text-[#64748B] truncate max-w-[240px]">
                     {resumeFilename || 'Active_Resume.pdf'}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowResumePreview(false)}
-                className="p-1 text-[#94A3B8] hover:text-white hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer"
+                className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-5 space-y-4 overflow-y-auto text-xs text-[#CBD5E1]">
+            <div className="p-5 space-y-4 overflow-y-auto text-xs text-[#334155]">
               {/* Score & Profile Summary */}
-              <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] flex items-center justify-between">
+              <div className="p-3 bg-[#F8FAFC] rounded-xl border border-slate-200 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">
+                  <span className="text-[10px] font-semibold text-[#64748B] uppercase block">
                     Placement Readiness
                   </span>
-                  <span className="text-base font-black text-[#86EFAC]">
+                  <span className="text-base font-bold text-emerald-700">
                     {readinessScore > 0 ? `${readinessScore} / 100` : '85 / 100'}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">
+                  <span className="text-[10px] font-semibold text-[#64748B] uppercase block">
                     Status
                   </span>
-                  <span className="text-xs font-bold text-[#60A5FA] flex items-center gap-1 justify-end">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" /> Verified Profile
+                  <span className="text-xs font-semibold text-[#2563EB] flex items-center gap-1 justify-end">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Verified Profile
                   </span>
                 </div>
               </div>
 
               {/* Skills */}
               <div className="space-y-2">
-                <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5">
-                  <Code className="w-3.5 h-3.5 text-[#3B82F6]" /> Verified Skills
+                <h5 className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B] flex items-center gap-1.5">
+                  <Code className="w-3.5 h-3.5 text-[#2563EB]" /> Verified Skills
                 </h5>
                 <div className="flex flex-wrap gap-1.5">
                   {resumeProfile?.raw_skills && resumeProfile.raw_skills.length > 0 ? (
                     resumeProfile.raw_skills.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-[rgba(34,197,94,0.12)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)] text-[11px] font-semibold flex items-center gap-1"
+                        className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-medium flex items-center gap-1"
                       >
-                        <CheckCircle2 className="w-2.5 h-2.5 text-[#22C55E]" /> {skill}
+                        <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" /> {skill}
                       </span>
                     ))
                   ) : (
                     ['Python', 'FastAPI', 'React', 'MongoDB', 'SQL', 'Docker'].map((s, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-[rgba(34,197,94,0.12)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)] text-[11px] font-semibold flex items-center gap-1"
+                        className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-medium flex items-center gap-1"
                       >
-                        <CheckCircle2 className="w-2.5 h-2.5 text-[#22C55E]" /> {s}
+                        <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" /> {s}
                       </span>
                     ))
                   )}
@@ -511,18 +491,18 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
               {/* Projects */}
               {resumeProfile?.projects && resumeProfile.projects.length > 0 && (
                 <div className="space-y-2">
-                  <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-[#06B6D4]" /> Highlighted Projects
+                  <h5 className="text-[11px] font-semibold uppercase tracking-wider text-[#64748B] flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-[#2563EB]" /> Highlighted Projects
                   </h5>
                   <div className="space-y-1.5">
                     {resumeProfile.projects.slice(0, 3).map((p, idx) => (
                       <div
                         key={idx}
-                        className="p-2.5 bg-[#0B1628] rounded-lg border border-[#243650] text-[11px]"
+                        className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px]"
                       >
-                        <strong className="text-[#F8FAFC] block">{p.name}</strong>
+                        <strong className="text-[#14213D] block">{p.name}</strong>
                         {p.description && (
-                          <p className="text-[#94A3B8] text-[10px] line-clamp-2 mt-0.5">
+                          <p className="text-[#64748B] text-[10px] line-clamp-2 mt-0.5">
                             {p.description}
                           </p>
                         )}
@@ -533,7 +513,7 @@ export const StudentApplicationModal: React.FC<StudentApplicationModalProps> = (
               )}
             </div>
 
-            <div className="p-4 border-t border-[#243650] bg-[#0B1628] flex justify-end">
+            <div className="p-4 border-t border-slate-100 bg-[#F8FAFC] flex justify-end">
               <Button
                 variant="primary"
                 size="sm"

@@ -333,10 +333,10 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
       case 'eligible_students':
         return {
           title: 'Eligible Students Breakdown',
-          icon: <Users className="w-5 h-5 text-[#06B6D4]" />,
-          accentBg: 'bg-[#06B6D4]/15',
-          accentBorder: 'border-[#06B6D4]/30',
-          accentText: 'text-[#22D3EE]',
+          icon: <Users className="w-5 h-5 text-[#2563EB]" />,
+          accentBg: 'bg-blue-50',
+          accentBorder: 'border-blue-200',
+          accentText: 'text-[#2563EB]',
           navRoute: '/admin/candidates',
           navLabel: 'Open Candidates Pool'
         };
@@ -424,20 +424,20 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
       title={kpiData?.title || kpiMeta.title}
       maxWidth="max-w-4xl"
     >
-      <div className="space-y-6 text-[#CBD5E1]">
+      <div className="space-y-6 text-[#14213D]">
         {/* Metric Header with Section Badge */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-[#0B1628] rounded-xl border border-[#243650]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
           <div className="flex items-center gap-3">
             <div className={`p-3 rounded-xl ${kpiMeta.accentBg} border ${kpiMeta.accentBorder} ${kpiMeta.accentText}`}>
               {kpiMeta.icon}
             </div>
             <div>
-              <span className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-wider block">Live Portal Count</span>
+              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">Live Portal Count</span>
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl sm:text-3xl font-black text-[#F8FAFC]">
+                <span className="text-2xl sm:text-3xl font-black text-[#14213D]">
                   {kpiData?.count ?? 0}
                 </span>
-                <span className="text-xs font-semibold text-[#94A3B8]">
+                <span className="text-xs font-semibold text-[#64748B]">
                   {kpiKey === 'eligible_students' && kpiData?.total_registered_students ? `of ${kpiData.total_registered_students} registered (${kpiData.batch_eligibility_pct}% batch eligibility)` : ''}
                   {kpiKey === 'active_drives' ? 'active & open drives' : ''}
                   {kpiKey === 'shortlisted_candidates' && kpiData?.unique_students_count ? `(${kpiData.unique_students_count} unique students)` : ''}
@@ -463,16 +463,16 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
 
         {/* HOW THIS NUMBER IS CALCULATED (FORMULA BOX) */}
         {kpiData?.formula && (
-          <div className="p-4 bg-[#101D31] rounded-xl border border-[#3B82F6]/30 space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-[#60A5FA] font-bold text-xs uppercase tracking-wider">
+          <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-200 space-y-2 text-xs">
+            <div className="flex items-center gap-2 text-[#2563EB] font-bold text-xs uppercase tracking-wider">
               <Info className="w-4 h-4" /> How this number is calculated
             </div>
-            <p className="text-[#CBD5E1] text-xs leading-relaxed font-medium">
+            <p className="text-[#334155] text-xs leading-relaxed font-medium">
               {kpiData.formula.explanation}
             </p>
             {kpiData.counting_mode && (
-              <div className="text-[11px] text-[#94A3B8] font-mono pt-1">
-                Source: <strong className="text-[#F8FAFC]">{kpiData.counting_mode}</strong>
+              <div className="text-[11px] text-[#64748B] font-mono pt-1">
+                Source: <strong className="text-[#14213D]">{kpiData.counting_mode}</strong>
               </div>
             )}
           </div>
@@ -487,7 +487,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
               placeholder="Search records..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] text-xs rounded-xl focus:outline-none focus:border-[#3B82F6]"
+              className="w-full pl-9 pr-3 py-2 bg-[#F8FAFC] border border-slate-200 text-[#14213D] placeholder-[#94A3B8] text-xs rounded-xl focus:outline-none focus:border-[#2563EB] focus:bg-white"
             />
           </div>
 
@@ -496,7 +496,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-[#0B1628] text-xs font-bold text-[#F8FAFC] border border-[#243650] rounded-xl px-3 py-2 focus:outline-none"
+                className="bg-[#F8FAFC] text-xs font-bold text-[#14213D] border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-[#2563EB] focus:bg-white cursor-pointer"
               >
                 <option value="ALL">All Candidates</option>
                 <option value="ELIGIBLE">Eligible Only</option>
@@ -508,7 +508,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="bg-[#0B1628] text-xs font-bold text-[#F8FAFC] border border-[#243650] rounded-xl px-3 py-2 focus:outline-none"
+                className="bg-[#F8FAFC] text-xs font-bold text-[#14213D] border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-[#2563EB] focus:bg-white cursor-pointer"
               >
                 <option value="ALL">All Statuses</option>
                 <option value="SCHEDULED">Scheduled</option>
@@ -516,7 +516,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
               </select>
             )}
 
-            <span className="text-xs font-semibold text-[#94A3B8] shrink-0">
+            <span className="text-xs font-semibold text-[#64748B] shrink-0">
               Showing {filteredItems.length} records
             </span>
           </div>
@@ -526,51 +526,51 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         {kpiKey === 'active_drives' && (
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
             {filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[#94A3B8] bg-[#0B1628] rounded-xl border border-[#243650]">
+              <div className="p-8 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
                 No active placement drives found.
               </div>
             ) : (
               filteredItems.map((drive: any) => (
                 <div
                   key={drive.id}
-                  className="p-4 bg-[#101D31] rounded-xl border border-[#243650] hover:border-[#3B82F6]/50 transition-all space-y-3"
+                  className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-3 shadow-2xs"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-lg bg-[#0B1628] border border-[#243650] text-[#3B82F6]">
+                      <div className="p-2 rounded-lg bg-blue-50 border border-blue-200 text-[#2563EB]">
                         <Building2 className="w-4 h-4" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-[#F8FAFC]">{drive.company_name}</h4>
-                        <p className="text-xs font-semibold text-[#60A5FA]">{drive.role_title}</p>
+                        <h4 className="text-sm font-bold text-[#14213D]">{drive.company_name}</h4>
+                        <p className="text-xs font-semibold text-[#2563EB]">{drive.role_title}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)]">
+                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
                         {drive.status}
                       </span>
-                      <span className="text-xs font-bold text-[#86EFAC] px-2.5 py-1 bg-[#0B1628] rounded-md border border-[#243650]">
+                      <span className="text-xs font-bold text-[#14213D] px-2.5 py-1 bg-slate-100 rounded-md border border-slate-200">
                         ₹{drive.package_lpa} LPA
                       </span>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] pt-1 text-[#CBD5E1]">
-                    <div className="p-2 bg-[#0B1628] rounded-lg border border-[#243650]">
-                      <span className="text-[#94A3B8] block text-[10px]">Deadline</span>
-                      <strong className="text-[#F8FAFC]">{drive.deadline}</strong>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] pt-1 text-[#334155]">
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-200">
+                      <span className="text-[#64748B] block text-[10px]">Deadline</span>
+                      <strong className="text-[#14213D]">{drive.deadline}</strong>
                     </div>
-                    <div className="p-2 bg-[#0B1628] rounded-lg border border-[#243650]">
-                      <span className="text-[#94A3B8] block text-[10px]">Eligible Students</span>
-                      <strong className="text-[#38BDF8]">{drive.eligible_count}</strong>
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-200">
+                      <span className="text-[#64748B] block text-[10px]">Eligible Students</span>
+                      <strong className="text-[#2563EB]">{drive.eligible_count}</strong>
                     </div>
-                    <div className="p-2 bg-[#0B1628] rounded-lg border border-[#243650]">
-                      <span className="text-[#94A3B8] block text-[10px]">Applications</span>
-                      <strong className="text-[#F8FAFC]">{drive.applications_count}</strong>
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-200">
+                      <span className="text-[#64748B] block text-[10px]">Applications</span>
+                      <strong className="text-[#14213D]">{drive.applications_count}</strong>
                     </div>
-                    <div className="p-2 bg-[#0B1628] rounded-lg border border-[#243650]">
-                      <span className="text-[#94A3B8] block text-[10px]">Shortlisted</span>
-                      <strong className="text-[#86EFAC]">{drive.shortlisted_count}</strong>
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-200">
+                      <span className="text-[#64748B] block text-[10px]">Shortlisted</span>
+                      <strong className="text-emerald-700">{drive.shortlisted_count}</strong>
                     </div>
                   </div>
                 </div>
@@ -583,37 +583,37 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         {kpiKey === 'eligible_students' && (
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
             {filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[#94A3B8] bg-[#0B1628] rounded-xl border border-[#243650]">
+              <div className="p-8 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
                 No eligible students found.
               </div>
             ) : (
               filteredItems.map((student: any) => (
                 <div
                   key={student.student_id}
-                  className={`p-4 rounded-xl border transition-all space-y-2 ${
+                  className={`p-4 rounded-xl border transition-all space-y-2 shadow-2xs ${
                     student.is_eligible
-                      ? 'bg-[#101D31] border-[#243650] border-l-4 border-l-[#22C55E]'
-                      : 'bg-[#0B1628] border-[#243650]/60 border-l-4 border-l-[#EF4444]/60'
+                      ? 'bg-white border-slate-200 border-l-4 border-l-emerald-500'
+                      : 'bg-slate-50 border-slate-200 border-l-4 border-l-red-500'
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-bold text-[#F8FAFC]">{student.name}</h4>
-                        <span className="text-xs text-[#94A3B8] font-mono">({student.roll_number})</span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#14243B] text-[#CBD5E1] border border-[#243650]">
+                        <h4 className="text-sm font-bold text-[#14213D]">{student.name}</h4>
+                        <span className="text-xs text-[#64748B] font-mono">({student.roll_number})</span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-[#475569] border border-slate-200">
                           {student.branch}
                         </span>
                       </div>
-                      <p className="text-xs text-[#94A3B8] mt-0.5">
-                        CGPA: <strong className="text-[#F8FAFC]">{student.cgpa}</strong>
+                      <p className="text-xs text-[#64748B] mt-0.5">
+                        CGPA: <strong className="text-[#14213D]">{student.cgpa}</strong>
                       </p>
                     </div>
                     <span
                       className={`text-xs font-bold px-3 py-1 rounded-full border flex items-center gap-1.5 self-start sm:self-center ${
                         student.is_eligible
-                          ? 'bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border-[rgba(34,197,94,0.30)]'
-                          : 'bg-[rgba(239,68,68,0.15)] text-[#F87171] border-[rgba(239,68,68,0.30)]'
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          : 'bg-red-50 text-red-700 border-red-200'
                       }`}
                     >
                       {student.is_eligible ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
@@ -622,12 +622,12 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
                   </div>
 
                   {student.eligible_drives && student.eligible_drives.length > 0 && (
-                    <div className="text-[11px] text-[#38BDF8] pt-1">
-                      Eligible Drives: <span className="text-[#CBD5E1] font-semibold">{student.eligible_drives.join(', ')}</span>
+                    <div className="text-[11px] text-[#2563EB] pt-1">
+                      Eligible Drives: <span className="text-[#14213D] font-semibold">{student.eligible_drives.join(', ')}</span>
                     </div>
                   )}
 
-                  <div className="text-[10px] text-[#94A3B8] space-y-0.5 pt-1 border-t border-[#243650]/40">
+                  <div className="text-[10px] text-[#64748B] space-y-0.5 pt-1 border-t border-slate-100">
                     {student.reasons?.map((r: string, idx: number) => (
                       <div key={idx} className="font-medium">{r}</div>
                     ))}
@@ -642,26 +642,26 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         {kpiKey === 'shortlisted_candidates' && (
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
             {filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[#94A3B8] bg-[#0B1628] rounded-xl border border-[#243650]">
+              <div className="p-8 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
                 No shortlisted candidates found in Candidate Pool.
               </div>
             ) : (
               filteredItems.map((candidate: any) => (
                 <div
                   key={candidate.application_id}
-                  className="p-4 bg-[#101D31] rounded-xl border border-[#243650] hover:border-[#818CF8]/50 transition-all space-y-2.5"
+                  className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-2.5 shadow-2xs"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-bold text-[#F8FAFC]">{candidate.student_name}</h4>
-                        <span className="text-xs text-[#94A3B8]">({candidate.student_email})</span>
+                        <h4 className="text-sm font-bold text-[#14213D]">{candidate.student_name}</h4>
+                        <span className="text-xs text-[#64748B]">({candidate.student_email})</span>
                       </div>
-                      <p className="text-xs font-semibold text-[#60A5FA] mt-0.5">
-                        {candidate.job_title} &bull; <strong className="text-[#F8FAFC]">{candidate.company_name}</strong>
+                      <p className="text-xs font-semibold text-[#2563EB] mt-0.5">
+                        {candidate.job_title} &bull; <strong className="text-[#14213D]">{candidate.company_name}</strong>
                       </p>
                     </div>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)] flex items-center gap-1.5 self-start sm:self-center">
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 self-start sm:self-center">
                       <CheckCircle2 className="w-3.5 h-3.5" /> SHORTLISTED
                     </span>
                   </div>
@@ -669,7 +669,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
                   {candidate.skills && candidate.skills.length > 0 && (
                     <div className="flex flex-wrap gap-1 pt-1">
                       {candidate.skills.slice(0, 6).map((skill: string, i: number) => (
-                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-[#0B1628] text-[#CBD5E1] border border-[#243650]">
+                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-[#475569] border border-slate-200">
                           {skill}
                         </span>
                       ))}
@@ -677,7 +677,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
                   )}
 
                   {candidate.interview && (
-                    <div className="p-2.5 bg-[#0B1628] rounded-lg border border-[rgba(34,197,94,0.30)] text-[11px] flex flex-wrap items-center justify-between gap-2 text-[#86EFAC]">
+                    <div className="p-2.5 bg-emerald-50/50 rounded-lg border border-emerald-200 text-[11px] flex flex-wrap items-center justify-between gap-2 text-emerald-800 font-medium">
                       <span>📅 {candidate.interview.date} ({candidate.interview.time || candidate.interview.timeSlot})</span>
                       <span>👥 {candidate.interview.panel_name || candidate.interview.panelName} — 🚪 {candidate.interview.room_number || candidate.interview.roomName || 'A-101'}</span>
                     </div>
@@ -692,35 +692,35 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         {kpiKey === 'interviews_today' && (
           <div className="space-y-4 max-h-[50vh] overflow-y-auto pr-1">
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">
+              <h4 className="text-xs font-bold text-[#14213D] uppercase tracking-wider">
                 Scheduled Candidate Evaluations ({filteredItems.length})
               </h4>
               {filteredItems.length === 0 ? (
-                <div className="p-6 text-center text-xs text-[#94A3B8] bg-[#0B1628] rounded-xl border border-[#243650]">
+                <div className="p-6 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
                   No interviews scheduled for today ({kpiData?.today_date}).
                 </div>
               ) : (
                 filteredItems.map((intv: any) => (
                   <div
                     key={intv.interview_id}
-                    className="p-4 bg-[#101D31] rounded-xl border border-[#243650] hover:border-[#8B5CF6]/50 transition-all space-y-2"
+                    className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all space-y-2 shadow-2xs"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-[#F8FAFC]">{intv.company_name}</span>
-                          <span className="text-xs font-semibold text-[#CBD5E1]">&bull; {intv.job_title}</span>
+                          <span className="text-sm font-bold text-[#14213D]">{intv.company_name}</span>
+                          <span className="text-xs font-semibold text-[#64748B]">&bull; {intv.job_title}</span>
                         </div>
-                        <p className="text-xs text-[#94A3B8] mt-0.5">
-                          Candidate: <strong className="text-[#F8FAFC]">{intv.student_name}</strong>
+                        <p className="text-xs text-[#64748B] mt-0.5">
+                          Candidate: <strong className="text-[#14213D]">{intv.student_name}</strong>
                         </p>
                       </div>
-                      <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-[rgba(245,158,11,0.15)] text-[#FCD34D] border border-[rgba(245,158,11,0.30)] flex items-center gap-1.5 self-start sm:self-center">
-                        <Clock className="w-3.5 h-3.5 text-[#F59E0B]" /> {intv.time_slot}
+                      <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-50 text-[#2563EB] border border-blue-200 flex items-center gap-1.5 self-start sm:self-center">
+                        <Clock className="w-3.5 h-3.5 text-[#2563EB]" /> {intv.time_slot}
                       </span>
                     </div>
 
-                    <div className="p-2 bg-[#0B1628] rounded-lg border border-[#243650] text-[11px] flex flex-wrap items-center justify-between gap-2 text-[#CBD5E1]">
+                    <div className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-[11px] flex flex-wrap items-center justify-between gap-2 text-[#475569]">
                       <span>👥 {intv.panel_name} ({intv.panel_members?.join(', ') || 'Assigned'})</span>
                       <span>🏢 {intv.block}, Room {intv.room_number}</span>
                     </div>
@@ -730,18 +730,18 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
             </div>
 
             {kpiData?.available_slots && kpiData.available_slots.length > 0 && (
-              <div className="space-y-2 pt-2 border-t border-[#243650]">
-                <h4 className="text-xs font-bold text-[#86EFAC] uppercase tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" /> Remaining Available Slots Today ({kpiData.available_slots.length})
+              <div className="space-y-2 pt-2 border-t border-slate-200">
+                <h4 className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Remaining Available Slots Today ({kpiData.available_slots.length})
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {kpiData.available_slots.map((slot: any) => (
-                    <div key={slot.id || slot._id || slot.slot_id} className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] text-xs space-y-1">
-                      <div className="flex items-center justify-between font-bold text-[#F8FAFC]">
+                    <div key={slot.id || slot._id || slot.slot_id} className="p-3 bg-white rounded-xl border border-slate-200 text-xs space-y-1 shadow-2xs">
+                      <div className="flex items-center justify-between font-bold text-[#14213D]">
                         <span>{slot.panel_name || slot.panelName}</span>
-                        <span className="text-[#86EFAC] font-mono text-[11px]">{slot.start_time} - {slot.end_time}</span>
+                        <span className="text-emerald-700 font-mono text-[11px]">{slot.start_time} - {slot.end_time}</span>
                       </div>
-                      <p className="text-[11px] text-[#94A3B8]">
+                      <p className="text-[11px] text-[#64748B]">
                         Venue: {slot.block}, Room {slot.room_number || slot.roomName}
                       </p>
                     </div>
@@ -756,25 +756,25 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         {kpiKey === 'pending_actions' && (
           <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
             {filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[#86EFAC] bg-[#0B1628] rounded-xl border border-[rgba(34,197,94,0.30)] flex flex-col items-center justify-center gap-2">
-                <CheckCircle2 className="w-7 h-7 text-[#22C55E]" />
+              <div className="p-8 text-center text-xs text-emerald-700 bg-emerald-50/50 rounded-xl border border-emerald-200 flex flex-col items-center justify-center gap-2">
+                <CheckCircle2 className="w-7 h-7 text-emerald-600" />
                 <span className="font-bold">No pending actions. All placement operations are resolved!</span>
               </div>
             ) : (
               filteredItems.map((action: any) => (
                 <div
                   key={action.id}
-                  className="p-4 bg-[#101D31] rounded-xl border border-[#243650] hover:border-[#F59E0B]/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-4 bg-white rounded-xl border border-slate-200 hover:border-amber-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs"
                 >
                   <div className="space-y-1 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/30 uppercase tracking-wider">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 uppercase tracking-wider">
                         {action.category}
                       </span>
                       <span className="text-[10px] font-bold text-[#94A3B8]">{action.timestamp}</span>
                     </div>
-                    <h4 className="text-sm font-bold text-[#F8FAFC]">{action.title}</h4>
-                    <p className="text-xs text-[#CBD5E1] font-medium leading-relaxed">{action.description}</p>
+                    <h4 className="text-sm font-bold text-[#14213D]">{action.title}</h4>
+                    <p className="text-xs text-[#64748B] font-medium leading-relaxed">{action.description}</p>
                   </div>
 
                   <Button
@@ -785,7 +785,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
                       onClose();
                       navigate(action.action_route || '/exceptions');
                     }}
-                    className="shrink-0 self-end sm:self-center bg-[#F59E0B] hover:bg-[#D97706] text-black font-bold"
+                    className="shrink-0 self-end sm:self-center bg-amber-600 hover:bg-amber-700 text-white font-bold shadow-2xs"
                   >
                     Review
                   </Button>
@@ -796,7 +796,7 @@ export const KpiDetailModal: React.FC<KpiDetailModalProps> = ({
         )}
 
         {/* Footer with Close button */}
-        <div className="pt-3 border-t border-[#243650] flex items-center justify-end">
+        <div className="pt-3 border-t border-slate-200 flex items-center justify-end">
           <Button variant="outline" size="sm" onClick={onClose} aria-label="Close Breakdown">
             Close Breakdown
           </Button>

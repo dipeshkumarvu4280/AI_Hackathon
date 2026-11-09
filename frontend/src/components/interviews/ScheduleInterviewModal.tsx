@@ -238,23 +238,23 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0B1628] rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden border border-[#243650] max-h-[94vh] sm:max-h-[90vh] flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150 text-[#F8FAFC]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/40 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden border border-slate-200 max-h-[94vh] sm:max-h-[90vh] flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150 text-[#14213D]">
         {/* Header */}
-        <div className="shrink-0 px-4 sm:px-6 py-3.5 sm:py-4 bg-[#101D31] border-b border-[#243650] text-[#F8FAFC] flex items-center justify-between gap-3">
+        <div className="shrink-0 px-4 sm:px-6 py-3.5 sm:py-4 bg-[#F8FAFC] border-b border-slate-200 text-[#14213D] flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="p-2 rounded-lg bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white font-bold text-xs shadow-glow-brand shrink-0">
+            <div className="p-2 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200 font-bold text-xs shrink-0">
               <Calendar className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-sm sm:text-base font-bold text-[#F8FAFC] tracking-tight truncate">Schedule Interview Slot</h3>
-              <p className="text-[10px] sm:text-xs text-[#CBD5E1] truncate">Manual panel and venue room assignment with live availability verification</p>
+              <h3 className="text-sm sm:text-base font-bold text-[#14213D] tracking-tight truncate">Schedule Interview Slot</h3>
+              <p className="text-[10px] sm:text-xs text-[#64748B] truncate">Manual panel and venue room assignment with live availability verification</p>
             </div>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-1 rounded-lg text-[#94A3B8] hover:text-white transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="p-1 rounded-lg text-[#64748B] hover:text-[#14213D] hover:bg-slate-100 transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
           >
             <X className="w-5 h-5" />
           </button>
@@ -264,7 +264,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
         <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Recruiter Company / Job Drive</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Recruiter Company / Job Drive</label>
               <select
                 value={selectedDriveId}
                 onChange={(e) => {
@@ -273,7 +273,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
               >
                 {drives.length === 0 && <option value="">No Drives Available</option>}
                 {drives.map((d) => (
@@ -285,7 +285,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Candidate (Technical Qualified)</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Candidate (Technical Qualified)</label>
               <select
                 value={selectedCandidateId}
                 disabled={!selectedDriveId || loadingCandidates || eligibleCandidates.length === 0}
@@ -294,7 +294,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loadingCandidates ? (
                   <option value="">Loading HR-eligible candidates...</option>
@@ -315,18 +315,18 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Interview Round</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Interview Round</label>
               <select
                 value={round}
                 onChange={(e) => setRound(e.target.value)}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
               >
                 <option value="HR Interview">HR / Interview Round</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Interview Date</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Interview Date</label>
               <input
                 type="date"
                 required
@@ -336,12 +336,12 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg font-bold focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg font-bold focus:outline-none focus:border-[#2563EB]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Start Time</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Start Time</label>
               <input
                 type="text"
                 value={startTime}
@@ -350,7 +350,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg font-bold focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg font-bold focus:outline-none focus:border-[#2563EB]"
                 placeholder="10:30 AM"
               />
             </div>
@@ -359,9 +359,9 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
           {/* MANUAL PANEL & VENUE ROOM SELECTION */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1 flex items-center justify-between">
+              <label className="block text-xs font-bold text-[#14213D] mb-1 flex items-center justify-between">
                 <span>Assigned Panel *</span>
-                {loadingPanelsRooms && <span className="text-[10px] text-cyan-400">Loading panels...</span>}
+                {loadingPanelsRooms && <span className="text-[10px] text-[#2563EB]">Loading panels...</span>}
               </label>
               <select
                 required
@@ -371,7 +371,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
               >
                 <option value="">[ Select Interview Panel ▼ ]</option>
                 {panels.map((p) => (
@@ -383,9 +383,9 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1 flex items-center justify-between">
+              <label className="block text-xs font-bold text-[#14213D] mb-1 flex items-center justify-between">
                 <span>Assigned Venue Room *</span>
-                {loadingPanelsRooms && <span className="text-[10px] text-cyan-400">Loading rooms...</span>}
+                {loadingPanelsRooms && <span className="text-[10px] text-[#2563EB]">Loading rooms...</span>}
               </label>
               <select
                 required
@@ -395,7 +395,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
                   setHasCheckedAvailability(false);
                   setAvailabilityResult(null);
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] cursor-pointer font-medium"
+                className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] cursor-pointer font-medium"
               >
                 <option value="">[ Select Venue Room ▼ ]</option>
                 {rooms.map((r) => (
@@ -409,24 +409,24 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
 
           {/* AVAILABILITY RESULTS PANEL */}
           {hasCheckedAvailability && availabilityResult && !availabilityResult.available && (
-            <div className="p-4 rounded-xl border border-[rgba(239,68,68,0.25)] bg-[rgba(239,68,68,0.10)] space-y-2 animate-in fade-in">
+            <div className="p-4 rounded-xl border border-red-200 bg-red-50/50 space-y-2 animate-in fade-in">
               <div className="flex items-start gap-2.5 text-xs">
-                <AlertTriangle className="w-5 h-5 text-[#EF4444] shrink-0 mt-0.5" />
+                <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-[#FCA5A5]">⚠ Scheduling Conflict Detected</h4>
-                  <p className="text-[#CBD5E1] mt-0.5 leading-relaxed font-medium">
+                  <h4 className="font-bold text-red-700">⚠ Scheduling Conflict Detected</h4>
+                  <p className="text-[#14213D] mt-0.5 leading-relaxed font-medium">
                     {availabilityResult.conflict || 'Selected candidate, panel, or room is unavailable.'}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3 pt-2 text-[11px]">
-                <span className={availabilityResult.candidate_available ? 'text-[#86EFAC]' : 'text-[#FCA5A5] font-bold'}>
+                <span className={availabilityResult.candidate_available ? 'text-emerald-700' : 'text-red-700 font-bold'}>
                   {availabilityResult.candidate_available ? '✓ Candidate free' : '✕ Candidate busy'}
                 </span>
-                <span className={availabilityResult.panel_available ? 'text-[#86EFAC]' : 'text-[#FCA5A5] font-bold'}>
+                <span className={availabilityResult.panel_available ? 'text-emerald-700' : 'text-red-700 font-bold'}>
                   {availabilityResult.panel_available ? '✓ Panel free' : '✕ Panel occupied'}
                 </span>
-                <span className={availabilityResult.room_available ? 'text-[#86EFAC]' : 'text-[#FCA5A5] font-bold'}>
+                <span className={availabilityResult.room_available ? 'text-emerald-700' : 'text-red-700 font-bold'}>
                   {availabilityResult.room_available ? '✓ Room free' : '✕ Room occupied'}
                 </span>
               </div>
@@ -434,12 +434,12 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
           )}
 
           {hasCheckedAvailability && availabilityResult && availabilityResult.available && (
-            <div className="p-3.5 rounded-xl border border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.10)] text-[#86EFAC] text-xs font-semibold space-y-1 animate-in fade-in">
+            <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs font-semibold space-y-1 animate-in fade-in">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span className="font-bold">✓ All schedules verified available in database</span>
               </div>
-              <div className="flex items-center gap-3 text-[11px] text-[#A7F3D0] pl-6 font-medium">
+              <div className="flex items-center gap-3 text-[11px] text-emerald-700 pl-6 font-medium">
                 <span>✓ Candidate available</span>
                 <span>✓ Panel available</span>
                 <span>✓ Room available</span>
@@ -448,7 +448,7 @@ export const ScheduleInterviewModal: React.FC<ScheduleInterviewModalProps> = ({
           )}
 
           {/* Action Buttons */}
-          <div className="pt-3 border-t border-[#243650] flex items-center justify-between">
+          <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
             <Button variant="outline" size="sm" type="button" onClick={onClose}>
               Cancel
             </Button>

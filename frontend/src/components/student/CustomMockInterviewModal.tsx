@@ -395,20 +395,20 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[94vh] sm:max-h-[92vh] animate-in fade-in zoom-in-95 my-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full overflow-hidden shadow-xl flex flex-col max-h-[94vh] sm:max-h-[92vh] animate-in fade-in zoom-in-95 my-auto text-[#14213D]">
         
         {/* Header */}
-        <div className="px-4 py-3 sm:px-6 sm:py-4 bg-slate-950/70 border-b border-slate-800 flex items-center justify-between gap-2">
+        <div className="px-4 py-3 sm:px-6 sm:py-4 bg-[#F8FAFC] border-b border-slate-200 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/40 text-purple-300 shrink-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-[#7C3AED] shrink-0">
               <BrainCircuit className="w-5 h-5" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-white font-bold text-sm sm:text-base flex items-center gap-2 truncate">
+              <h3 className="text-[#14213D] font-bold text-sm sm:text-base flex items-center gap-2 truncate">
                 <span>Custom AI Mock Interview</span>
               </h3>
-              <p className="text-slate-400 text-[11px] sm:text-xs truncate">
+              <p className="text-[#475569] text-[11px] sm:text-xs truncate">
                 Targeted company interview simulation with technical viva probes & skill ratings.
               </p>
             </div>
@@ -416,14 +416,14 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
           <button
             onClick={onClose}
             aria-label="Close"
-            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="text-slate-400 hover:text-[#14213D] p-1.5 rounded-lg hover:bg-slate-100 transition shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 min-h-0">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6 min-h-0 text-[#334155]">
           {phase === 'SETUP' && (
             /* ========================================================================= */
             /* PHASE 4.1: CUSTOM SETUP & TOPIC SELECTION                                 */
@@ -432,10 +432,10 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               {/* 1. Multi-Topic Selector with Dynamic Custom Topic Creation */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <Target className="w-4 h-4 text-cyan-400" /> Select Target Interview Topics (Multi-Select):
+                  <label className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <Target className="w-4 h-4 text-[#2563EB]" /> Select Target Interview Topics (Multi-Select):
                   </label>
-                  <span className="text-[11px] text-slate-400 font-mono">
+                  <span className="text-[11px] text-[#475569] font-mono">
                     {selectedTopics.length} topic(s) selected
                   </span>
                 </div>
@@ -451,18 +451,18 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                         onClick={() => toggleTopic(topic)}
                         className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                           isSelected
-                            ? 'bg-gradient-to-r from-cyan-900/60 to-blue-900/60 border-cyan-500/60 text-cyan-200 shadow-md shadow-cyan-500/10'
-                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                            ? 'bg-blue-50 border-blue-300 text-[#2563EB] shadow-xs'
+                            : 'bg-[#F8FAFC] border-slate-200 text-slate-700 hover:bg-slate-100'
                         }`}
                       >
-                        {isSelected && <Check className="w-3.5 h-3.5 text-cyan-400" />}
+                        {isSelected && <Check className="w-3.5 h-3.5 text-[#2563EB]" />}
                         <span>{topic}</span>
 
                         {isCustom && (
                           <button
                             type="button"
                             onClick={(e) => removeCustomTopic(topic, e)}
-                            className="ml-1 text-slate-500 hover:text-red-400 p-0.5 rounded-full"
+                            className="ml-1 text-slate-400 hover:text-red-500 p-0.5 rounded-full"
                             title="Remove custom topic"
                           >
                             <X className="w-3 h-3" />
@@ -473,8 +473,8 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                   })}
 
                   {/* Inline + Add Custom Topic Box */}
-                  <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 focus-within:border-cyan-500/80 transition shadow-inner">
-                    <Plus className="w-3.5 h-3.5 text-cyan-400" />
+                  <div className="flex items-center gap-1.5 bg-[#F8FAFC] border border-slate-300 rounded-xl px-2.5 py-1 focus-within:border-[#2563EB] transition shadow-xs">
+                    <Plus className="w-3.5 h-3.5 text-[#2563EB]" />
                     <input
                       type="text"
                       value={newTopicInput}
@@ -486,12 +486,12 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                         }
                       }}
                       placeholder="Add custom topic..."
-                      className="bg-transparent text-xs text-slate-200 focus:outline-none w-32 placeholder:text-slate-500 font-medium"
+                      className="bg-transparent text-xs text-[#14213D] focus:outline-none w-32 placeholder:text-slate-400 font-medium"
                     />
                     <button
                       type="button"
                       onClick={handleAddCustomTopic}
-                      className="px-2 py-0.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 rounded-lg text-[10px] font-bold border border-cyan-500/30"
+                      className="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-[#2563EB] rounded-lg text-[10px] font-bold border border-blue-200 cursor-pointer"
                     >
                       + Add
                     </button>
@@ -501,13 +501,13 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
 
               {/* 2. Searchable Target Company Bar & Dynamic Auto-Complete Suggestions Overlay */}
               <div className="space-y-2.5 relative">
-                <label className="text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4 text-purple-400" /> Search or Enter Target Company:
+                <label className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Building2 className="w-4 h-4 text-[#7C3AED]" /> Search or Enter Target Company:
                 </label>
 
                 {/* Company Search Input */}
                 <div className="relative">
-                  <Search className="w-4 h-4 text-purple-400 absolute left-3.5 top-3" />
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                   <input
                     type="text"
                     value={companySearchInput}
@@ -519,18 +519,18 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                       if (companySuggestions.length > 0) setShowSuggestionsDropdown(true);
                     }}
                     placeholder="Search or enter ANY target company (e.g. Adobe, Uber, Goldman Sachs, Atlassian, Stripe)..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-10 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500 font-medium shadow-inner"
+                    className="w-full bg-[#F8FAFC] focus:bg-white border border-slate-300 rounded-xl pl-10 pr-10 py-2.5 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] font-medium shadow-xs transition-colors"
                   />
                   {isSearchingCompanies && (
-                    <Loader2 className="w-4 h-4 text-purple-400 animate-spin absolute right-3.5 top-3" />
+                    <Loader2 className="w-4 h-4 text-[#7C3AED] animate-spin absolute right-3.5 top-3" />
                   )}
                 </div>
 
                 {/* Auto-Complete Suggestions Dropdown Overlay */}
                 {showSuggestionsDropdown && companySuggestions.length > 0 && (
-                  <div className="absolute top-[68px] left-0 right-0 z-30 bg-slate-950 border border-purple-500/40 rounded-xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto divide-y divide-slate-800/80 animate-in fade-in slide-in-from-top-2">
-                    <div className="px-3 py-1.5 bg-purple-950/40 text-[10px] font-mono text-purple-300 font-semibold flex items-center justify-between border-b border-purple-800/40">
-                      <span>MongoDB Matching Results</span>
+                  <div className="absolute top-[68px] left-0 right-0 z-30 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden max-h-48 overflow-y-auto divide-y divide-slate-100 animate-in fade-in slide-in-from-top-2">
+                    <div className="px-3 py-1.5 bg-[#F8FAFC] text-[10px] font-mono text-[#475569] font-bold flex items-center justify-between border-b border-slate-200">
+                      <span>Matching Companies</span>
                       <span>{companySuggestions.length} found</span>
                     </div>
                     {companySuggestions.map((comp) => (
@@ -541,14 +541,14 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                           setCompanySearchInput(comp.name);
                           setShowSuggestionsDropdown(false);
                         }}
-                        className="px-4 py-2.5 hover:bg-purple-900/30 cursor-pointer transition flex items-center justify-between group"
+                        className="px-4 py-2.5 hover:bg-slate-50 cursor-pointer transition flex items-center justify-between group"
                       >
                         <div className="flex items-center gap-2">
-                          <Building className="w-3.5 h-3.5 text-purple-400 group-hover:text-purple-300" />
-                          <span className="text-xs font-semibold text-slate-100 group-hover:text-purple-200">{comp.name}</span>
+                          <Building className="w-3.5 h-3.5 text-[#7C3AED]" />
+                          <span className="text-xs font-semibold text-[#14213D]">{comp.name}</span>
                         </div>
                         {comp.industry && (
-                          <span className="text-[10px] text-slate-400 font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                          <span className="text-[10px] text-[#475569] font-mono bg-[#F8FAFC] px-2 py-0.5 rounded border border-slate-200">
                             {comp.industry}
                           </span>
                         )}
@@ -559,7 +559,7 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
 
                 {/* Quick Presets Chips */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  <span className="text-[11px] text-slate-400 font-medium mr-1 font-mono">Quick Presets:</span>
+                  <span className="text-[11px] text-[#475569] font-semibold mr-1 font-mono">Quick Presets:</span>
                   {PRESET_COMPANIES.map((comp) => {
                     const isCurrent = (companySearchInput || targetCompany).toLowerCase() === comp.toLowerCase();
                     return (
@@ -570,10 +570,10 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                           setCompanySearchInput(comp);
                           setShowSuggestionsDropdown(false);
                         }}
-                        className={`px-3 py-1 rounded-lg text-[11px] font-semibold border transition-all duration-200 ${
+                        className={`px-3 py-1 rounded-lg text-[11px] font-semibold border transition-all duration-200 cursor-pointer ${
                           isCurrent
-                            ? 'bg-purple-950/60 border-purple-500/60 text-purple-200 shadow-md shadow-purple-500/10 ring-1 ring-purple-500/40'
-                            : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                            ? 'bg-purple-50 border-purple-300 text-[#7C3AED] shadow-xs'
+                            : 'bg-[#F8FAFC] border-slate-200 text-slate-700 hover:bg-slate-100'
                         }`}
                       >
                         {comp}
@@ -587,26 +587,26 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Role Level */}
                 <div className="space-y-2.5">
-                  <label className="text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <Briefcase className="w-4 h-4 text-emerald-400" /> Candidate Experience Level:
+                  <label className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <Briefcase className="w-4 h-4 text-emerald-600" /> Candidate Experience Level:
                   </label>
                   <div className="flex gap-3">
                     <button
                       onClick={() => setDifficultyRole('SDE_1')}
-                      className={`flex-1 p-3 rounded-xl border text-xs font-semibold text-center transition ${
+                      className={`flex-1 p-3 rounded-xl border text-xs font-semibold text-center transition cursor-pointer ${
                         difficultyRole === 'SDE_1'
-                          ? 'bg-emerald-950/40 border-emerald-500/60 text-emerald-300'
-                          : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800'
+                          ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-bold'
+                          : 'bg-[#F8FAFC] border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       🎓 Fresher / SDE-1 Entry
                     </button>
                     <button
                       onClick={() => setDifficultyRole('SDE_2')}
-                      className={`flex-1 p-3 rounded-xl border text-xs font-semibold text-center transition ${
+                      className={`flex-1 p-3 rounded-xl border text-xs font-semibold text-center transition cursor-pointer ${
                         difficultyRole === 'SDE_2'
-                          ? 'bg-emerald-950/40 border-emerald-500/60 text-emerald-300'
-                          : 'bg-slate-950 border-slate-800 text-slate-400 hover:bg-slate-800'
+                          ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-bold'
+                          : 'bg-[#F8FAFC] border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       🚀 Experienced / SDE-2 Senior
@@ -616,13 +616,13 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
 
                 {/* Interview Format */}
                 <div className="space-y-2.5">
-                  <label className="text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                    <MessageSquare className="w-4 h-4 text-amber-400" /> Interview Round Format:
+                  <label className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4 text-amber-600" /> Interview Round Format:
                   </label>
                   <select
                     value={formatType}
                     onChange={(e) => setFormatType(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-purple-500 font-medium"
+                    className="w-full bg-[#F8FAFC] focus:bg-white border border-slate-300 rounded-xl p-3 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] font-medium cursor-pointer"
                   >
                     {FORMAT_OPTIONS.map((fmt) => (
                       <option key={fmt.id} value={fmt.id}>
@@ -634,11 +634,11 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               </div>
 
               {/* Start Action Bar */}
-              <div className="pt-4 border-t border-slate-800 flex justify-end">
+              <div className="pt-4 border-t border-slate-100 flex justify-end">
                 <Button
                   variant="primary"
                   onClick={startMockInterview}
-                  className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-8 py-3 text-sm flex items-center gap-2"
+                  className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold px-8 py-3 text-sm flex items-center gap-2"
                 >
                   <Play className="w-4 h-4 fill-white" />
                   Launch Custom AI Mock Interview
@@ -653,19 +653,19 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
             /* ========================================================================= */
             <div className="space-y-4">
               {/* Session Control Bar */}
-              <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs">
+              <div className="bg-[#F8FAFC] border border-slate-200 p-3 rounded-xl flex items-center justify-between text-xs">
                 <div className="flex items-center gap-3">
-                  <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-lg font-bold font-mono">
+                  <span className="bg-purple-50 text-[#7C3AED] border border-purple-200 px-2.5 py-1 rounded-lg font-bold font-mono">
                     {targetCompany} ({difficultyRole})
                   </span>
-                  <span className="text-slate-400">
-                    Topics: <strong className="text-slate-200">{selectedTopics.join(', ')}</strong>
+                  <span className="text-[#475569]">
+                    Topics: <strong className="text-[#14213D]">{selectedTopics.join(', ')}</strong>
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 font-mono text-slate-300">
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                <div className="flex items-center gap-3 font-mono text-[#334155]">
+                  <span className="flex items-center gap-1.5 font-bold">
+                    <Clock className="w-3.5 h-3.5 text-[#2563EB]" />
                     {formatTime(elapsedSeconds)}
                   </span>
                   <Button variant="secondary" onClick={finishInterview} className="text-xs py-1 px-3">
@@ -675,24 +675,24 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               </div>
 
               {/* Conversation Chat Stream */}
-              <div className="space-y-3 max-h-[380px] overflow-y-auto p-4 bg-slate-950/60 border border-slate-800 rounded-xl">
+              <div className="space-y-3 max-h-[380px] overflow-y-auto p-4 bg-[#F8FAFC] border border-slate-200 rounded-xl">
                 {chatHistory.map((msg, idx) => (
                   <div
                     key={idx}
                     className={`flex gap-3 ${msg.sender === 'candidate' ? 'justify-end' : 'justify-start'}`}
                   >
                     {msg.sender === 'interviewer' && (
-                      <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-[#7C3AED] shrink-0">
                         <BrainCircuit className="w-4 h-4" />
                       </div>
                     )}
                     <div
-                      className={`max-w-[80%] rounded-2xl p-4 text-xs leading-relaxed ${
+                      className={`max-w-[80%] rounded-2xl p-4 text-xs leading-relaxed shadow-xs ${
                         msg.sender === 'candidate'
-                          ? 'bg-cyan-950/60 border border-cyan-800/50 text-cyan-100 font-mono'
+                          ? 'bg-blue-50 border border-blue-200 text-[#14213D] font-mono'
                           : msg.tag === 'FOLLOW_UP_PROBE'
-                          ? 'bg-amber-950/30 border border-amber-800/40 text-amber-200 font-sans'
-                          : 'bg-slate-900 border border-slate-800 text-slate-200 font-sans'
+                          ? 'bg-amber-50 border border-amber-200 text-[#14213D] font-sans'
+                          : 'bg-white border border-slate-200 text-[#14213D] font-sans'
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{msg.text}</p>
@@ -703,9 +703,9 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
 
               {/* Candidate Answer Box */}
               <div className="space-y-2 pt-2">
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span className="font-semibold flex items-center gap-1.5 text-slate-300">
-                    <FileCode2 className="w-3.5 h-3.5 text-cyan-400" /> Your Response (Code / Oral Explanation):
+                <div className="flex items-center justify-between text-xs text-[#475569]">
+                  <span className="font-bold flex items-center gap-1.5 text-[#14213D]">
+                    <FileCode2 className="w-3.5 h-3.5 text-[#2563EB]" /> Your Response (Code / Oral Explanation):
                   </span>
                   <span>Press Submit to trigger AI Technical Follow-up Probe</span>
                 </div>
@@ -714,14 +714,14 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
                   placeholder="Type your code solution or oral explanation here..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500 font-mono"
+                  className="w-full bg-[#F8FAFC] focus:bg-white border border-slate-300 rounded-xl p-3.5 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] font-mono shadow-xs transition-colors"
                 />
                 <div className="flex justify-end gap-3">
                   <Button
                     variant="primary"
                     disabled={isEvaluating || !userAnswer.trim()}
                     onClick={handleAnswerSubmit}
-                    className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-6 py-2.5 text-xs flex items-center gap-2"
+                    className="bg-[#2563EB] hover:bg-blue-700 text-white font-bold px-6 py-2.5 text-xs flex items-center gap-2"
                   >
                     {isEvaluating ? <Zap className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                     Submit Response to AI Interviewer
@@ -737,27 +737,27 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
             /* ========================================================================= */
             <div className="space-y-6">
               {/* Verdict Header Banner */}
-              <div className="bg-gradient-to-r from-purple-900/40 via-indigo-900/30 to-cyan-900/40 border border-purple-500/40 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+              <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-white border border-purple-200 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 font-black text-2xl shadow-lg font-mono">
+                  <div className="w-16 h-16 rounded-2xl bg-purple-100 border border-purple-200 flex items-center justify-center text-[#7C3AED] font-black text-2xl shadow-xs font-mono">
                     {report.overallScore}/10
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <span className={`px-2.5 py-0.5 rounded-lg text-xs font-bold font-mono ${
                         report.verdict === 'STRONG_HIRE'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                           : report.verdict === 'HIRE'
-                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                          ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                          : 'bg-amber-50 text-amber-800 border border-amber-200'
                       }`}>
                         🏆 {report.verdict.replace('_', ' ')}
                       </span>
-                      <span className="text-slate-400 text-xs font-mono">
+                      <span className="text-[#475569] text-xs font-mono font-semibold">
                         {report.companyFitPercentage}% Match for {targetCompany}
                       </span>
                     </div>
-                    <h4 className="text-white font-bold text-base mt-1">
+                    <h4 className="text-[#14213D] font-bold text-base mt-1">
                       Comprehensive AI Mock Interview Report Card
                     </h4>
                   </div>
@@ -772,31 +772,31 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
 
               {/* Individual Skill Ratings (1-10 Scale) */}
               <div className="space-y-3">
-                <h5 className="text-slate-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
-                  <BarChart3 className="w-3.5 h-3.5 text-cyan-400" /> Individual Skill Ratings (1 to 10 Scale)
+                <h5 className="text-[#14213D] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5 text-[#2563EB]" /> Individual Skill Ratings (1 to 10 Scale)
                 </h5>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
-                    { label: 'Communication & Expression', score: report.skillRatings.communication, icon: MessageSquare, color: 'text-purple-400' },
-                    { label: 'Technical Depth & Correctness', score: report.skillRatings.technicalDepth, icon: BrainCircuit, color: 'text-cyan-400' },
-                    { label: 'Code Optimization & Efficiency', score: report.skillRatings.codeEfficiency, icon: FileCode2, color: 'text-emerald-400' },
-                    { label: 'Problem Solving & Approach', score: report.skillRatings.problemSolving, icon: Target, color: 'text-amber-400' },
-                    { label: 'Confidence & Delivery', score: report.skillRatings.confidenceDelivery, icon: Award, color: 'text-indigo-400' },
+                    { label: 'Communication & Expression', score: report.skillRatings.communication, icon: MessageSquare, color: 'text-purple-600' },
+                    { label: 'Technical Depth & Correctness', score: report.skillRatings.technicalDepth, icon: BrainCircuit, color: 'text-[#2563EB]' },
+                    { label: 'Code Optimization & Efficiency', score: report.skillRatings.codeEfficiency, icon: FileCode2, color: 'text-emerald-600' },
+                    { label: 'Problem Solving & Approach', score: report.skillRatings.problemSolving, icon: Target, color: 'text-amber-600' },
+                    { label: 'Confidence & Delivery', score: report.skillRatings.confidenceDelivery, icon: Award, color: 'text-indigo-600' },
                   ].map((skill, idx) => (
-                    <div key={idx} className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-2">
+                    <div key={idx} className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2 shadow-xs">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-slate-200 flex items-center gap-1.5">
+                        <span className="font-semibold text-[#14213D] flex items-center gap-1.5">
                           <skill.icon className={`w-3.5 h-3.5 ${skill.color}`} />
                           {skill.label}
                         </span>
-                        <span className="font-mono font-bold text-xs bg-slate-800 px-2 py-0.5 rounded text-white">
+                        <span className="font-mono font-bold text-xs bg-slate-100 px-2 py-0.5 rounded text-[#14213D]">
                           {skill.score}/10
                         </span>
                       </div>
-                      <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                      <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                         <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-cyan-400 transition-all duration-500"
+                          className="h-full bg-gradient-to-r from-[#2563EB] to-purple-600 transition-all duration-500"
                           style={{ width: `${(skill.score / 10) * 100}%` }}
                         />
                       </div>
@@ -808,14 +808,14 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               {/* Strengths vs Improvements */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Strengths */}
-                <div className="bg-emerald-950/20 border border-emerald-800/40 rounded-xl p-4 space-y-2">
-                  <h5 className="text-emerald-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Top Key Strengths
+                <div className="bg-emerald-50/50 border border-emerald-200 rounded-xl p-4 space-y-2">
+                  <h5 className="text-emerald-800 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Top Key Strengths
                   </h5>
-                  <ul className="space-y-2 text-xs text-slate-300">
+                  <ul className="space-y-2 text-xs text-[#334155]">
                     {report.strengths.map((str, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-emerald-400 font-bold">•</span>
+                        <span className="text-emerald-600 font-bold">•</span>
                         <span>{str}</span>
                       </li>
                     ))}
@@ -823,14 +823,14 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                 </div>
 
                 {/* Improvements */}
-                <div className="bg-amber-950/20 border border-amber-800/40 rounded-xl p-4 space-y-2">
-                  <h5 className="text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <AlertCircle className="w-4 h-4 text-amber-400" /> Key Areas for Improvement
+                <div className="bg-amber-50/50 border border-amber-200 rounded-xl p-4 space-y-2">
+                  <h5 className="text-amber-800 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <AlertCircle className="w-4 h-4 text-amber-600" /> Key Areas for Improvement
                   </h5>
-                  <ul className="space-y-2 text-xs text-slate-300">
+                  <ul className="space-y-2 text-xs text-[#334155]">
                     {report.improvements.map((imp, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-amber-400 font-bold">•</span>
+                        <span className="text-amber-600 font-bold">•</span>
                         <span>{imp}</span>
                       </li>
                     ))}
@@ -839,9 +839,9 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
               </div>
 
               {/* Recommended Topic Action Link */}
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between text-xs">
-                <span className="text-slate-300">
-                  Recommended Focused Revision: <strong>{report.recommendedTopics.join(', ')}</strong>
+              <div className="bg-[#F8FAFC] border border-slate-200 rounded-xl p-4 flex items-center justify-between text-xs">
+                <span className="text-[#334155]">
+                  Recommended Focused Revision: <strong className="text-[#14213D]">{report.recommendedTopics.join(', ')}</strong>
                 </span>
                 <Button
                   variant="secondary"
@@ -849,7 +849,7 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
                     onClose();
                     if (onNavigateToTopic) onNavigateToTopic(report.recommendedTopics[0] || 'Arrays & Hashing');
                   }}
-                  className="text-xs bg-cyan-500/20 border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/30"
+                  className="text-xs bg-[#E8F0FE] border-blue-200 text-[#2563EB] hover:bg-blue-100"
                 >
                   🚀 Review Topic Cards
                 </Button>
@@ -859,7 +859,7 @@ export const CustomMockInterviewModal: React.FC<CustomMockInterviewModalProps> =
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-slate-950/70 border-t border-slate-800 flex justify-end">
+        <div className="px-6 py-4 bg-[#F8FAFC] border-t border-slate-200 flex justify-end">
           <Button variant="secondary" onClick={onClose} className="text-xs">
             Close Mock Interview
           </Button>

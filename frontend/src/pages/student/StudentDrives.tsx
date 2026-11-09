@@ -9,13 +9,10 @@ import {
   Calendar,
   Lock,
   Sparkles,
-  ExternalLink,
   Search,
-  Filter,
   Globe,
   GraduationCap,
   XCircle,
-  ShieldCheck,
   ShieldAlert,
   Loader2,
   Target,
@@ -25,7 +22,6 @@ import {
   ListFilter,
   ChevronLeft,
   ChevronRight,
-  RefreshCw,
 } from 'lucide-react';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { Card } from '../../components/ui/Card';
@@ -35,7 +31,6 @@ import { useAuth } from '../../context/AuthContext';
 import {
   apiService,
   PlacementRecommendation,
-  CompanyOpportunityGroup,
   UnifiedOpportunitiesResponse,
 } from '../../services/api';
 import { ProfileCompletionWidget } from '../../components/student/ProfileCompletionWidget';
@@ -44,7 +39,7 @@ import { StudentApplicationModal } from '../../components/student/StudentApplica
 
 export const StudentDrives: React.FC = () => {
   const navigate = useNavigate();
-  const { hasAppliedToDrive, applyToDrive, triggerToast } = usePlacement();
+  const { hasAppliedToDrive } = usePlacement();
   const { user } = useAuth();
 
   const [studentProfile, setStudentProfile] = useState<any>(null);
@@ -111,7 +106,6 @@ export const StudentDrives: React.FC = () => {
     });
   };
 
-
   const isProfileComplete = Boolean(studentProfile?.isProfileComplete);
   const completionPercentage = studentProfile?.profileCompletion ?? 0;
   const hasResume = Boolean(studentProfile?.hasResume);
@@ -135,12 +129,12 @@ export const StudentDrives: React.FC = () => {
     return (
       <Card
         key={opp.drive_id}
-        className={`p-5 text-[#F8FAFC] transition-all border ${
-          isInsideGroup ? 'bg-[#0B1628] border-[#243650]/80' : 'bg-[#101D31] border-[#243650]'
+        className={`p-5 text-[#14213D] transition-all duration-200 border shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 motion-reduce:transform-none ${
+          isInsideGroup ? 'bg-[#F8FAFC] border-slate-200 hover:border-blue-300' : 'bg-white border-[#CBD5E1]/90 hover:border-blue-400/80'
         } ${
           isEligible
-            ? 'border-l-4 border-l-[#22C55E]'
-            : 'border-l-4 border-l-[#F59E0B]'
+            ? 'border-l-4 border-l-emerald-500'
+            : 'border-l-4 border-l-amber-500'
         }`}
       >
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -149,38 +143,38 @@ export const StudentDrives: React.FC = () => {
               <div
                 className={`w-11 h-11 rounded-xl border font-bold text-base flex items-center justify-center shrink-0 ${
                   isCollege
-                    ? 'bg-[#0B1628] border-[#3B82F6]/30 text-[#3B82F6]'
-                    : 'bg-[#181126] border-[#8B5CF6]/30 text-[#A78BFA]'
+                    ? 'bg-blue-50 border-blue-100 text-[#2563EB]'
+                    : 'bg-purple-50 border-purple-100 text-purple-600'
                 }`}
               >
-                {isCollege ? <Building2 className="w-5 h-5 text-[#3B82F6]" /> : <Globe className="w-5 h-5 text-[#A78BFA]" />}
+                {isCollege ? <Building2 className="w-5 h-5 text-[#2563EB]" /> : <Globe className="w-5 h-5 text-purple-600" />}
               </div>
             )}
 
             <div className="space-y-2 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                {!isInsideGroup && <h3 className="text-sm font-bold text-[#F8FAFC]">{opp.company}</h3>}
-                <span className="text-sm font-bold text-[#F8FAFC]">{opp.role}</span>
+                {!isInsideGroup && <h3 className="text-sm font-bold text-[#14213D]">{opp.company}</h3>}
+                <span className="text-sm font-bold text-[#14213D]">{opp.role}</span>
 
                 {/* Source Badge */}
                 {isCollege ? (
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30 font-bold flex items-center gap-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200 font-bold flex items-center gap-1">
                     <GraduationCap className="w-3 h-3" /> Campus Drive
                   </span>
                 ) : (
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-[#8B5CF6]/15 text-[#C4B5FD] border border-[#8B5CF6]/30 font-bold flex items-center gap-1">
-                    <Globe className="w-3 h-3 text-[#A78BFA]" /> {opp.source_label}
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200 font-bold flex items-center gap-1">
+                    <Globe className="w-3 h-3 text-purple-600" /> {opp.source_label}
                   </span>
                 )}
 
                 {/* Package / Salary */}
                 {opp.package_lpa && (
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-[#22C55E]/15 text-[#86EFAC] border border-[#22C55E]/30 font-bold">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                     {opp.package_lpa} LPA
                   </span>
                 )}
                 {opp.salary_text && !opp.package_lpa && (
-                  <span className="text-xs px-2 py-0.5 rounded bg-[#14243B] text-[#94A3B8] border border-[#243650] font-medium">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-50 text-[#475569] border border-slate-200 font-medium">
                     {opp.salary_text}
                   </span>
                 )}
@@ -189,50 +183,50 @@ export const StudentDrives: React.FC = () => {
                 {hasResume ? (
                   <>
                     <span
-                      className={`text-xs px-2 py-0.5 rounded font-bold border flex items-center gap-1 ${
+                      className={`text-xs px-2 py-0.5 rounded-full font-bold border flex items-center gap-1 ${
                         isEligible
-                          ? 'bg-[rgba(34,197,94,0.15)] text-[#86EFAC] border-[rgba(34,197,94,0.3)]'
-                          : 'bg-[rgba(245,158,11,0.15)] text-[#FCD34D] border-[rgba(245,158,11,0.3)]'
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                          : 'bg-amber-50 text-amber-800 border-amber-200'
                       }`}
                     >
-                      {isEligible ? <CheckCircle2 className="w-3 h-3 text-[#22C55E]" /> : <XCircle className="w-3 h-3 text-[#F59E0B]" />}
+                      {isEligible ? <CheckCircle2 className="w-3 h-3 text-emerald-600" /> : <XCircle className="w-3 h-3 text-amber-600" />}
                       {isEligible ? 'Eligible' : 'Not Currently Eligible'}
                     </span>
 
-                    <span className="text-xs px-2 py-0.5 rounded font-bold bg-[#06B6D4]/15 text-[#67E8F9] border border-[#06B6D4]/30">
+                    <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-blue-50 text-[#2563EB] border border-blue-200">
                       {matchScore}% Match
                     </span>
                   </>
                 ) : (
-                  <span className="text-xs px-2 py-0.5 rounded font-bold bg-[rgba(245,158,11,0.15)] text-[#FCD34D] border border-[rgba(245,158,11,0.3)] flex items-center gap-1">
-                    <Lock className="w-3 h-3 text-[#F59E0B]" /> Resume Required
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
+                    <Lock className="w-3 h-3 text-amber-600" /> Resume Required
                   </span>
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-xs text-[#94A3B8] font-medium">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-[#475569] font-medium">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#06B6D4]" /> {opp.location || 'Remote / Hybrid'}
+                  <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> {opp.location || 'Remote / Hybrid'}
                 </span>
                 <span>&bull;</span>
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-[#F59E0B]" /> {opp.deadline ? `Deadline: ${opp.deadline}` : opp.posted_at}
+                  <Calendar className="w-3.5 h-3.5 text-amber-700" /> {opp.deadline ? `Deadline: ${opp.deadline}` : opp.posted_at}
                 </span>
                 {opp.min_cgpa && (
                   <>
                     <span>&bull;</span>
-                    <span>Min CGPA: <strong className="text-[#F8FAFC]">{opp.min_cgpa}</strong></span>
+                    <span>Min CGPA: <strong className="text-[#14213D]">{opp.min_cgpa}</strong></span>
                   </>
                 )}
               </div>
 
               {/* Ineligibility Reason / Missing Criteria */}
               {hasResume && !isEligible && (
-                <div className="p-2.5 rounded-lg bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.25)] text-xs text-[#FCD34D] font-medium space-y-1">
-                  <div className="flex items-center gap-1.5 font-bold text-[#F59E0B]">
+                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-amber-900 font-medium space-y-1">
+                  <div className="flex items-center gap-1.5 font-bold text-amber-800">
                     <Target className="w-3.5 h-3.5" /> Missing Requirements / Skill Gaps:
                   </div>
-                  <div className="text-[11px] text-[#CBD5E1]">
+                  <div className="text-[11px] text-[#475569]">
                     {reasons.length > 0 ? reasons.join(' • ') : `Missing required technical skills: ${skillGaps.join(', ')}`}
                   </div>
                 </div>
@@ -241,23 +235,23 @@ export const StudentDrives: React.FC = () => {
               {/* Skills Breakdown */}
               <div className="space-y-1 pt-1">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-[11px] font-bold text-[#94A3B8]">Skills:</span>
+                  <span className="text-[11px] font-bold text-[#475569]">Skills:</span>
                   {hasResume ? (
                     <>
                       {matchedSkills.map((skill, i) => (
                         <span
                           key={`m-${i}`}
-                          className="px-2 py-0.5 rounded bg-[rgba(34,197,94,0.12)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)] text-[11px] font-semibold flex items-center gap-1"
+                          className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-semibold flex items-center gap-1"
                         >
-                          <CheckCircle2 className="w-2.5 h-2.5 text-[#22C55E]" /> {skill}
+                          <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" /> {skill}
                         </span>
                       ))}
                       {skillGaps.map((skill, i) => (
                         <span
                           key={`g-${i}`}
-                          className="px-2 py-0.5 rounded bg-[rgba(245,158,11,0.10)] text-[#FCD34D] border border-[rgba(245,158,11,0.25)] text-[11px] font-medium flex items-center gap-1"
+                          className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-semibold flex items-center gap-1"
                         >
-                          <span className="text-[#EF4444] font-bold">✗</span> {skill}
+                          <span className="text-red-500 font-bold">✗</span> {skill}
                         </span>
                       ))}
                     </>
@@ -265,7 +259,7 @@ export const StudentDrives: React.FC = () => {
                     opp.skill_gaps?.map((skill, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded bg-[#14243B] text-[#CBD5E1] border border-[#243650] text-[11px] font-medium"
+                        className="px-2 py-0.5 rounded-full bg-[#F8FAFC] text-[#475569] border border-slate-200 text-[11px] font-medium"
                       >
                         {skill}
                       </span>
@@ -278,12 +272,12 @@ export const StudentDrives: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 self-end md:self-center pt-2 md:pt-0">
-            {/* View Skill Gap Button (Always Available for Contextual Gap Inspection) */}
+            {/* View Skill Gap Button */}
             <Button
               variant="outline"
               size="sm"
-              className="text-xs py-2 bg-[#0B1628] border-[#243650] text-[#CBD5E1] hover:text-white flex items-center gap-1.5"
-              icon={<Target className="w-3.5 h-3.5 text-[#06B6D4]" />}
+              className="text-xs py-2 bg-white border-slate-300 text-[#14213D] hover:bg-slate-50 flex items-center gap-1.5 shadow-xs"
+              icon={<Target className="w-3.5 h-3.5 text-[#2563EB]" />}
               onClick={() => setSelectedOpportunityId(opp.drive_id)}
             >
               View Skill Gap
@@ -295,8 +289,8 @@ export const StudentDrives: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-xs py-2 bg-[#101D31] border-[#3B82F6]/40 text-[#60A5FA] hover:bg-[#14243B] hover:text-white flex items-center gap-1.5"
-                  icon={<Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />}
+                  className="text-xs py-2 bg-blue-50 border-blue-200 text-[#2563EB] hover:bg-blue-100 flex items-center gap-1.5 shadow-xs font-semibold"
+                  icon={<Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />}
                   onClick={() => navigate(`/student/community/${opp.drive_id}`)}
                 >
                   Placement Community
@@ -304,7 +298,7 @@ export const StudentDrives: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-xs py-2 bg-[#0B1628] border-[#243650] text-[#CBD5E1] hover:text-white"
+                  className="text-xs py-2 bg-white border-slate-300 text-[#14213D] hover:bg-slate-50 shadow-xs"
                   onClick={() => navigate(`/student/assessment?drive_id=${encodeURIComponent(opp.drive_id)}`)}
                 >
                   Prepare for Drive
@@ -314,15 +308,15 @@ export const StudentDrives: React.FC = () => {
 
             {/* Application Handlers */}
             {applied ? (
-              <span className="text-xs font-bold text-[#60A5FA] bg-[rgba(59,130,246,0.15)] px-3 py-2 rounded-xl border border-[rgba(59,130,246,0.30)] flex items-center justify-center gap-1.5 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-[#3B82F6]" /> Applied
+              <span className="text-xs font-bold text-[#2563EB] bg-blue-50 px-3 py-2 rounded-xl border border-blue-200 flex items-center justify-center gap-1.5 shadow-xs">
+                <CheckCircle2 className="w-4 h-4 text-[#2563EB]" /> Applied
               </span>
             ) : !hasResume ? (
               <Button
                 variant="secondary"
                 size="sm"
-                className="text-xs py-2 px-3 bg-[#1E293B] border-[#334155] text-[#FCD34D] hover:bg-[#334155] flex items-center justify-center gap-1.5"
-                icon={<Lock className="w-3.5 h-3.5 text-[#F59E0B]" />}
+                className="text-xs py-2 px-3 bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100 flex items-center justify-center gap-1.5 shadow-xs font-bold"
+                icon={<Lock className="w-3.5 h-3.5 text-amber-600" />}
                 onClick={() => navigate('/student/resume')}
               >
                 Upload Resume
@@ -331,7 +325,7 @@ export const StudentDrives: React.FC = () => {
               <Button
                 variant="primary"
                 size="sm"
-                className="text-xs py-2 px-4 shadow-md font-bold"
+                className="text-xs py-2 px-4 shadow-xs font-bold"
                 icon={<CheckCircle2 className="w-4 h-4" />}
                 onClick={() => setApplyingDrive(opp)}
               >
@@ -339,10 +333,10 @@ export const StudentDrives: React.FC = () => {
               </Button>
             ) : (
               <span
-                className="text-xs font-semibold text-[#FCD34D] bg-[rgba(245,158,11,0.12)] px-3 py-2 rounded-xl border border-[rgba(245,158,11,0.25)] flex items-center justify-center gap-1.5 cursor-default"
+                className="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-2 rounded-xl border border-amber-200 flex items-center justify-center gap-1.5 cursor-default"
                 title={reasons.join(' | ') || 'Does not meet drive eligibility requirements'}
               >
-                <XCircle className="w-3.5 h-3.5 text-[#F59E0B]" /> Not Eligible
+                <XCircle className="w-3.5 h-3.5 text-amber-600" /> Not Eligible
               </span>
             )}
           </div>
@@ -356,7 +350,7 @@ export const StudentDrives: React.FC = () => {
       <PageHeader
         title="Campus Placement Drives"
         subtitle="Explore active campus placement drives matched against your resume profile."
-        icon={<Briefcase className="w-5 h-5 text-white" />}
+        icon={<Briefcase className="w-5 h-5 text-[#2563EB]" />}
         action={
           <Button variant="outline" icon={<ArrowLeft className="w-4 h-4" />} onClick={() => navigate('/student')}>
             Back to Student Dashboard
@@ -376,12 +370,12 @@ export const StudentDrives: React.FC = () => {
 
       {/* NO RESUME NOTICE */}
       {!hasResume && (
-        <div className="p-4 rounded-xl bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.25)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[#F8FAFC]">
+        <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[#14213D] shadow-xs">
           <div className="flex items-center gap-3">
-            <ShieldAlert className="w-5 h-5 text-[#F59E0B] shrink-0" />
+            <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0" />
             <div>
-              <p className="text-xs font-bold text-[#F8FAFC]">Personalized Discovery & Eligibility Unavailable</p>
-              <p className="text-[11px] text-[#94A3B8] font-medium mt-0.5">
+              <p className="text-xs font-bold text-[#14213D]">Personalized Discovery &amp; Eligibility Unavailable</p>
+              <p className="text-[11px] text-[#64748B] font-medium mt-0.5">
                 Upload your resume to analyze your profile and compare it with all available opportunities.
               </p>
             </div>
@@ -389,7 +383,7 @@ export const StudentDrives: React.FC = () => {
           <Button
             variant="primary"
             size="sm"
-            className="shrink-0 text-xs py-1.5 px-3 bg-[#F59E0B] hover:bg-[#D97706] text-[#0F172A] font-bold"
+            className="shrink-0 text-xs py-1.5 px-3 bg-amber-600 hover:bg-amber-700 text-white font-bold"
             icon={<Sparkles className="w-3.5 h-3.5" />}
             onClick={() => navigate('/student/resume')}
           >
@@ -399,47 +393,47 @@ export const StudentDrives: React.FC = () => {
       )}
 
       {/* AGGREGATE SUMMARY METRICS CARD */}
-      <div className="p-4 rounded-2xl bg-[#101D31] border border-[#243650] flex flex-wrap items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-white border border-[#CBD5E1]/90 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-4 text-xs">
           <div>
-            <span className="text-[#94A3B8] block text-[11px] font-semibold">Total Drives</span>
-            <span className="text-base font-black text-[#F8FAFC]">{totalOpps}</span>
+            <span className="text-[#475569] block text-[11px] font-bold">Total Drives</span>
+            <span className="text-base font-black text-[#14213D]">{totalOpps}</span>
           </div>
-          <div className="h-7 w-[1px] bg-[#243650]" />
+          <div className="h-7 w-[1px] bg-slate-200" />
           <div>
-            <span className="text-[#86EFAC] block text-[11px] font-semibold">Eligible For You</span>
-            <span className="text-base font-black text-[#86EFAC]">{eligibleCount}</span>
+            <span className="text-emerald-800 block text-[11px] font-bold">Eligible For You</span>
+            <span className="text-base font-black text-emerald-800">{eligibleCount}</span>
           </div>
-          <div className="h-7 w-[1px] bg-[#243650]" />
+          <div className="h-7 w-[1px] bg-slate-200" />
           <div>
-            <span className="text-[#FCD34D] block text-[11px] font-semibold">Not Currently Eligible</span>
-            <span className="text-base font-black text-[#FCD34D]">{ineligibleCount}</span>
+            <span className="text-amber-800 block text-[11px] font-bold">Not Currently Eligible</span>
+            <span className="text-base font-black text-amber-800">{ineligibleCount}</span>
           </div>
-          <div className="h-7 w-[1px] bg-[#243650]" />
+          <div className="h-7 w-[1px] bg-slate-200" />
           <div>
-            <span className="text-[#60A5FA] block text-[11px] font-semibold">Companies</span>
-            <span className="text-base font-black text-[#60A5FA]">{totalCompanies}</span>
+            <span className="text-[#2563EB] block text-[11px] font-bold">Companies</span>
+            <span className="text-base font-black text-[#2563EB]">{totalCompanies}</span>
           </div>
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center gap-1 bg-[#0B1628] p-1 rounded-xl border border-[#243650]">
+        <div className="flex items-center gap-1 bg-[#F1F5F9] p-1 rounded-xl border border-slate-200">
           <button
             onClick={() => setViewMode('company')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors ${
+            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
               viewMode === 'company'
-                ? 'bg-[#3B82F6] text-white shadow-sm'
-                : 'text-[#94A3B8] hover:text-[#F8FAFC]'
+                ? 'bg-white text-[#2563EB] shadow-xs font-bold'
+                : 'text-[#475569] hover:text-[#14213D]'
             }`}
           >
             <Layers className="w-3.5 h-3.5" /> Group by Company
           </button>
           <button
             onClick={() => setViewMode('flat')}
-            className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors ${
+            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
               viewMode === 'flat'
-                ? 'bg-[#3B82F6] text-white shadow-sm'
-                : 'text-[#94A3B8] hover:text-[#F8FAFC]'
+                ? 'bg-white text-[#2563EB] shadow-xs font-bold'
+                : 'text-[#475569] hover:text-[#14213D]'
             }`}
           >
             <ListFilter className="w-3.5 h-3.5" /> All Drives List
@@ -451,17 +445,17 @@ export const StudentDrives: React.FC = () => {
       <div className="space-y-3 pt-1">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           {/* Main Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 bg-[#0B1628] p-1.5 rounded-xl border border-[#243650]">
+          <div className="flex flex-wrap items-center gap-1.5 bg-[#F1F5F9] p-1.5 rounded-xl border border-slate-200">
             <button
               onClick={() => {
                 setSourceFilter('all');
                 setEligibilityFilter('all');
                 setPage(1);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                 sourceFilter === 'all' && eligibilityFilter === 'all'
-                  ? 'bg-[#3B82F6] text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#14243B]'
+                  ? 'bg-[#2563EB] text-white shadow-xs font-bold'
+                  : 'text-[#475569] hover:text-[#14213D] hover:bg-white/60'
               }`}
             >
               All Drives ({totalOpps})
@@ -472,10 +466,10 @@ export const StudentDrives: React.FC = () => {
                 setEligibilityFilter('eligible');
                 setPage(1);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                 eligibilityFilter === 'eligible'
-                  ? 'bg-[#22C55E] text-[#0F172A] shadow-sm font-extrabold'
-                  : 'text-[#86EFAC] hover:text-white hover:bg-[#14243B]'
+                  ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                  : 'text-emerald-800 hover:bg-emerald-50'
               }`}
             >
               <CheckCircle2 className="w-3.5 h-3.5" /> Eligible ({eligibleCount})
@@ -486,10 +480,10 @@ export const StudentDrives: React.FC = () => {
                 setEligibilityFilter('ineligible');
                 setPage(1);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                 eligibilityFilter === 'ineligible'
-                  ? 'bg-[#F59E0B] text-[#0F172A] shadow-sm font-bold'
-                  : 'text-[#FCD34D] hover:text-white hover:bg-[#14243B]'
+                  ? 'bg-amber-600 text-white shadow-xs font-bold'
+                  : 'text-amber-800 hover:bg-amber-50'
               }`}
             >
               <Target className="w-3.5 h-3.5" /> Not Eligible ({ineligibleCount})
@@ -501,20 +495,19 @@ export const StudentDrives: React.FC = () => {
                 setEligibilityFilter('all');
                 setPage(1);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                 sourceFilter === 'college' && eligibilityFilter === 'all'
-                  ? 'bg-[#3B82F6] text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#14243B]'
+                  ? 'bg-[#2563EB] text-white shadow-xs font-bold'
+                  : 'text-[#475569] hover:text-[#14213D] hover:bg-white/60'
               }`}
             >
               <GraduationCap className="w-3.5 h-3.5" /> Campus Drives
             </button>
-
           </div>
 
           {/* Search Input */}
           <div className="relative min-w-[240px]">
-            <Search className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search company, role or skill..."
@@ -523,7 +516,7 @@ export const StudentDrives: React.FC = () => {
                 setSearchQuery(e.target.value);
                 setPage(1);
               }}
-              className="w-full bg-[#101D31] border border-[#243650] rounded-xl pl-9 pr-3 py-1.5 text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6]"
+              className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-3 py-1.5 text-xs text-[#14213D] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] shadow-xs font-medium"
             />
           </div>
         </div>
@@ -531,15 +524,15 @@ export const StudentDrives: React.FC = () => {
 
       {/* DISCOVERY LIST RENDERING */}
       {loading ? (
-        <div className="min-h-[40vh] flex flex-col items-center justify-center gap-3 text-[#94A3B8]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#3B82F6]" />
-          <p className="text-xs font-semibold">Discovering active campus placement drives...</p>
+        <div className="min-h-[40vh] flex flex-col items-center justify-center gap-3 text-[#475569]">
+          <Loader2 className="w-8 h-8 animate-spin text-[#2563EB]" />
+          <p className="text-xs font-bold">Discovering active campus placement drives...</p>
         </div>
       ) : totalOpps === 0 ? (
-        <Card className="p-8 text-center text-[#94A3B8] bg-[#101D31] border-[#243650]">
-          <Briefcase className="w-8 h-8 text-[#64748B] mx-auto mb-2" />
-          <p className="text-sm font-bold text-[#F8FAFC]">No placement drives match your filter</p>
-          <p className="text-xs text-[#94A3B8] mt-1">Try switching tabs to view all drives or adjust your search.</p>
+        <Card className="p-8 text-center text-[#475569] bg-[#F8FAFC] border-[#CBD5E1]/90 shadow-xs">
+          <Briefcase className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+          <p className="text-sm font-bold text-[#14213D]">No placement drives match your filter</p>
+          <p className="text-xs text-[#475569] mt-1">Try switching tabs to view all drives or adjust your search.</p>
         </Card>
       ) : viewMode === 'company' && dataResponse?.company_groups ? (
         /* ================= GROUPED BY COMPANY VIEW ================= */
@@ -549,43 +542,43 @@ export const StudentDrives: React.FC = () => {
             const isCollege = group.source_type === 'college';
 
             return (
-              <Card key={group.company} className="p-0 overflow-hidden bg-[#101D31] border-[#243650] text-[#F8FAFC]">
+              <Card key={group.company} className="p-0 overflow-hidden bg-white border-[#CBD5E1]/90 text-[#14213D] shadow-xs hover:border-blue-300 transition-colors">
                 {/* Company Header Row */}
                 <div
                   onClick={() => toggleCompanyExpand(group.company)}
-                  className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer hover:bg-[#14243B]/60 transition-colors"
+                  className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/70 transition-colors"
                 >
                   <div className="flex items-center gap-3.5">
                     <div
                       className={`w-12 h-12 rounded-xl border font-bold text-base flex items-center justify-center shrink-0 ${
                         isCollege
-                          ? 'bg-[#0B1628] border-[#3B82F6]/30 text-[#3B82F6]'
-                          : 'bg-[#181126] border-[#8B5CF6]/30 text-[#A78BFA]'
+                          ? 'bg-blue-50 border-blue-100 text-[#2563EB]'
+                          : 'bg-purple-50 border-purple-100 text-purple-600'
                       }`}
                     >
-                      {isCollege ? <Building2 className="w-6 h-6 text-[#3B82F6]" /> : <Globe className="w-6 h-6 text-[#A78BFA]" />}
+                      {isCollege ? <Building2 className="w-6 h-6 text-[#2563EB]" /> : <Globe className="w-6 h-6 text-purple-600" />}
                     </div>
 
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base font-bold text-[#F8FAFC]">{group.company}</h3>
+                        <h3 className="text-base font-bold text-[#14213D]">{group.company}</h3>
                         {isCollege ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30 font-bold flex items-center gap-1">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200 font-bold flex items-center gap-1">
                             <GraduationCap className="w-3 h-3" /> Campus Drive
                           </span>
                         ) : (
-                          <span className="text-[10px] px-2 py-0.5 rounded bg-[#8B5CF6]/15 text-[#C4B5FD] border border-[#8B5CF6]/30 font-bold flex items-center gap-1">
-                            <Globe className="w-3 h-3 text-[#A78BFA]" /> {group.source_label}
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200 font-bold flex items-center gap-1">
+                            <Globe className="w-3 h-3 text-purple-600" /> {group.source_label}
                           </span>
                         )}
                       </div>
 
-                      <p className="text-xs text-[#94A3B8] font-medium mt-1 flex items-center gap-2">
+                      <p className="text-xs text-[#475569] font-medium mt-1 flex items-center gap-2">
                         <span>{group.total_jobs} {group.total_jobs === 1 ? 'Drive' : 'Drives'}</span>
                         <span>&bull;</span>
-                        <span className="text-[#86EFAC] font-semibold">{group.eligible_jobs} Eligible</span>
+                        <span className="text-emerald-800 font-bold">{group.eligible_jobs} Eligible</span>
                         <span>&bull;</span>
-                        <span className="text-[#FCD34D] font-semibold">{group.ineligible_jobs} Not Eligible</span>
+                        <span className="text-amber-800 font-bold">{group.ineligible_jobs} Not Eligible</span>
                       </p>
                     </div>
                   </div>
@@ -593,8 +586,8 @@ export const StudentDrives: React.FC = () => {
                   <div className="flex items-center gap-3 self-end sm:self-center">
                     {hasResume && (
                       <div className="text-right">
-                        <span className="text-[10px] text-[#94A3B8] block font-medium">Best Match</span>
-                        <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-[#06B6D4]/15 text-[#67E8F9] border border-[#06B6D4]/30">
+                        <span className="text-[10px] text-[#475569] block font-bold">Best Match</span>
+                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">
                           {group.best_match_score}% Match
                         </span>
                       </div>
@@ -603,7 +596,7 @@ export const StudentDrives: React.FC = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-xs py-1.5 px-3 bg-[#0B1628] border-[#243650] text-[#CBD5E1]"
+                      className="text-xs py-1.5 px-3 bg-white border-slate-300 text-[#14213D] hover:bg-slate-50"
                       icon={isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     >
                       {isExpanded ? 'Hide' : `View (${group.total_jobs})`}
@@ -613,8 +606,8 @@ export const StudentDrives: React.FC = () => {
 
                 {/* Expanded Child Opportunities */}
                 {isExpanded && (
-                  <div className="p-4 pt-0 space-y-3 border-t border-[#243650]/60 bg-[#08101E]/40">
-                    <p className="text-[11px] font-bold text-[#94A3B8] pt-2">
+                  <div className="p-4 pt-3 space-y-3 border-t border-slate-200 bg-[#F8FAFC]/80">
+                    <p className="text-[11px] font-bold text-[#475569] pt-1">
                       Available roles at {group.company}:
                     </p>
                     {group.opportunities.map((opp) => renderOpportunityCard(opp, true))}
@@ -633,9 +626,9 @@ export const StudentDrives: React.FC = () => {
 
       {/* PAGINATION CONTROLS */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between pt-4 border-t border-[#243650] text-xs text-[#94A3B8]">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-[#64748B]">
           <span>
-            Showing page <strong className="text-[#F8FAFC]">{page}</strong> of <strong className="text-[#F8FAFC]">{totalPages}</strong> ({totalOpps} total drives)
+            Showing page <strong className="text-[#14213D]">{page}</strong> of <strong className="text-[#14213D]">{totalPages}</strong> ({totalOpps} total drives)
           </span>
 
           <div className="flex items-center gap-2">
@@ -673,7 +666,6 @@ export const StudentDrives: React.FC = () => {
         drive={applyingDrive}
         onClose={() => setApplyingDrive(null)}
         onApplicationSubmitted={() => {
-          // Re-fetch opportunities and update applied states
           window.location.reload();
         }}
       />

@@ -703,25 +703,25 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-5 bg-black/85 backdrop-blur-md overflow-hidden select-none cursor-default">
-      <div className="relative w-full max-w-5xl h-[95vh] sm:h-[92vh] max-h-[880px] bg-[#0B1528] border border-[#223552] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col transform-none transition-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-5 bg-slate-900/40 backdrop-blur-sm overflow-hidden select-none cursor-default">
+      <div className="relative w-full max-w-5xl h-[95vh] sm:h-[92vh] max-h-[880px] bg-white border border-slate-200 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden flex flex-col transform-none transition-none">
         
         {/* TOP HEADER */}
-        <div className="shrink-0 px-4 py-3 sm:px-6 sm:py-4 border-b border-[#1E293B] bg-[#0E1A2E] flex items-center justify-between gap-2 sm:gap-4 z-10">
+        <div className="shrink-0 px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-100 bg-[#F8FAFC] flex items-center justify-between gap-2 sm:gap-4 z-10">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2563EB] shadow-xs shrink-0">
               <BrainCircuit className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h2 className="text-sm sm:text-base md:text-lg font-black text-white tracking-tight truncate">
+                <h2 className="text-sm sm:text-base md:text-lg font-black text-[#14213D] tracking-tight truncate">
                   AI Interview Studio
                 </h2>
-                <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shrink-0">
+                <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase bg-blue-50 text-[#2563EB] border border-blue-200 shrink-0">
                   Gemini Live
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#94A3B8] truncate max-w-xs sm:max-w-md">
+              <p className="text-[11px] sm:text-xs text-[#64748B] truncate max-w-xs sm:max-w-md">
                 {phase === 'SETUP' && 'Configure custom target company, topics, and dynamic interview style'}
                 {phase === 'LIVE' && `${session?.config.company} • ${session?.config.role} • ${session?.config.interview_style}`}
                 {phase === 'REPORT' && `Comprehensive Performance Evaluation & Placement Readiness`}
@@ -734,7 +734,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
               <Button
                 variant="outline"
                 size="sm"
-                className="text-[11px] sm:text-xs text-rose-400 border-rose-900/50 hover:bg-rose-950/30 px-2 sm:px-3"
+                className="text-[11px] sm:text-xs text-red-600 border-red-200 hover:bg-red-50 px-2 sm:px-3"
                 onClick={handleFinishEarly}
                 disabled={actionLoading}
               >
@@ -744,7 +744,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
             <button
               onClick={onClose}
               aria-label="Close"
-              className="p-1.5 sm:p-2 rounded-xl text-[#94A3B8] hover:text-white hover:bg-[#1E293B] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
+              className="p-1.5 sm:p-2 rounded-xl text-[#64748B] hover:text-[#14213D] hover:bg-slate-100 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
             >
               <X className="w-5 h-5" />
             </button>
@@ -753,24 +753,24 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
         {/* ERROR BANNER */}
         {errorMessage && (
-          <div className="px-6 py-3 bg-rose-500/10 border-b border-rose-500/30 text-rose-300 text-xs font-semibold flex items-center justify-between">
+          <div className="px-6 py-3 bg-red-50 border-b border-red-200 text-red-800 text-xs font-semibold flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
               <span>{errorMessage}</span>
             </div>
-            <button onClick={() => setErrorMessage(null)} className="text-rose-400 hover:text-white">
+            <button onClick={() => setErrorMessage(null)} className="text-red-600 hover:text-red-800">
               <X className="w-4 h-4" />
             </button>
           </div>
         )}
 
         {/* BODY CONTENT BASED ON PHASE */}
-        <div className="flex-1 overflow-y-auto p-6 text-[#CBD5E1] overscroll-contain">
+        <div className="flex-1 overflow-y-auto p-6 text-[#14213D] overscroll-contain">
           {loading ? (
             <div className="py-24 flex flex-col items-center justify-center gap-4 text-center">
-              <Loader2 className="w-10 h-10 text-cyan-400 animate-spin" />
-              <p className="text-sm font-semibold text-white">Initializing Gemini AI Practice Session...</p>
-              <p className="text-xs text-[#94A3B8] max-w-sm">
+              <Loader2 className="w-10 h-10 text-[#2563EB] animate-spin" />
+              <p className="text-sm font-semibold text-[#14213D]">Initializing Gemini AI Practice Session...</p>
+              <p className="text-xs text-[#64748B] max-w-sm">
                 Generating dynamic, company-tailored interview challenges based on your selected topics.
               </p>
             </div>
@@ -783,7 +783,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                 <div className="space-y-6 animate-fadeIn">
                   {/* Mode Selector */}
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                       1. Select Practice Mode
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -795,18 +795,18 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                         }}
                         className={`p-4 rounded-2xl border text-left transition-all ${
                           mode === 'video'
-                            ? 'bg-gradient-to-b from-[#162744] to-[#0E1A2E] border-cyan-500 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-500/50'
-                            : 'bg-[#101D31] border-[#243650] hover:border-[#3B82F6]/50'
+                            ? 'bg-blue-50/70 border-[#2563EB] shadow-xs ring-1 ring-[#2563EB]/40'
+                            : 'bg-white border-slate-200 hover:border-slate-300'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
                             <Video className="w-4 h-4" />
                           </div>
-                          {mode === 'video' && <CheckCircle className="w-4 h-4 text-cyan-400" />}
+                          {mode === 'video' && <CheckCircle className="w-4 h-4 text-[#2563EB]" />}
                         </div>
-                        <h4 className="text-sm font-bold text-white">Video Mode</h4>
-                        <p className="text-xs text-[#94A3B8] mt-1">
+                        <h4 className="text-sm font-bold text-[#14213D]">Video Mode</h4>
+                        <p className="text-xs text-[#64748B] mt-1">
                           Practice on camera with mic. Real-time speech transcription & recording.
                         </p>
                       </button>
@@ -819,18 +819,18 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                         }}
                         className={`p-4 rounded-2xl border text-left transition-all ${
                           mode === 'hybrid'
-                            ? 'bg-gradient-to-b from-[#162744] to-[#0E1A2E] border-purple-500 shadow-lg shadow-purple-500/10 ring-1 ring-purple-500/50'
-                            : 'bg-[#101D31] border-[#243650] hover:border-[#3B82F6]/50'
+                            ? 'bg-purple-50/70 border-purple-500 shadow-xs ring-1 ring-purple-500/40'
+                            : 'bg-white border-slate-200 hover:border-slate-300'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
                             <Layers className="w-4 h-4" />
                           </div>
-                          {mode === 'hybrid' && <CheckCircle className="w-4 h-4 text-purple-400" />}
+                          {mode === 'hybrid' && <CheckCircle className="w-4 h-4 text-purple-600" />}
                         </div>
-                        <h4 className="text-sm font-bold text-white">Hybrid Mode</h4>
-                        <p className="text-xs text-[#94A3B8] mt-1">
+                        <h4 className="text-sm font-bold text-[#14213D]">Hybrid Mode</h4>
+                        <p className="text-xs text-[#64748B] mt-1">
                           Speak on camera with live editable transcript and code viva review.
                         </p>
                       </button>
@@ -843,18 +843,18 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                         }}
                         className={`p-4 rounded-2xl border text-left transition-all ${
                           mode === 'text'
-                            ? 'bg-gradient-to-b from-[#162744] to-[#0E1A2E] border-blue-500 shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/50'
-                            : 'bg-[#101D31] border-[#243650] hover:border-[#3B82F6]/50'
+                            ? 'bg-blue-50/70 border-[#2563EB] shadow-xs ring-1 ring-[#2563EB]/40'
+                            : 'bg-white border-slate-200 hover:border-slate-300'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center">
                             <MessageSquare className="w-4 h-4" />
                           </div>
-                          {mode === 'text' && <CheckCircle className="w-4 h-4 text-blue-400" />}
+                          {mode === 'text' && <CheckCircle className="w-4 h-4 text-[#2563EB]" />}
                         </div>
-                        <h4 className="text-sm font-bold text-white">Text / Code Mode</h4>
-                        <p className="text-xs text-[#94A3B8] mt-1">
+                        <h4 className="text-sm font-bold text-[#14213D]">Text / Code Mode</h4>
+                        <p className="text-xs text-[#64748B] mt-1">
                           Type structured explanations, complexity breakdowns, and code snippets.
                         </p>
                       </button>
@@ -867,10 +867,10 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     {/* 1. TARGET COMPANY */}
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                           2. Target Company
                         </label>
-                        <span className="text-[10px] text-cyan-400 font-medium">Free-form & Customizable</span>
+                        <span className="text-[10px] text-[#2563EB] font-medium">Free-form & Customizable</span>
                       </div>
 
                       {/* Main Editable Input */}
@@ -879,7 +879,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                         value={targetCompany}
                         onChange={(e) => setTargetCompany(e.target.value)}
                         placeholder="Search or enter any company (e.g. Deloitte, SAP, Zoho, Startup)..."
-                        className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-[#64748B] focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors font-medium"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-[#14213D] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-colors font-medium shadow-xs"
                       />
 
                       {/* Presets & Custom Added Companies */}
@@ -892,7 +892,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             <button
                               type="button"
                               onClick={() => setIsAddingCustomCompany(true)}
-                              className="text-[11px] text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 transition-colors"
+                              className="text-[11px] text-[#2563EB] hover:text-blue-700 font-semibold flex items-center gap-1 transition-colors"
                             >
                               <Plus className="w-3 h-3" />
                               <span>Add Custom Company</span>
@@ -910,8 +910,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 onClick={() => setTargetCompany(comp)}
                                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
                                   isSelected
-                                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
-                                    : 'bg-[#0E1A2E] text-[#94A3B8] hover:text-white hover:border-cyan-500/40 border border-[#243650]'
+                                    ? 'bg-[#2563EB] text-white font-bold shadow-xs'
+                                    : 'bg-slate-50 text-[#475569] hover:bg-slate-100 hover:text-[#14213D] border border-slate-200'
                                 }`}
                               >
                                 {comp}
@@ -926,12 +926,12 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 key={comp}
                                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium border flex items-center gap-1.5 transition-colors cursor-pointer ${
                                   isSelected
-                                    ? 'bg-purple-500/30 text-purple-200 border-purple-400 font-bold shadow-sm'
-                                    : 'bg-purple-950/40 text-purple-300 border-purple-800/60 hover:border-purple-500'
+                                    ? 'bg-purple-100 text-purple-800 border-purple-300 font-bold shadow-xs'
+                                    : 'bg-purple-50 text-purple-700 border-purple-200 hover:border-purple-400'
                                 }`}
                                 onClick={() => setTargetCompany(comp)}
                               >
-                                <Sparkles className="w-3 h-3 text-purple-400" />
+                                <Sparkles className="w-3 h-3 text-purple-600" />
                                 <span>{comp}</span>
                                 <button
                                   type="button"
@@ -942,7 +942,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                       setTargetCompany(POPULAR_COMPANY_PRESETS[0]);
                                     }
                                   }}
-                                  className="hover:text-rose-400 ml-0.5"
+                                  className="hover:text-red-600 ml-0.5"
                                 >
                                   <X className="w-3 h-3" />
                                 </button>
@@ -969,7 +969,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               }}
                               autoFocus
                               placeholder="Enter company name (e.g. Deloitte, SAP, Zoho)... Press Enter"
-                              className="flex-1 bg-[#101D31] border border-cyan-500/50 rounded-xl px-3 py-1.5 text-xs text-white placeholder:text-[#64748B] focus:outline-none focus:border-cyan-400"
+                              className="flex-1 bg-white border border-[#2563EB] rounded-xl px-3 py-1.5 text-xs text-[#14213D] placeholder:text-[#94A3B8] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
                             />
                             <Button
                               type="button"
@@ -977,7 +977,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               variant="primary"
                               onClick={handleAddCustomCompany}
                               disabled={!newCustomCompanyInput.trim()}
-                              className="px-3 py-1.5 text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white"
+                              className="px-3 py-1.5 text-xs font-bold"
                             >
                               Add Company
                             </Button>
@@ -987,7 +987,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 setIsAddingCustomCompany(false);
                                 setNewCustomCompanyInput('');
                               }}
-                              className="p-1.5 text-[#94A3B8] hover:text-white"
+                              className="p-1.5 text-[#64748B] hover:text-[#14213D]"
                             >
                               <X className="w-3.5 h-3.5" />
                             </button>
@@ -999,10 +999,10 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     {/* 2. TARGET ROLE */}
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                           3. Target Role
                         </label>
-                        <span className="text-[10px] text-cyan-400 font-medium">Free-form & Customizable</span>
+                        <span className="text-[10px] text-[#2563EB] font-medium">Free-form & Customizable</span>
                       </div>
 
                       {/* Main Editable Input */}
@@ -1011,7 +1011,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                         value={targetRole}
                         onChange={(e) => setTargetRole(e.target.value)}
                         placeholder="Search or enter any role (e.g. Data Analyst, AI Engineer)..."
-                        className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-[#64748B] focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors font-medium"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-[#14213D] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-colors font-medium shadow-xs"
                       />
 
                       {/* Presets & Custom Added Roles */}
@@ -1024,7 +1024,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             <button
                               type="button"
                               onClick={() => setIsAddingCustomRole(true)}
-                              className="text-[11px] text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 transition-colors"
+                              className="text-[11px] text-[#2563EB] hover:text-blue-700 font-semibold flex items-center gap-1 transition-colors"
                             >
                               <Plus className="w-3 h-3" />
                               <span>Add Custom Role</span>
@@ -1042,8 +1042,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 onClick={() => setTargetRole(r)}
                                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
                                   isSelected
-                                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm'
-                                    : 'bg-[#0E1A2E] text-[#94A3B8] hover:text-white hover:border-cyan-500/40 border border-[#243650]'
+                                    ? 'bg-[#2563EB] text-white font-bold shadow-xs'
+                                    : 'bg-slate-50 text-[#475569] hover:bg-slate-100 hover:text-[#14213D] border border-slate-200'
                                 }`}
                               >
                                 {r}
@@ -1058,12 +1058,12 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 key={r}
                                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium border flex items-center gap-1.5 transition-colors cursor-pointer ${
                                   isSelected
-                                    ? 'bg-purple-500/30 text-purple-200 border-purple-400 font-bold shadow-sm'
-                                    : 'bg-purple-950/40 text-purple-300 border-purple-800/60 hover:border-purple-500'
+                                    ? 'bg-purple-100 text-purple-800 border-purple-300 font-bold shadow-xs'
+                                    : 'bg-purple-50 text-purple-700 border-purple-200 hover:border-purple-400'
                                 }`}
                                 onClick={() => setTargetRole(r)}
                               >
-                                <Sparkles className="w-3 h-3 text-purple-400" />
+                                <Sparkles className="w-3 h-3 text-purple-600" />
                                 <span>{r}</span>
                                 <button
                                   type="button"
@@ -1074,7 +1074,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                       setTargetRole(POPULAR_ROLE_PRESETS[0]);
                                     }
                                   }}
-                                  className="hover:text-rose-400 ml-0.5"
+                                  className="hover:text-red-600 ml-0.5"
                                 >
                                   <X className="w-3 h-3" />
                                 </button>
@@ -1101,7 +1101,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               }}
                               autoFocus
                               placeholder="Enter custom role (e.g. Data Analyst, AI Engineer)... Press Enter"
-                              className="flex-1 bg-[#101D31] border border-cyan-500/50 rounded-xl px-3 py-1.5 text-xs text-white placeholder:text-[#64748B] focus:outline-none focus:border-cyan-400"
+                              className="flex-1 bg-white border border-[#2563EB] rounded-xl px-3 py-1.5 text-xs text-[#14213D] placeholder:text-[#94A3B8] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
                             />
                             <Button
                               type="button"
@@ -1109,7 +1109,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               variant="primary"
                               onClick={handleAddCustomRole}
                               disabled={!newCustomRoleInput.trim()}
-                              className="px-3 py-1.5 text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white"
+                              className="px-3 py-1.5 text-xs font-bold"
                             >
                               Add Role
                             </Button>
@@ -1119,7 +1119,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                 setIsAddingCustomRole(false);
                                 setNewCustomRoleInput('');
                               }}
-                              className="p-1.5 text-[#94A3B8] hover:text-white"
+                              className="p-1.5 text-[#64748B] hover:text-[#14213D]"
                             >
                               <X className="w-3.5 h-3.5" />
                             </button>
@@ -1132,10 +1132,10 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   {/* Topics System */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                         4. Select & Add Technical Topics
                       </label>
-                      <span className="text-[11px] text-cyan-400 font-semibold">
+                      <span className="text-[11px] text-[#2563EB] font-semibold">
                         {selectedTopics.length + customTopics.length} topics selected
                       </span>
                     </div>
@@ -1154,11 +1154,11 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             }}
                             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
                               isSelected
-                                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50'
-                                : 'bg-[#101D31] text-[#94A3B8] hover:text-white border border-[#243650]'
+                                ? 'bg-blue-50 text-[#2563EB] border border-blue-200 shadow-xs'
+                                : 'bg-slate-50 text-[#475569] hover:bg-slate-100 hover:text-[#14213D] border border-slate-200'
                             }`}
                           >
-                            {isSelected ? <Check className="w-3 h-3 text-cyan-400" /> : <Plus className="w-3 h-3 text-[#64748B]" />}
+                            {isSelected ? <Check className="w-3 h-3 text-[#2563EB]" /> : <Plus className="w-3 h-3 text-[#64748B]" />}
                             {topic}
                           </button>
                         );
@@ -1167,14 +1167,14 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                       {customTopics.map((ct) => (
                         <span
                           key={ct}
-                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/50 flex items-center gap-1.5"
+                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200 flex items-center gap-1.5"
                         >
-                          <Sparkles className="w-3 h-3 text-purple-400" />
+                          <Sparkles className="w-3 h-3 text-purple-600" />
                           {ct}
                           <button
                             type="button"
                             onClick={() => setCustomTopics((prev) => prev.filter((t) => t !== ct))}
-                            className="hover:text-rose-400 ml-1"
+                            className="hover:text-red-600 ml-1"
                           >
                             <X className="w-3 h-3" />
                           </button>
@@ -1198,7 +1198,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                           }
                         }}
                         placeholder="Add custom topic (e.g. Node.js Event Loop, Docker, Kafka, Redis)... Press Enter"
-                        className="flex-1 bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+                        className="flex-1 bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-[#14213D] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                       />
                       <Button
                         type="button"
@@ -1218,13 +1218,13 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   </div>
 
                   {/* 5. INTERVIEWER VOICE & ACCENT CONFIGURATION */}
-                  <div className="p-4 rounded-2xl bg-[#0E1A2E] border border-[#1E293B] space-y-4">
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
                     <div className="flex items-center justify-between">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-2">
-                        <Volume2 className="w-4 h-4 text-cyan-400" />
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B] flex items-center gap-2">
+                        <Volume2 className="w-4 h-4 text-[#2563EB]" />
                         5. Interviewer Voice & Accent (Supported Real TTS)
                       </label>
-                      <span className="text-[10px] text-cyan-400 font-semibold">
+                      <span className="text-[10px] text-[#2563EB] font-semibold">
                         {systemVoices.length > 0 ? `${systemVoices.length} System Voices Detected` : 'Native Browser Voice'}
                       </span>
                     </div>
@@ -1232,7 +1232,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {/* Voice Gender */}
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-semibold text-[#94A3B8] block">Voice Gender</span>
+                        <span className="text-[11px] font-semibold text-[#64748B] block">Voice Gender</span>
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             type="button"
@@ -1243,8 +1243,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             }}
                             className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                               voiceGender === 'female'
-                                ? 'bg-cyan-500 text-slate-950 shadow-md'
-                                : 'bg-[#101D31] text-[#94A3B8] hover:text-white border border-[#243650]'
+                                ? 'bg-[#2563EB] text-white shadow-xs'
+                                : 'bg-white text-[#475569] hover:bg-slate-100 hover:text-[#14213D] border border-slate-200'
                             }`}
                           >
                             <span>👩 Female</span>
@@ -1258,8 +1258,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             }}
                             className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                               voiceGender === 'male'
-                                ? 'bg-cyan-500 text-slate-950 shadow-md'
-                                : 'bg-[#101D31] text-[#94A3B8] hover:text-white border border-[#243650]'
+                                ? 'bg-[#2563EB] text-white shadow-xs'
+                                : 'bg-white text-[#475569] hover:bg-slate-100 hover:text-[#14213D] border border-slate-200'
                             }`}
                           >
                             <span>👨 Male</span>
@@ -1269,7 +1269,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                       {/* Accent / Locale */}
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-semibold text-[#94A3B8] block">Accent / Locale</span>
+                        <span className="text-[11px] font-semibold text-[#64748B] block">Accent / Locale</span>
                         <select
                           value={voiceAccent}
                           onChange={(e) => {
@@ -1278,7 +1278,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             const matched = findBestMatchingVoice(systemVoices, voiceGender, newAccent);
                             if (matched) setSelectedVoiceURI(matched.voiceURI || matched.name);
                           }}
-                          className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                         >
                           <option value="indian">🇮🇳 Indian English</option>
                           <option value="american">🇺🇸 American English</option>
@@ -1289,12 +1289,12 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                       {/* Voice Identity & Preview Button */}
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-semibold text-[#94A3B8] block">Voice Identity & Preview</span>
+                        <span className="text-[11px] font-semibold text-[#64748B] block">Voice Identity & Preview</span>
                         <div className="flex items-center gap-2">
                           <select
                             value={selectedVoiceURI}
                             onChange={(e) => setSelectedVoiceURI(e.target.value)}
-                            className="flex-1 bg-[#101D31] border border-[#243650] rounded-xl px-2.5 py-2 text-[11px] text-white focus:outline-none focus:border-cyan-500 truncate"
+                            className="flex-1 bg-white border border-slate-200 rounded-xl px-2.5 py-2 text-[11px] text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] truncate"
                           >
                             {systemVoices.length > 0 ? (
                               systemVoices
@@ -1315,8 +1315,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             onClick={handlePreviewVoice}
                             className={`px-3 py-2 text-xs font-bold shrink-0 ${
                               isPreviewSpeaking
-                                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 animate-pulse'
-                                : 'bg-[#14243B] text-cyan-400 hover:text-white border border-[#243650]'
+                                ? 'bg-blue-50 text-[#2563EB] border border-blue-200 animate-pulse'
+                                : 'bg-white text-[#2563EB] hover:bg-slate-50 border border-slate-200'
                             }`}
                           >
                             {isPreviewSpeaking ? '⏹️ Stop' : '🔊 Preview'}
@@ -1326,7 +1326,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     </div>
 
                     {ttsErrorMessage && (
-                      <p className="text-[11px] text-amber-400 flex items-center gap-1.5">
+                      <p className="text-[11px] text-amber-600 flex items-center gap-1.5">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                         {ttsErrorMessage}
                       </p>
@@ -1336,13 +1336,13 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   {/* Interview Style & Difficulty Config */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                         5. Interview Style
                       </label>
                       <select
                         value={interviewStyle}
                         onChange={(e) => setInterviewStyle(e.target.value)}
-                        className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                       >
                         {INTERVIEW_STYLES.map((st) => (
                           <option key={st.id} value={st.id}>
@@ -1353,13 +1353,13 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                         6. Difficulty
                       </label>
                       <select
                         value={difficulty}
                         onChange={(e) => setDifficulty(e.target.value)}
-                        className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                       >
                         <option value="Adaptive">Adaptive (Probes on answers)</option>
                         <option value="Easy">Easy / Foundational</option>
@@ -1369,13 +1369,13 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     </div>
 
                     <div className="space-y-2">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#64748B]">
                         7. Number of Questions
                       </label>
                       <select
                         value={totalQuestions}
                         onChange={(e) => setTotalQuestions(Number(e.target.value))}
-                        className="w-full bg-[#101D31] border border-[#243650] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                       >
                         <option value={3}>3 Questions (Quick 10m Round)</option>
                         <option value={5}>5 Questions (Standard 20m Round)</option>
@@ -1387,21 +1387,21 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                   {/* Camera Test preview if Video or Hybrid mode */}
                   {(mode === 'video' || mode === 'hybrid') && (
-                    <div className="p-4 rounded-2xl bg-[#0E1A2E] border border-[#1E293B] flex items-center justify-between gap-4">
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-16 h-12 rounded-xl bg-black overflow-hidden border border-slate-700 relative flex items-center justify-center">
+                        <div className="w-16 h-12 rounded-xl bg-slate-900 overflow-hidden border border-slate-300 relative flex items-center justify-center">
                           <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
                         </div>
                         <div>
-                          <h5 className="text-xs font-bold text-white">Camera & Microphone Preview</h5>
-                          <p className="text-[11px] text-[#94A3B8]">
+                          <h5 className="text-xs font-bold text-[#14213D]">Camera & Microphone Preview</h5>
+                          <p className="text-[11px] text-[#64748B]">
                             Audio Input Level: {audioLevel}%
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-xs font-semibold text-emerald-400">Sensors Active</span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-xs font-semibold text-emerald-700">Sensors Active</span>
                       </div>
                     </div>
                   )}
@@ -1411,10 +1411,10 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     <Button
                       type="button"
                       variant="primary"
-                      className="w-full py-3.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-xl shadow-cyan-500/20 rounded-2xl flex items-center justify-center gap-2"
+                      className="w-full py-3.5 text-white font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-xs"
                       onClick={handleStartPractice}
                     >
-                      <Zap className="w-4 h-4 text-cyan-300" />
+                      <Zap className="w-4 h-4 text-white" />
                       Start AI Interview Practice ({totalQuestions} Questions)
                     </Button>
                   </div>
@@ -1427,21 +1427,21 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
               {phase === 'LIVE' && currentQuestion && (
                 <div className="space-y-5 animate-fadeIn">
                   {/* Status Banner */}
-                  <div className="p-3.5 rounded-2xl bg-[#101D31] border border-[#243650] flex flex-wrap items-center justify-between gap-3">
+                  <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex flex-wrap items-center justify-between gap-3 shadow-xs">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-extrabold text-xs">
+                      <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-[#2563EB] font-extrabold text-xs">
                         Question {currentQuestion.question_index} of {session?.total_questions || totalQuestions}
                       </span>
-                      <span className="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 font-semibold text-xs">
+                      <span className="px-2.5 py-1 rounded-lg bg-purple-50 text-purple-700 font-semibold text-xs border border-purple-200">
                         {currentQuestion.topic}
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-slate-800 text-[#94A3B8] text-[11px] font-medium">
+                      <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[#475569] text-[11px] font-medium border border-slate-200">
                         {currentQuestion.difficulty}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-3 text-xs">
-                      <div className="flex items-center gap-1.5 text-amber-400 font-mono font-bold">
+                      <div className="flex items-center gap-1.5 text-amber-600 font-mono font-bold">
                         <Clock className="w-3.5 h-3.5" />
                         <span>{Math.floor(questionTimer / 60)}:{(questionTimer % 60).toString().padStart(2, '0')}</span>
                       </div>
@@ -1449,23 +1449,23 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   </div>
 
                   {/* AI INTERVIEWER QUESTION CARD */}
-                  <Card hover3d={false} className="p-5 bg-gradient-to-b from-[#13233D] to-[#0D1829] border border-cyan-500/30 text-white shadow-xl shadow-cyan-500/5">
+                  <Card hover3d={false} className="p-5 bg-blue-50/50 border border-blue-200/80 text-[#14213D] shadow-xs">
                     <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
+                      <div className="w-10 h-10 rounded-2xl bg-blue-100 border border-blue-200 flex items-center justify-center text-[#2563EB] shrink-0">
                         <BrainCircuit className="w-5 h-5" />
                       </div>
                       <div className="space-y-1 flex-1">
                         <div className="flex items-center justify-between">
-                          <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+                          <h4 className="text-xs font-bold text-[#2563EB] uppercase tracking-wider">
                             AI Interviewer • {session?.config.company}
                           </h4>
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] text-[#94A3B8] uppercase">{currentQuestion.question_type}</span>
+                            <span className="text-[10px] text-[#64748B] uppercase">{currentQuestion.question_type}</span>
                             {isAISpeaking ? (
                               <button
                                 type="button"
                                 onClick={stopSpeaking}
-                                className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-bold animate-pulse"
+                                className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-blue-100 text-[#2563EB] border border-blue-200 text-[10px] font-bold animate-pulse"
                               >
                                 <Volume2 className="w-3 h-3" />
                                 <span>Speaking</span>
@@ -1474,15 +1474,15 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               <button
                                 type="button"
                                 onClick={() => speakQuestion(currentQuestion.question_text)}
-                                className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-[#0B1528] text-slate-300 hover:text-white border border-[#243650] text-[10px] font-medium"
+                                className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-white text-[#475569] hover:text-[#14213D] border border-slate-200 text-[10px] font-medium shadow-xs"
                               >
-                                <Volume2 className="w-3 h-3 text-cyan-400" />
+                                <Volume2 className="w-3 h-3 text-[#2563EB]" />
                                 <span>Replay Audio</span>
                               </button>
                             )}
                           </div>
                         </div>
-                        <p className="text-sm sm:text-base font-medium text-[#F8FAFC] leading-relaxed">
+                        <p className="text-sm sm:text-base font-medium text-[#14213D] leading-relaxed">
                           {currentQuestion.question_text}
                         </p>
                       </div>
@@ -1495,7 +1495,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     {/* VIDEO/MIC PANEL (If video or hybrid mode) */}
                     {(session?.config.mode === 'video' || session?.config.mode === 'hybrid') && (
                       <div className="lg:col-span-6 space-y-3">
-                        <div className="relative rounded-2xl overflow-hidden bg-black border border-[#243650] aspect-video flex items-center justify-center">
+                        <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-300 aspect-video flex items-center justify-center">
                           <video
                             ref={videoRef}
                             autoPlay
@@ -1514,8 +1514,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                           <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 text-[11px]">
                             {isRecording ? (
                               <>
-                                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
-                                <span className="text-rose-400 font-bold">Recording Answer</span>
+                                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                                <span className="text-red-400 font-bold">Recording Answer</span>
                               </>
                             ) : (
                               <span className="text-slate-400">Standby</span>
@@ -1546,7 +1546,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                               <Button
                                 size="sm"
                                 variant="primary"
-                                className="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs"
+                                className="bg-red-600 hover:bg-red-500 text-white font-bold text-xs"
                                 icon={<StopCircle className="w-3.5 h-3.5" />}
                                 onClick={stopRecording}
                               >
@@ -1567,9 +1567,9 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                   }
                                 }
                               }}
-                              className="p-2 rounded-xl bg-[#101D31] text-[#94A3B8] hover:text-white border border-[#243650]"
+                              className="p-2 rounded-xl bg-white text-[#64748B] hover:text-[#14213D] border border-slate-200 shadow-xs"
                             >
-                              {isVideoEnabled ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4 text-rose-400" />}
+                              {isVideoEnabled ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4 text-red-500" />}
                             </button>
                             <button
                               type="button"
@@ -1582,9 +1582,9 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                                   }
                                 }
                               }}
-                              className="p-2 rounded-xl bg-[#101D31] text-[#94A3B8] hover:text-white border border-[#243650]"
+                              className="p-2 rounded-xl bg-white text-[#64748B] hover:text-[#14213D] border border-slate-200 shadow-xs"
                             >
-                              {isAudioEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4 text-rose-400" />}
+                              {isAudioEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4 text-red-500" />}
                             </button>
                           </div>
                         </div>
@@ -1595,7 +1595,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     <div className={session?.config.mode === 'text' ? 'lg:col-span-12 space-y-3' : 'lg:col-span-6 space-y-3'}>
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
-                          <label className="text-xs font-bold text-[#94A3B8] uppercase tracking-wider">
+                          <label className="text-xs font-bold text-[#64748B] uppercase tracking-wider">
                             {session?.config.mode === 'text'
                               ? 'Your Solution & Complexity Explanation'
                               : 'Real-time Speech Transcript'}
@@ -1611,7 +1611,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             onChange={(e) => setTypedAnswer(e.target.value)}
                             placeholder="Type your structured explanation, step-by-step reasoning, base cases, and time/space complexity analysis..."
                             rows={8}
-                            className="w-full bg-[#101D31] border border-[#243650] rounded-2xl p-4 text-xs font-mono text-[#F8FAFC] focus:outline-none focus:border-cyan-500 leading-relaxed"
+                            className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-xs font-mono text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] leading-relaxed shadow-xs"
                           />
                         ) : (
                           <textarea
@@ -1622,7 +1622,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                             }}
                             placeholder="Your spoken words will appear here in real-time via Web Speech recognition. You can also edit/type directly..."
                             rows={8}
-                            className="w-full bg-[#101D31] border border-[#243650] rounded-2xl p-4 text-xs text-[#F8FAFC] focus:outline-none focus:border-cyan-500 leading-relaxed"
+                            className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-xs text-[#14213D] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] leading-relaxed shadow-xs"
                           />
                         )}
                       </div>
@@ -1630,12 +1630,12 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   </div>
 
                   {/* ACTION BAR */}
-                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-2 border-t border-[#1E293B]">
+                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100">
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="text-xs text-[#94A3B8] w-full sm:w-auto"
+                      className="text-xs text-[#64748B] w-full sm:w-auto"
                       onClick={() => handleSubmitAnswer(true)}
                       disabled={actionLoading}
                     >
@@ -1645,7 +1645,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     <Button
                       type="button"
                       variant="primary"
-                      className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs px-6 py-2.5 rounded-xl shadow-lg shadow-cyan-500/20 w-full sm:w-auto flex items-center justify-center"
+                      className="text-white font-bold text-xs px-6 py-2.5 rounded-xl shadow-xs w-full sm:w-auto flex items-center justify-center"
                       onClick={() => handleSubmitAnswer(false)}
                       disabled={actionLoading}
                     >
@@ -1672,32 +1672,32 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                 <div className="space-y-6 animate-fadeIn">
                   
                   {/* SCORE HEADER */}
-                  <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#12233E] via-[#0E1A2E] to-[#0A1220] border border-cyan-500/40 shadow-2xl relative overflow-hidden">
+                  <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200 shadow-xs relative overflow-hidden">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
                       <div className="space-y-2 min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-[#2563EB] border border-blue-200">
                             {session.evaluation.readiness_level}
                           </span>
-                          <span className="text-xs text-[#94A3B8] break-words-safe">
+                          <span className="text-xs text-[#64748B] break-words-safe">
                             {session.config.company} • {session.config.role}
                           </span>
                         </div>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-white">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#14213D]">
                           Placement Practice Evaluation Report
                         </h3>
-                        <p className="text-xs text-[#94A3B8] max-w-xl leading-relaxed">
+                        <p className="text-xs text-[#64748B] max-w-xl leading-relaxed">
                           {session.evaluation.detailed_feedback}
                         </p>
                       </div>
 
                       {/* Overall Score Circle */}
-                      <div className="flex items-center gap-4 bg-[#0B1528]/80 p-3 sm:p-4 rounded-2xl border border-[#243650] shrink-0 self-start md:self-auto">
+                      <div className="flex items-center gap-4 bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-xs shrink-0 self-start md:self-auto">
                         <div className="text-center">
-                          <span className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                          <span className="text-3xl sm:text-4xl font-black text-[#2563EB]">
                             {Math.round(session.evaluation.overall_score)}%
                           </span>
-                          <span className="text-[10px] text-[#94A3B8] block font-bold uppercase tracking-wider mt-0.5">
+                          <span className="text-[10px] text-[#64748B] block font-bold uppercase tracking-wider mt-0.5">
                             Overall Score
                           </span>
                         </div>
@@ -1705,48 +1705,48 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     </div>
 
                     {/* Breakdown Scores */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t border-[#1E293B]">
-                      <div className="p-3 rounded-xl bg-[#0B1528] border border-[#243650]">
-                        <span className="text-[10px] text-[#94A3B8] font-semibold block uppercase">Technical Depth</span>
-                        <span className="text-lg font-black text-cyan-400">{Math.round(session.evaluation.technical_score)}%</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t border-slate-200">
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+                        <span className="text-[10px] text-[#64748B] font-semibold block uppercase">Technical Depth</span>
+                        <span className="text-lg font-black text-[#2563EB]">{Math.round(session.evaluation.technical_score)}%</span>
                       </div>
-                      <div className="p-3 rounded-xl bg-[#0B1528] border border-[#243650]">
-                        <span className="text-[10px] text-[#94A3B8] font-semibold block uppercase">Communication & Structure</span>
-                        <span className="text-lg font-black text-purple-400">{Math.round(session.evaluation.communication_score)}%</span>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+                        <span className="text-[10px] text-[#64748B] font-semibold block uppercase">Communication & Structure</span>
+                        <span className="text-lg font-black text-purple-600">{Math.round(session.evaluation.communication_score)}%</span>
                       </div>
-                      <div className="p-3 rounded-xl bg-[#0B1528] border border-[#243650]">
-                        <span className="text-[10px] text-[#94A3B8] font-semibold block uppercase">Problem Solving & Trade-offs</span>
-                        <span className="text-lg font-black text-blue-400">{Math.round(session.evaluation.problem_solving_score)}%</span>
+                      <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+                        <span className="text-[10px] text-[#64748B] font-semibold block uppercase">Problem Solving & Trade-offs</span>
+                        <span className="text-lg font-black text-blue-600">{Math.round(session.evaluation.problem_solving_score)}%</span>
                       </div>
                     </div>
                   </div>
 
                   {/* STRENGTHS & WEAKNESSES */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card hover3d={false} className="p-4 sm:p-5 bg-[#101D31] border-[#243650]">
-                      <h4 className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <Card hover3d={false} className="p-4 sm:p-5 bg-white border-slate-200 shadow-xs">
+                      <h4 className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5 mb-3">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                         Key Demonstrated Strengths
                       </h4>
                       <ul className="space-y-2">
                         {session.evaluation.strengths.map((st, i) => (
-                          <li key={i} className="text-xs text-[#CBD5E1] flex items-start gap-2">
-                            <span className="text-emerald-400 font-bold">•</span>
+                          <li key={i} className="text-xs text-[#334155] flex items-start gap-2">
+                            <span className="text-emerald-600 font-bold">•</span>
                             <span>{st}</span>
                           </li>
                         ))}
                       </ul>
                     </Card>
 
-                    <Card hover3d={false} className="p-4 sm:p-5 bg-[#101D31] border-[#243650]">
-                      <h4 className="text-xs font-extrabold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-                        <AlertCircle className="w-4 h-4 text-amber-400" />
+                    <Card hover3d={false} className="p-4 sm:p-5 bg-white border-slate-200 shadow-xs">
+                      <h4 className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-1.5 mb-3">
+                        <AlertCircle className="w-4 h-4 text-amber-600" />
                         Areas for Targeted Improvement
                       </h4>
                       <ul className="space-y-2">
                         {session.evaluation.weaknesses.map((w, i) => (
-                          <li key={i} className="text-xs text-[#CBD5E1] flex items-start gap-2">
-                            <span className="text-amber-400 font-bold">•</span>
+                          <li key={i} className="text-xs text-[#334155] flex items-start gap-2">
+                            <span className="text-amber-600 font-bold">•</span>
                             <span>{w}</span>
                           </li>
                         ))}
@@ -1756,15 +1756,15 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                   {/* ACTIONABLE RECOMMENDATIONS & SUGGESTIONS */}
                   {session.evaluation.recommendations && session.evaluation.recommendations.length > 0 && (
-                    <div className="p-4 sm:p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 space-y-2.5">
-                      <h4 className="text-xs font-extrabold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <Sparkles className="w-4 h-4 text-cyan-400" />
+                    <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-200/80 space-y-2.5">
+                      <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <Sparkles className="w-4 h-4 text-[#2563EB]" />
                         Actionable Suggestions & Placement Prep Guidance
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                         {session.evaluation.recommendations.map((rec, i) => (
-                          <div key={i} className="p-3 rounded-xl bg-[#0B1528] border border-[#243650] text-xs text-[#E2E8F0] flex items-start gap-2">
-                            <span className="text-cyan-400 font-bold shrink-0">#{i + 1}</span>
+                          <div key={i} className="p-3 rounded-xl bg-white border border-slate-200 text-xs text-[#334155] flex items-start gap-2 shadow-xs">
+                            <span className="text-[#2563EB] font-bold shrink-0">#{i + 1}</span>
                             <span>{rec}</span>
                           </div>
                         ))}
@@ -1774,15 +1774,15 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                   {/* MISSED CONCEPTS & BLIND SPOTS */}
                   {session.evaluation.missed_concepts && session.evaluation.missed_concepts.length > 0 && (
-                    <div className="p-4 rounded-2xl bg-[#101D31] border border-rose-900/40 space-y-2">
-                      <h4 className="text-xs font-extrabold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <AlertCircle className="w-4 h-4 text-rose-400" />
+                    <div className="p-4 rounded-2xl bg-red-50/40 border border-red-200 space-y-2">
+                      <h4 className="text-xs font-bold text-red-800 uppercase tracking-wider flex items-center gap-1.5">
+                        <AlertCircle className="w-4 h-4 text-red-600" />
                         Missed Technical Concepts & Gaps
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {session.evaluation.missed_concepts.map((concept, i) => (
-                          <span key={i} className="px-3 py-1 rounded-lg text-xs font-medium bg-rose-500/10 text-rose-300 border border-rose-500/30 flex items-center gap-1.5">
-                            <X className="w-3 h-3 text-rose-400" />
+                          <span key={i} className="px-3 py-1 rounded-lg text-xs font-medium bg-red-50 text-red-700 border border-red-200 flex items-center gap-1.5">
+                            <X className="w-3 h-3 text-red-600" />
                             {concept}
                           </span>
                         ))}
@@ -1793,27 +1793,27 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   {/* TOPIC MASTERY BREAKDOWN */}
                   {session.evaluation.topic_scores && session.evaluation.topic_scores.length > 0 && (
                     <div className="space-y-3">
-                      <h4 className="text-xs font-extrabold text-white uppercase tracking-wider flex items-center gap-1.5">
-                        <Target className="w-4 h-4 text-cyan-400" />
+                      <h4 className="text-xs font-bold text-[#14213D] uppercase tracking-wider flex items-center gap-1.5">
+                        <Target className="w-4 h-4 text-[#2563EB]" />
                         Topic Mastery & Conceptual Depth Breakdown
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {session.evaluation.topic_scores.map((ts, i) => (
-                          <div key={i} className="p-3.5 rounded-xl bg-[#101D31] border border-[#243650] space-y-1.5">
+                          <div key={i} className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-1.5 shadow-xs">
                             <div className="flex items-center justify-between">
-                              <span className="text-xs font-bold text-white">{ts.topic}</span>
-                              <span className={`text-xs font-black ${ts.score >= 70 ? 'text-emerald-400' : ts.score >= 40 ? 'text-amber-400' : 'text-rose-400'}`}>
+                              <span className="text-xs font-bold text-[#14213D]">{ts.topic}</span>
+                              <span className={`text-xs font-black ${ts.score >= 70 ? 'text-emerald-600' : ts.score >= 40 ? 'text-amber-600' : 'text-red-600'}`}>
                                 {Math.round(ts.score)}%
                               </span>
                             </div>
-                            <div className="w-full h-1.5 bg-[#0B1528] rounded-full overflow-hidden">
+                            <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                               <div
-                                className={`h-full rounded-full ${ts.score >= 70 ? 'bg-emerald-500' : ts.score >= 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
+                                className={`h-full rounded-full ${ts.score >= 70 ? 'bg-emerald-500' : ts.score >= 40 ? 'bg-amber-500' : 'bg-red-500'}`}
                                 style={{ width: `${Math.min(100, Math.max(5, ts.score))}%` }}
                               />
                             </div>
                             {ts.feedback && (
-                              <p className="text-[11px] text-[#94A3B8] leading-tight">{ts.feedback}</p>
+                              <p className="text-[11px] text-[#64748B] leading-tight">{ts.feedback}</p>
                             )}
                           </div>
                         ))}
@@ -1823,23 +1823,23 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                   {/* VIDEO & SPEECH METRICS */}
                   {session.evaluation.video_feedback && (
-                    <div className="p-4 rounded-2xl bg-[#0E1A2E] border border-cyan-500/30 flex flex-wrap items-center justify-between gap-4">
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-2">
-                        <Video className="w-4 h-4 text-cyan-400" />
-                        <span className="text-xs font-bold text-white uppercase tracking-wider">Video & Speech Practice Metrics</span>
+                        <Video className="w-4 h-4 text-[#2563EB]" />
+                        <span className="text-xs font-bold text-[#14213D] uppercase tracking-wider">Video & Speech Practice Metrics</span>
                       </div>
                       <div className="flex flex-wrap items-center gap-4 text-xs">
                         <div>
-                          <span className="text-[10px] text-[#94A3B8] block">Total Speaking Time</span>
-                          <span className="font-mono font-bold text-cyan-400">{session.evaluation.video_feedback.total_speaking_time_seconds || 0}s</span>
+                          <span className="text-[10px] text-[#64748B] block">Total Speaking Time</span>
+                          <span className="font-mono font-bold text-[#2563EB]">{session.evaluation.video_feedback.total_speaking_time_seconds || 0}s</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-[#94A3B8] block">Avg Response Duration</span>
-                          <span className="font-mono font-bold text-purple-400">{session.evaluation.video_feedback.average_answer_duration_seconds || 0}s / question</span>
+                          <span className="text-[10px] text-[#64748B] block">Avg Response Duration</span>
+                          <span className="font-mono font-bold text-purple-600">{session.evaluation.video_feedback.average_answer_duration_seconds || 0}s / question</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-[#94A3B8] block">Questions Attempted</span>
-                          <span className="font-mono font-bold text-emerald-400">{session.evaluation.video_feedback.answered_questions_ratio || 'N/A'}</span>
+                          <span className="text-[10px] text-[#64748B] block">Questions Attempted</span>
+                          <span className="font-mono font-bold text-emerald-600">{session.evaluation.video_feedback.answered_questions_ratio || 'N/A'}</span>
                         </div>
                       </div>
                     </div>
@@ -1847,8 +1847,8 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
 
                   {/* QUESTION BY QUESTION BREAKDOWN */}
                   <div className="space-y-3">
-                    <h4 className="text-xs font-extrabold text-white uppercase tracking-wider flex items-center gap-1.5">
-                      <Layers className="w-4 h-4 text-cyan-400" />
+                    <h4 className="text-xs font-bold text-[#14213D] uppercase tracking-wider flex items-center gap-1.5">
+                      <Layers className="w-4 h-4 text-[#2563EB]" />
                       Question-by-Question Response Audit
                     </h4>
 
@@ -1856,18 +1856,18 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                       {session.questions.map((q) => {
                         const ans = session.answers.find((a) => a.question_index === q.question_index);
                         return (
-                          <div key={q.question_index} className="p-4 rounded-2xl bg-[#101D31] border border-[#243650] space-y-2">
+                          <div key={q.question_index} className="p-4 rounded-2xl bg-white border border-slate-200 space-y-2 shadow-xs">
                             <div className="flex items-center justify-between">
-                              <span className="text-xs font-bold text-cyan-400">
+                              <span className="text-xs font-bold text-[#2563EB]">
                                 Question {q.question_index}: {q.topic}
                               </span>
-                              <span className="text-[10px] text-[#94A3B8]">
+                              <span className="text-[10px] text-[#64748B]">
                                 {ans?.time_taken_seconds || 0}s duration
                               </span>
                             </div>
-                            <p className="text-xs font-medium text-white">{q.question_text}</p>
-                            <div className="p-3 rounded-xl bg-[#0B1528] border border-[#1E293B] text-[11px] text-[#94A3B8] font-mono break-words-safe">
-                              <span className="text-slate-400 font-bold block mb-1">Your Submitted Response:</span>
+                            <p className="text-xs font-medium text-[#14213D]">{q.question_text}</p>
+                            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-[#475569] font-mono break-words-safe">
+                              <span className="text-[#64748B] font-bold block mb-1">Your Submitted Response:</span>
                               {ans?.answer_text || ans?.transcript || '[Skipped / No Answer]'}
                             </div>
                           </div>
@@ -1877,7 +1877,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                   </div>
 
                   {/* ACTION FOOTER */}
-                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-4 border-t border-[#1E293B]">
+                  <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-4 border-t border-slate-100">
                     <Button
                       variant="outline"
                       size="sm"
@@ -1890,7 +1890,7 @@ export const AIInterviewPracticeStudioModal: React.FC<AIInterviewPracticeStudioM
                     <Button
                       variant="primary"
                       size="sm"
-                      className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold w-full sm:w-auto"
+                      className="text-white font-bold w-full sm:w-auto"
                       onClick={onClose}
                     >
                       Close Report

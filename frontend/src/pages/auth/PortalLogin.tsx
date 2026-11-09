@@ -3,7 +3,6 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import {
   GraduationCap,
   Building2,
-  Users,
   ShieldCheck,
   ArrowLeft,
   ArrowRight,
@@ -14,7 +13,6 @@ import {
   Loader2,
   AlertCircle,
   CheckCircle2,
-  Sparkles,
   Info,
 } from 'lucide-react';
 import { useAuth, getPortalDashboardUrl } from '../../context/AuthContext';
@@ -55,10 +53,10 @@ export const PortalLogin: React.FC = () => {
           portalSubtitle: 'Access placement drives, AI resume analyzer, and interview schedules.',
           emailLabel: 'Student Email / Roll ID',
           emailPlaceholder: 'student@demo.com',
-          icon: <GraduationCap className="w-6 h-6 text-[#60A5FA]" />,
-          accentGradient: 'from-[#3B82F6] to-[#6366F1]',
-          buttonClass: 'bg-gradient-to-r from-[#3B82F6] to-[#6366F1] hover:from-[#60A5FA] hover:to-[#4F46E5]',
-          badgeClass: 'bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border-[rgba(59,130,246,0.30)]',
+          icon: <GraduationCap className="w-6 h-6 text-[#2563EB]" />,
+          accentGradient: 'from-[#2563EB] to-blue-600',
+          buttonClass: 'bg-[#2563EB] hover:bg-[#1D4ED8]',
+          badgeClass: 'bg-blue-50 text-[#2563EB] border-blue-200',
           demoEmail: 'student@demo.com',
           demoPass: 'password123',
           canRegister: true,
@@ -72,10 +70,10 @@ export const PortalLogin: React.FC = () => {
           portalSubtitle: 'Manage company hiring drives, candidate pipelines, and evaluation shortlists.',
           emailLabel: 'Corporate Work Email',
           emailPlaceholder: 'recruiter@demo.com',
-          icon: <Building2 className="w-6 h-6 text-[#06B6D4]" />,
-          accentGradient: 'from-[#06B6D4] to-[#0284C7]',
-          buttonClass: 'bg-gradient-to-r from-[#06B6D4] to-[#0284C7] hover:from-[#22D3EE] hover:to-[#0369A1]',
-          badgeClass: 'bg-[rgba(6,182,212,0.15)] text-[#22D3EE] border-[rgba(6,182,212,0.30)]',
+          icon: <Building2 className="w-6 h-6 text-purple-600" />,
+          accentGradient: 'from-purple-600 to-indigo-600',
+          buttonClass: 'bg-purple-600 hover:bg-purple-700',
+          badgeClass: 'bg-purple-50 text-purple-700 border-purple-200',
           demoEmail: 'recruiter@demo.com',
           demoPass: 'password123',
           canRegister: true,
@@ -91,10 +89,10 @@ export const PortalLogin: React.FC = () => {
           portalSubtitle: 'Manage institutional placement drives, AI matching algorithms, panels & rooms, and automated operations.',
           emailLabel: 'Official Institutional Email',
           emailPlaceholder: 'placement@demo.com',
-          icon: <ShieldCheck className="w-6 h-6 text-[#22C55E]" />,
-          accentGradient: 'from-[#22C55E] to-[#10B981]',
-          buttonClass: 'bg-gradient-to-r from-[#22C55E] to-[#10B981] hover:from-[#4ADE80] hover:to-[#059669]',
-          badgeClass: 'bg-[rgba(34,197,94,0.15)] text-[#86EFAC] border-[rgba(34,197,94,0.30)]',
+          icon: <ShieldCheck className="w-6 h-6 text-teal-600" />,
+          accentGradient: 'from-teal-600 to-emerald-600',
+          buttonClass: 'bg-teal-600 hover:bg-teal-700',
+          badgeClass: 'bg-teal-50 text-teal-700 border-teal-200',
           demoEmail: 'placement@demo.com',
           demoPass: 'password123',
           canRegister: true,
@@ -138,13 +136,6 @@ export const PortalLogin: React.FC = () => {
       }
     }
   }, [isAuthenticated, user, config.portalRole, navigate]);
-
-  const handleFillDemo = () => {
-    setEmail(config.demoEmail);
-    setPassword(config.demoPass);
-    setError(null);
-    setSuccessNotice(null);
-  };
 
   const handleEmailChange = (val: string) => {
     setEmail(val);
@@ -191,26 +182,22 @@ export const PortalLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden selection:bg-[#3B82F6] selection:text-white">
-      {/* Background Ambient Glows */}
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#3B82F6]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#06B6D4]/10 rounded-full blur-3xl pointer-events-none"></div>
-
+    <div className="min-h-screen bg-[#EEF3FA] text-[#14213D] flex flex-col justify-between relative selection:bg-blue-600 selection:text-white">
       {/* Header */}
       <header className="p-6 md:p-8 flex items-center justify-between max-w-7xl w-full mx-auto relative z-10">
         <Link to="/login" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white flex items-center justify-center font-black text-xl shadow-glow-brand">
+          <div className="w-10 h-10 rounded-xl bg-[#2563EB] text-white flex items-center justify-center font-bold text-xl shadow-xs">
             P
           </div>
           <div>
-            <h1 className="text-lg font-black text-[#F8FAFC] tracking-wide group-hover:text-white">PlaceMind</h1>
-            <p className="text-xs text-[#94A3B8] font-medium">Campus Placement Agent</p>
+            <h1 className="text-lg font-bold text-[#14213D] tracking-tight">PlaceMind</h1>
+            <p className="text-xs text-[#475569] font-medium">Campus Placement Platform</p>
           </div>
         </Link>
 
         <Link
           to="/login"
-          className="flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-xl bg-[#101D31] hover:bg-[#14243B] border border-[#243650] text-[#CBD5E1] hover:text-[#F8FAFC] transition-colors"
+          className="flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-[#14213D] shadow-xs transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Switch Portal</span>
@@ -219,53 +206,52 @@ export const PortalLogin: React.FC = () => {
 
       {/* Main Login Workspace */}
       <main className="flex-1 flex items-center justify-center p-4 relative z-10">
-        <div className="w-full max-w-md bg-[#101D31] rounded-2xl border border-[#243650] p-6 sm:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.40)] space-y-6">
+        <div className="w-full max-w-md bg-white rounded-3xl border border-[#CBD5E1]/90 p-6 sm:p-8 shadow-sm space-y-6">
           {/* Card Header */}
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-bold shadow-xs mx-auto mb-1">
-              <span className={`px-2 py-0.5 rounded-full border text-[11px] font-bold ${config.badgeClass}`}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold mx-auto mb-1">
+              <span className={`px-2 py-0.5 rounded-full border text-[11px] font-semibold ${config.badgeClass}`}>
                 {config.title.replace(' Login', '')}
               </span>
             </div>
 
-            <h2 className="text-2xl font-black tracking-tight text-[#F8FAFC]">
+            <h2 className="text-2xl font-black tracking-tight text-[#14213D]">
               {config.title}
             </h2>
-            <p className="text-xs text-[#CBD5E1] font-medium leading-relaxed">
+            <p className="text-xs text-[#475569] font-medium leading-relaxed">
               {config.portalSubtitle}
             </p>
           </div>
 
           {/* Error / Alert Box */}
           {error && (
-            <div className="p-3.5 bg-[rgba(239,68,68,0.10)] border border-[rgba(239,68,68,0.30)] rounded-xl text-[#FCA5A5] text-xs flex items-start gap-2.5 font-medium leading-relaxed animate-in fade-in duration-150">
-              <AlertCircle className="w-4 h-4 shrink-0 text-[#EF4444] mt-0.5" />
+            <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-start gap-2.5 font-medium leading-relaxed">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
 
           {successNotice && (
-            <div className="p-3.5 bg-[rgba(34,197,94,0.10)] border border-[rgba(34,197,94,0.30)] rounded-xl text-[#86EFAC] text-xs flex items-center gap-2.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-[#22C55E]" />
+            <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
               <span>{successNotice}</span>
             </div>
           )}
-
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Field */}
             <div className="space-y-1">
-              <label className="block text-xs font-bold text-[#E2E8F0]">{config.emailLabel}</label>
+              <label className="block text-xs font-bold text-[#14213D]">{config.emailLabel}</label>
               <div className="relative">
-                <Mail className="w-4 h-4 absolute left-3 top-3 text-[#64748B]" />
+                <Mail className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
                 <input
                   type="email"
                   required
                   placeholder={config.emailPlaceholder}
                   value={email}
                   onChange={(e) => handleEmailChange(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 bg-[#0B1628] border border-[#243650] rounded-xl text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] font-medium"
+                  className="w-full pl-9 pr-3 py-2.5 bg-[#F8FAFC] focus:bg-white border border-slate-300 rounded-xl text-xs text-[#14213D] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-medium shadow-xs transition-colors"
                 />
               </div>
             </div>
@@ -273,7 +259,7 @@ export const PortalLogin: React.FC = () => {
             {/* Password Field */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <label className="block text-xs font-bold text-[#E2E8F0]">Password</label>
+                <label className="block text-xs font-semibold text-[#14213D]">Password</label>
                 <button
                   type="button"
                   onClick={() => {
@@ -283,25 +269,25 @@ export const PortalLogin: React.FC = () => {
                     setForgotEmail(email);
                     setForgotSuccess(null);
                   }}
-                  className="text-[11px] font-bold text-[#60A5FA] hover:underline cursor-pointer"
+                  className="text-[11px] font-semibold text-[#2563EB] hover:underline cursor-pointer"
                 >
                   Forgot Password?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 absolute left-3 top-3 text-[#64748B]" />
+                <Lock className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
-                  className="w-full pl-9 pr-10 py-2.5 bg-[#0B1628] border border-[#243650] rounded-xl text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] font-medium"
+                  className="w-full pl-9 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-[#14213D] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-medium shadow-xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-[#94A3B8] hover:text-white cursor-pointer"
+                  className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -310,12 +296,12 @@ export const PortalLogin: React.FC = () => {
 
             {/* Remember Me */}
             <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 text-xs text-[#CBD5E1] cursor-pointer font-medium">
+              <label className="flex items-center gap-2 text-xs text-[#64748B] cursor-pointer font-medium">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-3.5 h-3.5 rounded border-[#243650] bg-[#0B1628] text-[#3B82F6] focus:ring-0 cursor-pointer"
+                  className="w-3.5 h-3.5 rounded border-slate-300 text-[#2563EB] focus:ring-0 cursor-pointer"
                 />
                 <span>Remember me on this device</span>
               </label>
@@ -325,7 +311,7 @@ export const PortalLogin: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 px-4 ${config.buttonClass} text-white font-bold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer mt-2`}
+              className={`w-full py-3 px-4 ${config.buttonClass} text-white font-bold text-xs rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer mt-2`}
             >
               {loading ? (
                 <>
@@ -342,7 +328,7 @@ export const PortalLogin: React.FC = () => {
           </form>
 
           {/* Registration Links or Policy Notices */}
-          <div className="pt-4 border-t border-[#1B2A40] text-center space-y-2">
+          <div className="pt-4 border-t border-slate-100 text-center space-y-2">
             {config.canRegister && (
               <div>
                 <button
@@ -358,7 +344,7 @@ export const PortalLogin: React.FC = () => {
                       setStudentSignupOpen(true);
                     }
                   }}
-                  className="text-xs font-bold text-[#60A5FA] hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer"
                 >
                   {config.registerLabel}
                 </button>
@@ -366,8 +352,8 @@ export const PortalLogin: React.FC = () => {
             )}
 
             {config.restrictedNotice && (
-              <div className="flex items-start gap-2 p-2.5 bg-[#0B1628] rounded-xl border border-[#243650] text-[11px] text-[#94A3B8] text-left font-medium">
-                <Info className="w-4 h-4 text-[#3B82F6] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-[#64748B] text-left font-medium">
+                <Info className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
                 <span>{config.restrictedNotice}</span>
               </div>
             )}
@@ -377,22 +363,22 @@ export const PortalLogin: React.FC = () => {
 
       {/* Forgot Password Modal */}
       {forgotModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050C18]/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#101D31] border border-[#243650] rounded-2xl p-6 shadow-2xl space-y-4">
-            <h3 className="text-lg font-black text-[#F8FAFC]">Reset Portal Password</h3>
-            <p className="text-xs text-[#CBD5E1] font-medium leading-relaxed">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-6 shadow-xl space-y-4">
+            <h3 className="text-lg font-bold text-[#14213D]">Reset Portal Password</h3>
+            <p className="text-xs text-[#64748B] leading-relaxed">
               Enter your registered {config.emailLabel.toLowerCase()} to receive password reset instructions for the {config.title.replace(' Login', '')}.
             </p>
 
             {forgotSuccess ? (
-              <div className="p-3.5 bg-[rgba(34,197,94,0.10)] border border-[rgba(34,197,94,0.30)] rounded-xl text-[#86EFAC] text-xs font-medium space-y-3">
+              <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs font-medium space-y-3">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>{forgotSuccess}</span>
                 </div>
                 <button
                   onClick={() => setForgotModalOpen(false)}
-                  className="w-full py-2 bg-[#14243B] hover:bg-[#1E3A5F] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                  className="w-full py-2 bg-slate-100 hover:bg-slate-200 text-[#14213D] text-xs font-bold rounded-lg transition-colors cursor-pointer"
                 >
                   Close &amp; Return to Login
                 </button>
@@ -405,20 +391,20 @@ export const PortalLogin: React.FC = () => {
                   placeholder={config.emailPlaceholder}
                   value={forgotEmail}
                   onChange={(e) => setForgotEmail(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-[#0B1628] border border-[#243650] rounded-xl text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6] font-medium"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-[#14213D] placeholder:text-slate-400 focus:outline-none focus:border-[#2563EB] font-medium shadow-xs"
                 />
                 <div className="flex items-center justify-end gap-2 pt-2">
                   <button
                     type="button"
                     onClick={() => setForgotModalOpen(false)}
-                    className="px-3.5 py-2 rounded-xl bg-[#0B1628] hover:bg-[#14243B] text-[#CBD5E1] text-xs font-bold border border-[#243650] cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-[#64748B] text-xs font-semibold border border-slate-200 cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={forgotLoading}
-                    className={`px-4 py-2 ${config.buttonClass} text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer`}
+                    className={`px-4 py-2 ${config.buttonClass} text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5 cursor-pointer`}
                   >
                     {forgotLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
                     <span>Send Reset Instructions</span>
@@ -479,7 +465,7 @@ export const PortalLogin: React.FC = () => {
       />
 
       {/* Footer */}
-      <footer className="p-6 text-center text-xs text-[#64748B] relative z-10 font-medium border-t border-[#17253A]">
+      <footer className="p-6 text-center text-xs text-[#64748B] relative z-10 font-medium border-t border-slate-200/80">
         PlaceMind Autonomous Placement Operating System &bull; Enterprise Portal Security
       </footer>
     </div>

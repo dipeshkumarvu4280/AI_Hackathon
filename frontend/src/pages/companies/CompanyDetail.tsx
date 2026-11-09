@@ -388,11 +388,11 @@ export const CompanyDetail: React.FC = () => {
 
   if (!drive) {
     return (
-      <div className="space-y-6 pb-12 text-[#CBD5E1]">
+      <div className="space-y-6 pb-12 text-[#14213D]">
         <PageHeader
           title="Drive Not Found"
           subtitle="The requested placement drive does not exist in the database."
-          icon={<Building2 className="w-5 h-5 text-white" />}
+          icon={<Building2 className="w-5 h-5 text-[#2563EB]" />}
           action={
             <Button
               variant="outline"
@@ -403,8 +403,8 @@ export const CompanyDetail: React.FC = () => {
             </Button>
           }
         />
-        <Card className="p-8 text-center bg-[#101D31] border-[#243650]">
-          <p className="text-sm text-[#94A3B8]">No placement drive details available in database.</p>
+        <Card className="p-8 text-center bg-white border-slate-200 shadow-xs">
+          <p className="text-sm text-[#64748B]">No placement drive details available in database.</p>
         </Card>
       </div>
     );
@@ -415,12 +415,12 @@ export const CompanyDetail: React.FC = () => {
   const interviewScheduledCount = applicants.filter((c) => !!c.interview).length || drive.pipeline?.interview || 0;
 
   return (
-    <div className="space-y-6 pb-12 text-[#CBD5E1]">
+    <div className="space-y-6 pb-12 text-[#14213D]">
       {/* Back Navigation & Page Header */}
       <PageHeader
         title={`${drive.companyName} — ${drive.roleTitle}`}
         subtitle="Detailed drive requirements, candidate applications, and AI interview scheduling."
-        icon={<Building2 className="w-5 h-5 text-white" />}
+        icon={<Building2 className="w-5 h-5 text-[#2563EB]" />}
         action={
           <Button
             variant="outline"
@@ -436,7 +436,7 @@ export const CompanyDetail: React.FC = () => {
       {actionNotice && (
         <div className="p-4 rounded-xl bg-slate-900 text-white flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-2">
           <div className="flex items-center gap-2.5 text-xs font-semibold">
-            <Sparkles className="w-4 h-4 text-brand-400" />
+            <Sparkles className="w-4 h-4 text-blue-400" />
             <span>{actionNotice}</span>
           </div>
           <button onClick={() => setActionNotice(null)} className="text-slate-400 hover:text-white">
@@ -447,73 +447,73 @@ export const CompanyDetail: React.FC = () => {
 
       {/* CAMPUS DRIVE ANNOUNCEMENT BANNER — shown when status is PENDING_ANNOUNCEMENT */}
       {isPendingAnnouncement && isPlacementOfficer && !isAlreadyAnnounced && (
-        <div className="p-5 rounded-2xl bg-blue-950/30 border border-blue-400/40 shadow-lg space-y-4">
+        <div className="p-5 rounded-2xl bg-blue-50/70 border border-blue-200 shadow-xs space-y-4">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-xl bg-blue-500/20 text-blue-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded-xl bg-blue-100 text-[#2563EB] shrink-0 mt-0.5">
               <Bell className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-sm font-bold text-[#F8FAFC]">Campus Drive Pending Announcement</h3>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                <h3 className="text-sm font-bold text-[#14213D]">Campus Drive Pending Announcement</h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#2563EB] border border-blue-200">
                   PENDING ANNOUNCEMENT
                 </span>
               </div>
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Company</div>
-                  <div className="text-white font-semibold">{drive.companyName}</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Company</div>
+                  <div className="text-[#14213D] font-semibold">{drive.companyName}</div>
                 </div>
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Role</div>
-                  <div className="text-white font-semibold">{drive.roleTitle}</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Role</div>
+                  <div className="text-[#14213D] font-semibold">{drive.roleTitle}</div>
                 </div>
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Package</div>
-                  <div className="text-emerald-400 font-bold">₹{drive.packageLpa} LPA</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Package</div>
+                  <div className="text-emerald-600 font-bold">₹{drive.packageLpa} LPA</div>
                 </div>
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Drive Date</div>
-                  <div className="text-white font-semibold">{(drive as any).driveDate || drive.deadline || 'TBD'}</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Drive Date</div>
+                  <div className="text-[#14213D] font-semibold">{(drive as any).driveDate || drive.deadline || 'TBD'}</div>
                 </div>
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Location</div>
-                  <div className="text-white font-semibold">{drive.location}</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Location</div>
+                  <div className="text-[#14213D] font-semibold">{drive.location}</div>
                 </div>
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-700/50">
-                  <div className="text-slate-400 text-[10px] uppercase font-bold mb-0.5">Deadline</div>
-                  <div className="text-amber-400 font-semibold">{drive.deadline}</div>
+                <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <div className="text-[#64748B] text-[10px] uppercase font-bold mb-0.5">Deadline</div>
+                  <div className="text-amber-600 font-semibold">{drive.deadline}</div>
                 </div>
               </div>
               {drive.requiredSkills?.length > 0 && (
                 <div className="mt-2 flex items-center gap-1.5 flex-wrap">
-                  <span className="text-[10px] text-slate-400 uppercase font-bold">Required Skills:</span>
+                  <span className="text-[10px] text-[#64748B] uppercase font-bold">Required Skills:</span>
                   {drive.requiredSkills.slice(0, 6).map((sk) => (
-                    <span key={sk} className="text-[10px] px-2 py-0.5 rounded-full bg-blue-900/40 text-blue-300 border border-blue-700/40">{sk}</span>
+                    <span key={sk} className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">{sk}</span>
                   ))}
                 </div>
               )}
 
               {/* Success / Error feedback */}
               {announceSuccess && (
-                <div className="mt-3 p-3 rounded-lg bg-emerald-900/30 border border-emerald-500/40 text-emerald-300 text-xs font-medium flex items-center gap-2">
+                <div className="mt-3 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
                   {announceSuccess}
                 </div>
               )}
               {announceError && (
-                <div className="mt-3 p-3 rounded-lg bg-red-900/30 border border-red-500/40 text-red-300 text-xs font-medium">
+                <div className="mt-3 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
                   {announceError}
                 </div>
               )}
 
-              <div className="mt-4 border-t border-blue-800/40 pt-4">
-                <p className="text-xs text-slate-300 font-medium mb-3">Notify Students About This Drive?</p>
+              <div className="mt-4 border-t border-blue-200/60 pt-4">
+                <p className="text-xs text-[#334155] font-medium mb-3">Notify Students About This Drive?</p>
                 <div className="flex items-center gap-3">
                   <Button
                     variant="primary"
                     size="sm"
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-md"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-xs"
                     icon={isAnnouncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bell className="w-4 h-4" />}
                     onClick={handleAnnounceToStudents}
                     disabled={isAnnouncing || !!announceSuccess}
@@ -523,7 +523,6 @@ export const CompanyDetail: React.FC = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-slate-600 text-slate-400 hover:text-white"
                     onClick={() => navigate(-1)}
                   >
                     Not Now
@@ -537,7 +536,7 @@ export const CompanyDetail: React.FC = () => {
 
       {/* ALREADY ANNOUNCED — success banner */}
       {isAlreadyAnnounced && isPlacementOfficer && announceSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-900/30 border border-emerald-500/40 text-emerald-300 text-xs font-medium flex items-center gap-2">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           {announceSuccess}
         </div>
@@ -545,20 +544,20 @@ export const CompanyDetail: React.FC = () => {
 
       {/* LEGACY: OFFICER APPROVAL BANNER (status = PENDING_APPROVAL) */}
       {isPendingApproval && isPlacementOfficer && (
-        <div className="p-5 rounded-2xl bg-amber-950/25 border border-amber-500/40 shadow-lg space-y-4">
+        <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 shadow-xs space-y-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-xl bg-amber-500/20 text-amber-300 shrink-0 mt-0.5">
+              <div className="p-2 rounded-xl bg-amber-100 text-amber-700 shrink-0 mt-0.5">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#F8FAFC]">Placement Cell Approval Review Required</h3>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  <h3 className="text-sm font-bold text-amber-900">Placement Cell Approval Review Required</h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
                     PENDING APPROVAL
                   </span>
                 </div>
-                <p className="text-xs text-[#CBD5E1] mt-1 leading-relaxed">
+                <p className="text-xs text-amber-800 mt-1 leading-relaxed">
                   This placement drive was submitted by <strong>{drive.companyName}</strong>. Review eligibility rules, CGPA threshold, and compensation package before publishing live to eligible students.
                 </p>
               </div>
@@ -568,7 +567,7 @@ export const CompanyDetail: React.FC = () => {
               <Button
                 variant="primary"
                 size="sm"
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-sm"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-xs"
                 icon={<Check className="w-4 h-4" />}
                 onClick={handleApprove}
               >
@@ -577,7 +576,6 @@ export const CompanyDetail: React.FC = () => {
               <Button
                 variant="secondary"
                 size="sm"
-                className="bg-indigo-600/80 hover:bg-indigo-500 text-white"
                 icon={<Edit3 className="w-4 h-4" />}
                 onClick={() => {
                   setReviewModal({ isOpen: true, type: 'request_changes' });
@@ -589,7 +587,7 @@ export const CompanyDetail: React.FC = () => {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-red-500/40 text-red-400 hover:bg-red-500/10"
+                className="border-red-300 text-red-600 hover:bg-red-50"
                 icon={<X className="w-4 h-4" />}
                 onClick={() => {
                   setReviewModal({ isOpen: true, type: 'reject' });
@@ -606,7 +604,7 @@ export const CompanyDetail: React.FC = () => {
 
 
       {/* DRIVE OVERVIEW BANNER CARD */}
-      <Card className="p-6 border-[#243650] bg-[#101D31] text-[#F8FAFC]">
+      <Card className="p-6 border-slate-200 bg-white text-[#14213D] shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-start gap-4 min-w-0">
             <CompanyLogo
@@ -616,26 +614,26 @@ export const CompanyDetail: React.FC = () => {
             />
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl font-black text-[#F8FAFC] tracking-tight truncate">{drive.companyName}</h2>
+                <h2 className="text-xl font-black text-[#14213D] tracking-tight truncate">{drive.companyName}</h2>
                 <StatusBadge status={drive.status} />
                 {drive.aiConfirmed && (
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]">
-                    <Sparkles className="w-3 h-3 text-[#38BDF8]" /> AI JD Verified
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">
+                    <Sparkles className="w-3 h-3 text-[#2563EB]" /> AI JD Verified
                   </span>
                 )}
               </div>
-              <p className="text-sm font-semibold text-[#CBD5E1] mt-1">
+              <p className="text-sm font-semibold text-[#64748B] mt-1">
                 {drive.roleTitle} &bull; <span className="text-[#94A3B8]">{drive.employmentType}</span>
               </p>
-              <div className="flex items-center gap-4 text-xs text-[#CBD5E1] mt-3 flex-wrap font-medium">
+              <div className="flex items-center gap-4 text-xs text-[#64748B] mt-3 flex-wrap font-medium">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#3B82F6]" /> {drive.location}
+                  <MapPin className="w-3.5 h-3.5 text-[#2563EB]" /> {drive.location}
                 </span>
-                <span className="flex items-center gap-1 text-[#86EFAC] font-bold">
-                  <Briefcase className="w-3.5 h-3.5 text-[#22C55E]" /> ₹{drive.packageLpa} LPA
+                <span className="flex items-center gap-1 text-emerald-600 font-bold">
+                  <Briefcase className="w-3.5 h-3.5 text-emerald-600" /> ₹{drive.packageLpa} LPA
                 </span>
-                <span className="flex items-center gap-1 text-[#FCD34D] font-bold">
-                  <Clock className="w-3.5 h-3.5 text-[#F59E0B]" /> Deadline: {drive.deadline}
+                <span className="flex items-center gap-1 text-amber-600 font-bold">
+                  <Clock className="w-3.5 h-3.5 text-amber-600" /> Deadline: {drive.deadline}
                 </span>
               </div>
             </div>
@@ -654,7 +652,7 @@ export const CompanyDetail: React.FC = () => {
             <Button
               variant="secondary"
               size="sm"
-              icon={<Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />}
+              icon={<Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />}
               onClick={() => {
                 triggerAction(`AI Candidate Matching launched for ${drive.roleTitle}.`);
                 navigate('/matching');
@@ -678,49 +676,49 @@ export const CompanyDetail: React.FC = () => {
       </Card>
 
       {/* PLACEMENT PIPELINE PROGRESSION */}
-      <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-        <CardHeader className="border-b border-[#1B2A40]">
-          <CardTitle className="text-base font-bold">Drive Recruitment Pipeline</CardTitle>
-          <p className="text-xs text-[#CBD5E1]">Real-time applicant transition stages for this drive</p>
+      <Card className="bg-white border-slate-200 text-[#14213D] shadow-xs">
+        <CardHeader className="border-b border-slate-100">
+          <CardTitle className="text-base font-bold text-[#14213D]">Drive Recruitment Pipeline</CardTitle>
+          <p className="text-xs text-[#64748B]">Real-time applicant transition stages for this drive</p>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            <div className="p-3.5 rounded-xl border border-[#243650] bg-[#0B1628]">
-              <span className="text-[10px] font-bold text-[#94A3B8] uppercase">Eligible</span>
-              <div className="text-2xl font-black text-[#F8FAFC] mt-1">{drive.pipeline?.eligible || 0}</div>
+            <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase">Eligible</span>
+              <div className="text-2xl font-black text-[#14213D] mt-1">{drive.pipeline?.eligible || 0}</div>
             </div>
-            <div className="p-3.5 rounded-xl border border-[rgba(59,130,246,0.30)] bg-[rgba(59,130,246,0.10)]">
-              <span className="text-[10px] font-bold text-[#60A5FA] uppercase">Applied</span>
-              <div className="text-2xl font-black text-[#60A5FA] mt-1">{appliedCount}</div>
+            <div className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/70">
+              <span className="text-[10px] font-bold text-[#2563EB] uppercase">Applied</span>
+              <div className="text-2xl font-black text-[#2563EB] mt-1">{appliedCount}</div>
             </div>
-            <div className="p-3.5 rounded-xl border border-[rgba(168,85,247,0.30)] bg-[rgba(168,85,247,0.10)]">
-              <span className="text-[10px] font-bold text-[#C084FC] uppercase">Shortlisted</span>
-              <div className="text-2xl font-black text-[#C084FC] mt-1">{shortlistedCount}</div>
+            <div className="p-3.5 rounded-xl border border-purple-200 bg-purple-50/70">
+              <span className="text-[10px] font-bold text-purple-700 uppercase">Shortlisted</span>
+              <div className="text-2xl font-black text-purple-700 mt-1">{shortlistedCount}</div>
             </div>
-            <div className="p-3.5 rounded-xl border border-[rgba(245,158,11,0.30)] bg-[rgba(245,158,11,0.10)]">
-              <span className="text-[10px] font-bold text-[#FCD34D] uppercase">Interview</span>
-              <div className="text-2xl font-black text-[#FCD34D] mt-1">{interviewScheduledCount}</div>
+            <div className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/70">
+              <span className="text-[10px] font-bold text-amber-700 uppercase">Interview</span>
+              <div className="text-2xl font-black text-amber-700 mt-1">{interviewScheduledCount}</div>
             </div>
-            <div className="p-3.5 rounded-xl border border-[rgba(34,197,94,0.30)] bg-[rgba(34,197,94,0.10)]">
-              <span className="text-[10px] font-bold text-[#86EFAC] uppercase">Selected</span>
-              <div className="text-2xl font-black text-[#86EFAC] mt-1">{drive.selectedCount || 0}</div>
+            <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/70">
+              <span className="text-[10px] font-bold text-emerald-700 uppercase">Selected</span>
+              <div className="text-2xl font-black text-emerald-700 mt-1">{drive.selectedCount || 0}</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* APPLICATIONS / CANDIDATES FOR THIS DRIVE */}
-      <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-        <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1B2A40]">
+      <Card className="bg-white border-slate-200 text-[#14213D] shadow-xs">
+        <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100">
           <div>
             <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#3B82F6]" />
-              <CardTitle className="text-base font-bold">Applications for this Drive</CardTitle>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-[rgba(59,130,246,0.15)] text-[#60A5FA] font-bold border border-[rgba(59,130,246,0.30)]">
+              <Users className="w-5 h-5 text-[#2563EB]" />
+              <CardTitle className="text-base font-bold text-[#14213D]">Applications for this Drive</CardTitle>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-[#2563EB] font-bold border border-blue-200">
                 {applicants.length} Total Applicants
               </span>
             </div>
-            <p className="text-xs text-[#CBD5E1] mt-0.5">
+            <p className="text-xs text-[#64748B] mt-0.5">
               Only students who applied to {drive.companyName} ({drive.roleTitle})
             </p>
           </div>
@@ -733,7 +731,7 @@ export const CompanyDetail: React.FC = () => {
                 placeholder="Filter applicants..."
                 value={applicantSearch}
                 onChange={(e) => setApplicantSearch(e.target.value)}
-                className="w-full pl-8 pr-2.5 py-1.5 text-xs bg-[#0B1628] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                className="w-full pl-8 pr-2.5 py-1.5 text-xs bg-white border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
               />
             </div>
             <Button
@@ -750,23 +748,23 @@ export const CompanyDetail: React.FC = () => {
 
         <CardContent className="p-0 overflow-x-auto">
           {loadingApplicants && applicants.length === 0 ? (
-            <div className="p-8 text-center text-xs text-[#94A3B8]">
+            <div className="p-8 text-center text-xs text-[#64748B]">
               <div className="inline-flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin text-[#3B82F6]" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#2563EB]" />
                 <span>Loading candidate applications...</span>
               </div>
             </div>
           ) : filteredApplicants.length === 0 ? (
-            <div className="p-12 text-center text-[#94A3B8] space-y-2">
-              <Users className="w-8 h-8 text-[#64748B] mx-auto opacity-50" />
-              <p className="text-sm font-bold text-[#F8FAFC]">No applications for this drive yet</p>
+            <div className="p-12 text-center text-[#64748B] space-y-2">
+              <Users className="w-8 h-8 text-[#94A3B8] mx-auto opacity-50" />
+              <p className="text-sm font-bold text-[#14213D]">No applications for this drive yet</p>
               <p className="text-xs text-[#64748B]">
                 Eligible students who apply to {drive.companyName} will appear here dynamically.
               </p>
             </div>
           ) : (
             <table className="w-full text-left text-xs border-collapse min-w-[800px]">
-              <thead className="bg-[#14243B] text-[11px] font-bold uppercase tracking-wider text-[#CBD5E1] border-b border-[#243650]">
+              <thead className="bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-[#64748B] border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3.5 w-[28%] min-w-[200px]">Applicant Name</th>
                   <th className="px-4 py-3.5 w-[16%] min-w-[120px]">Branch &amp; CGPA</th>
@@ -776,12 +774,12 @@ export const CompanyDetail: React.FC = () => {
                   <th className="px-4 py-3.5 w-[10%] min-w-[130px] text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#243650]">
+              <tbody className="divide-y divide-slate-100">
                 {filteredApplicants.map((candidate) => (
-                  <tr key={candidate.id} className="hover:bg-[#14243B] transition-colors">
+                  <tr key={candidate.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-4 py-3.5 align-middle">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-[#1E293B] border border-[#334155] text-[#38BDF8] font-bold text-xs flex items-center justify-center shrink-0 overflow-hidden">
+                        <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 text-[#2563EB] font-bold text-xs flex items-center justify-center shrink-0 overflow-hidden">
                           {typeof candidate.student_avatar === 'string' && candidate.student_avatar.startsWith('http') ? (
                             <img src={candidate.student_avatar} alt={candidate.student_name} className="w-full h-full object-cover" />
                           ) : (
@@ -789,14 +787,14 @@ export const CompanyDetail: React.FC = () => {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="font-bold text-[#F8FAFC] truncate">{candidate.student_name}</div>
-                          <div className="text-[11px] text-[#94A3B8] truncate">{candidate.student_email || candidate.rollNumber}</div>
+                          <div className="font-bold text-[#14213D] truncate">{candidate.student_name}</div>
+                          <div className="text-[11px] text-[#64748B] truncate">{candidate.student_email || candidate.rollNumber}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3.5 align-middle">
-                      <div className="font-semibold text-[#F8FAFC]">{candidate.branch || 'CSE'}</div>
-                      <div className="text-[11px] text-[#86EFAC] font-bold">CGPA: {candidate.cgpa != null ? candidate.cgpa : 'N/A'}</div>
+                      <div className="font-semibold text-[#14213D]">{candidate.branch || 'CSE'}</div>
+                      <div className="text-[11px] text-emerald-600 font-bold">CGPA: {candidate.cgpa != null ? candidate.cgpa : 'N/A'}</div>
                     </td>
                     <td className="px-4 py-3.5 align-middle">
                       {candidate.match_score != null ? <MatchScore score={candidate.match_score} size="sm" /> : <span className="text-xs text-[#64748B]">No score</span>}
@@ -807,11 +805,11 @@ export const CompanyDetail: React.FC = () => {
                     <td className="px-4 py-3.5 align-middle text-xs">
                       {candidate.interview ? (
                         <div className="space-y-0.5">
-                          <div className="font-bold text-[#86EFAC] flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-[#22C55E]" />
+                          <div className="font-bold text-emerald-600 flex items-center gap-1">
+                            <Calendar className="w-3 h-3 text-emerald-600" />
                             {candidate.interview.interview_date} &bull; {candidate.interview.interview_time}
                           </div>
-                          <div className="text-[11px] text-[#94A3B8]">
+                          <div className="text-[11px] text-[#64748B]">
                             Panel: {candidate.interview.panel_name || 'Technical Panel'} | {candidate.interview.room || 'Room 101'}
                           </div>
                         </div>
@@ -831,7 +829,7 @@ export const CompanyDetail: React.FC = () => {
                         </Button>
                         <button
                           onClick={() => handleRejectCandidate(candidate.id, candidate.student_name)}
-                          className="p-1.5 text-[#94A3B8] hover:text-[#EF4444] hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer"
+                          className="p-1.5 text-[#64748B] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                           title="Mark Not Shortlisted"
                         >
                           <XCircle className="w-4 h-4" />
@@ -847,14 +845,14 @@ export const CompanyDetail: React.FC = () => {
       </Card>
 
       {/* PLACEMENT COMMUNITY & OFFICER BROADCASTS */}
-      <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-        <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1B2A40]">
+      <Card className="bg-white border-slate-200 text-[#14213D] shadow-xs">
+        <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100">
           <div>
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-[#3B82F6]" />
-              <CardTitle className="text-base font-bold">Placement Community Broadcasts &amp; Forms</CardTitle>
+              <MessageSquare className="w-5 h-5 text-[#2563EB]" />
+              <CardTitle className="text-base font-bold text-[#14213D]">Placement Community Broadcasts &amp; Forms</CardTitle>
             </div>
-            <p className="text-xs text-[#CBD5E1] mt-0.5">
+            <p className="text-xs text-[#64748B] mt-0.5">
               Publish official announcements, clickable registration forms, and interview updates for eligible students.
             </p>
           </div>
@@ -874,9 +872,9 @@ export const CompanyDetail: React.FC = () => {
         <CardContent className="space-y-6">
           {/* Post New Announcement Form */}
           {isPlacementOfficer && (
-            <form onSubmit={handlePostAnnouncement} className="p-4 bg-[#0B1628] rounded-xl border border-[#243650] space-y-3">
-              <h4 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider flex items-center gap-1.5">
-                <Send className="w-3.5 h-3.5 text-[#3B82F6]" /> Post New Community Message / Interactive Form
+            <form onSubmit={handlePostAnnouncement} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+              <h4 className="text-xs font-bold text-[#14213D] uppercase tracking-wider flex items-center gap-1.5">
+                <Send className="w-3.5 h-3.5 text-[#2563EB]" /> Post New Community Message / Interactive Form
               </h4>
 
               <textarea
@@ -885,16 +883,16 @@ export const CompanyDetail: React.FC = () => {
                 value={newMsgContent}
                 onChange={(e) => setNewMsgContent(e.target.value)}
                 placeholder="e.g. Registration for the placement drive is now officially OPEN. Please complete the registration form before 6:00 PM."
-                className="w-full text-xs p-3 bg-[#101D31] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-3 bg-white border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
               />
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[11px] font-bold text-[#94A3B8] mb-1">Message Type</label>
+                  <label className="block text-[11px] font-bold text-[#64748B] mb-1">Message Type</label>
                   <select
                     value={newMsgType}
                     onChange={(e) => setNewMsgType(e.target.value)}
-                    className="w-full text-xs p-2 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none"
+                    className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value="ANNOUNCEMENT">Announcement</option>
                     <option value="FORM">Form Announcement</option>
@@ -907,7 +905,7 @@ export const CompanyDetail: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#94A3B8] mb-1">Attached Action</label>
+                  <label className="block text-[11px] font-bold text-[#64748B] mb-1">Attached Action</label>
                   <select
                     value={newActionType}
                     onChange={(e) => {
@@ -916,7 +914,7 @@ export const CompanyDetail: React.FC = () => {
                       else if (e.target.value === 'START_ASSESSMENT') setNewActionLabel('Start Assessment');
                       else if (e.target.value === 'VIEW_INTERVIEW') setNewActionLabel('View Interview Schedule');
                     }}
-                    className="w-full text-xs p-2 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none"
+                    className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB]"
                   >
                     <option value="OPEN_FORM">Open Registration Form</option>
                     <option value="START_ASSESSMENT">Start Assessment</option>
@@ -927,13 +925,13 @@ export const CompanyDetail: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#94A3B8] mb-1">Action Button Text</label>
+                  <label className="block text-[11px] font-bold text-[#64748B] mb-1">Action Button Text</label>
                   <input
                     type="text"
                     value={newActionLabel}
                     onChange={(e) => setNewActionLabel(e.target.value)}
                     placeholder="e.g. Open Registration Form"
-                    className="w-full text-xs p-2 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6]"
+                    className="w-full text-xs p-2 bg-white border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB]"
                   />
                 </div>
               </div>
@@ -954,22 +952,22 @@ export const CompanyDetail: React.FC = () => {
 
           {/* Broadcasts History */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-[#CBD5E1] uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-[#64748B] uppercase tracking-wider">
               Broadcasted Messages ({communityMessages.length})
             </h4>
 
             {communityMessages.length === 0 ? (
-              <div className="p-6 text-center text-xs text-[#94A3B8] bg-[#0B1628] rounded-xl border border-[#243650]">
+              <div className="p-6 text-center text-xs text-[#64748B] bg-slate-50 rounded-xl border border-slate-200">
                 No announcements broadcasted yet for this drive.
               </div>
             ) : (
               <div className="space-y-3">
                 {communityMessages.map((msg) => (
-                  <div key={msg.id} className="p-3.5 bg-[#0B1628] rounded-xl border border-[#243650] space-y-2">
+                  <div key={msg.id} className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
                     <div className="flex items-center justify-between text-xs flex-wrap gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#F8FAFC]">{msg.author_name}</span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#3B82F6]/15 text-[#60A5FA] border border-[#3B82F6]/30 uppercase">
+                        <span className="font-bold text-[#14213D]">{msg.author_name}</span>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-[#2563EB] border border-blue-200 uppercase">
                           {msg.message_type || 'ANNOUNCEMENT'}
                         </span>
                       </div>
@@ -978,12 +976,12 @@ export const CompanyDetail: React.FC = () => {
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#CBD5E1] leading-relaxed whitespace-pre-line font-medium">
+                    <p className="text-xs text-[#475569] leading-relaxed whitespace-pre-line font-medium">
                       {msg.content}
                     </p>
 
                     {msg.action_type && (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#14243B] text-[11px] font-bold text-[#38BDF8] border border-[#243650]">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-blue-50 text-[11px] font-bold text-[#2563EB] border border-blue-100">
                         <span>Action: {msg.action_label || msg.action_type}</span>
                       </div>
                     )}
@@ -998,11 +996,11 @@ export const CompanyDetail: React.FC = () => {
       {/* GRID: JOB REQUIREMENTS & AI INSIGHTS */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* JOB REQUIREMENTS (2 cols) */}
-        <Card className="lg:col-span-2 bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-          <CardHeader className="flex flex-row items-center justify-between border-b border-[#1B2A40]">
+        <Card className="lg:col-span-2 bg-white border-slate-200 text-[#14213D] shadow-xs">
+          <CardHeader className="flex flex-row items-center justify-between border-b border-slate-100">
             <div>
-              <CardTitle className="text-base font-bold">Job Requirements &amp; Criteria</CardTitle>
-              <p className="text-xs text-[#CBD5E1]">Extracted &amp; verified eligibility rules from raw text</p>
+              <CardTitle className="text-base font-bold text-[#14213D]">Job Requirements &amp; Criteria</CardTitle>
+              <p className="text-xs text-[#64748B]">Extracted &amp; verified eligibility rules from raw text</p>
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -1030,39 +1028,39 @@ export const CompanyDetail: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-5">
             {/* Eligibility Info Box */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-[#0B1628] rounded-xl border border-[#243650]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
               <div>
-                <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Minimum CGPA</span>
-                <span className="text-base font-black text-[#F8FAFC]">{drive.minCgpa}</span>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase block">Minimum CGPA</span>
+                <span className="text-base font-black text-[#14213D]">{drive.minCgpa}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Eligible Branches</span>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase block">Eligible Branches</span>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {drive.eligibleBranches.map((b) => (
-                    <span key={b} className="text-xs font-semibold px-2 py-0.5 rounded bg-[#14243B] text-[#CBD5E1] border border-[#243650]">
+                    <span key={b} className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-[#475569] border border-slate-200">
                       {b}
                     </span>
                   ))}
                 </div>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Graduation Batch</span>
-                <span className="text-base font-black text-[#F8FAFC]">{drive.graduationYear || 2027}</span>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase block">Graduation Batch</span>
+                <span className="text-base font-black text-[#14213D]">{drive.graduationYear || 2027}</span>
               </div>
             </div>
 
             {/* Required Skills Tags */}
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-[#CBD5E1] uppercase tracking-wider">Required Skills</h4>
-              <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] flex flex-wrap gap-2">
+              <h4 className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Required Skills</h4>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-wrap gap-2">
                 {drive.requiredSkills.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#14243B] border border-[#243650] text-[#F8FAFC] text-xs font-bold"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-[#14213D] text-xs font-bold shadow-xs"
                   >
                     {skill}
                     {isEditingSkills && (
-                      <button onClick={() => handleRemoveRequiredSkill(skill)} className="hover:text-[#EF4444] cursor-pointer">
+                      <button onClick={() => handleRemoveRequiredSkill(skill)} className="hover:text-red-600 cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     )}
@@ -1076,7 +1074,7 @@ export const CompanyDetail: React.FC = () => {
                     placeholder="Add required skill..."
                     value={newRequiredSkill}
                     onChange={(e) => setNewRequiredSkill(e.target.value)}
-                    className="text-xs p-2 border border-[#243650] bg-[#0B1628] text-[#F8FAFC] rounded-lg flex-1 focus:outline-none focus:border-[#3B82F6]"
+                    className="text-xs p-2 border border-slate-200 bg-white text-[#14213D] rounded-lg flex-1 focus:outline-none focus:border-[#2563EB]"
                   />
                   <Button variant="primary" size="sm" onClick={handleAddRequiredSkill}>
                     + Add
@@ -1087,16 +1085,16 @@ export const CompanyDetail: React.FC = () => {
 
             {/* Preferred Skills Tags */}
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-[#CBD5E1] uppercase tracking-wider">Preferred Skills</h4>
-              <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] flex flex-wrap gap-2">
+              <h4 className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Preferred Skills</h4>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-wrap gap-2">
                 {drive.preferredSkills.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)] text-xs font-bold"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200 text-xs font-bold"
                   >
                     {skill}
                     {isEditingSkills && (
-                      <button onClick={() => handleRemovePreferredSkill(skill)} className="hover:text-[#EF4444] cursor-pointer">
+                      <button onClick={() => handleRemovePreferredSkill(skill)} className="hover:text-red-600 cursor-pointer">
                         <X className="w-3 h-3" />
                       </button>
                     )}
@@ -1110,7 +1108,7 @@ export const CompanyDetail: React.FC = () => {
                     placeholder="Add preferred skill..."
                     value={newPreferredSkill}
                     onChange={(e) => setNewPreferredSkill(e.target.value)}
-                    className="text-xs p-2 border border-[#243650] bg-[#0B1628] text-[#F8FAFC] rounded-lg flex-1 focus:outline-none focus:border-[#3B82F6]"
+                    className="text-xs p-2 border border-slate-200 bg-white text-[#14213D] rounded-lg flex-1 focus:outline-none focus:border-[#2563EB]"
                   />
                   <Button variant="secondary" size="sm" onClick={handleAddPreferredSkill}>
                     + Add
@@ -1121,8 +1119,8 @@ export const CompanyDetail: React.FC = () => {
 
             {/* Raw Description Preview */}
             <div className="space-y-1 pt-2">
-              <h4 className="text-xs font-bold text-[#CBD5E1] uppercase tracking-wider">Full Job Description</h4>
-              <p className="text-xs text-[#CBD5E1] bg-[#0B1628] p-3 rounded-xl border border-[#243650] leading-relaxed font-medium">
+              <h4 className="text-xs font-bold text-[#64748B] uppercase tracking-wider">Full Job Description</h4>
+              <p className="text-xs text-[#475569] bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed font-medium">
                 {drive.description}
               </p>
             </div>
@@ -1130,25 +1128,25 @@ export const CompanyDetail: React.FC = () => {
         </Card>
 
         {/* AI INSIGHTS & RECOMMENDATIONS (1 col) */}
-        <Card className="border-[#243650] bg-[#101D31] text-[#F8FAFC]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="border-slate-200 bg-white text-[#14213D] shadow-xs">
+          <CardHeader className="border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-md bg-[#3B82F6] text-white">
+              <div className="p-1.5 rounded-md bg-[#2563EB] text-white">
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
-              <CardTitle className="text-base font-bold">AI Drive Insights</CardTitle>
+              <CardTitle className="text-base font-bold text-[#14213D]">AI Drive Insights</CardTitle>
             </div>
-            <p className="text-xs text-[#CBD5E1]">Autonomous student skill match analysis</p>
+            <p className="text-xs text-[#64748B]">Autonomous student skill match analysis</p>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Top Matching Skills */}
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1.5">
-              <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" /> Top Matching Student Skills
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+              <span className="text-xs font-bold text-[#14213D] flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Top Matching Student Skills
               </span>
               <div className="flex flex-wrap gap-1">
                 {(drive.aiInsights?.topMatchingSkills || drive.requiredSkills).map((s) => (
-                  <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.10)] text-[#86EFAC] border border-[rgba(34,197,94,0.25)]">
+                  <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                     {s}
                   </span>
                 ))}
@@ -1156,13 +1154,13 @@ export const CompanyDetail: React.FC = () => {
             </div>
 
             {/* Common Skill Gaps */}
-            <div className="p-3 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1.5">
-              <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-[#F59E0B]" /> Common Student Skill Gaps
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+              <span className="text-xs font-bold text-[#14213D] flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" /> Common Student Skill Gaps
               </span>
               <div className="flex flex-wrap gap-1">
                 {(drive.aiInsights?.commonSkillGaps || ['Docker', 'FastAPI']).map((s) => (
-                  <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(245,158,11,0.10)] text-[#FCD34D] border border-[rgba(245,158,11,0.25)]">
+                  <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">
                     {s}
                   </span>
                 ))}
@@ -1170,20 +1168,20 @@ export const CompanyDetail: React.FC = () => {
             </div>
 
             {/* Preparation Strategy Advice */}
-            <div className="p-3.5 bg-[#0B1628] rounded-xl border border-[#243650] space-y-1">
-              <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                <Lightbulb className="w-3.5 h-3.5 text-[#3B82F6]" /> Recommended Action Strategy
+            <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+              <span className="text-xs font-bold text-[#14213D] flex items-center gap-1.5">
+                <Lightbulb className="w-3.5 h-3.5 text-[#2563EB]" /> Recommended Action Strategy
               </span>
-              <p className="text-xs text-[#CBD5E1] leading-relaxed mt-1 font-medium">
+              <p className="text-xs text-[#475569] leading-relaxed mt-1 font-medium">
                 {drive.aiInsights?.preparationAdvice || 'Schedule a 1-day revision workshop covering REST API standards and database querying.'}
               </p>
             </div>
 
             {/* AI Summary Box */}
             {drive.aiExplanation && (
-              <div className="p-3 bg-[#07111F] text-[#F8FAFC] rounded-xl text-xs space-y-1 border border-[#243650]">
-                <span className="text-[10px] font-bold text-[#60A5FA] uppercase tracking-wider block">AI Rationale</span>
-                <p className="text-[#CBD5E1] leading-relaxed text-[11px] font-medium">{drive.aiExplanation}</p>
+              <div className="p-3 bg-blue-50/50 text-[#14213D] rounded-xl text-xs space-y-1 border border-blue-200">
+                <span className="text-[10px] font-bold text-[#2563EB] uppercase tracking-wider block">AI Rationale</span>
+                <p className="text-[#475569] leading-relaxed text-[11px] font-medium">{drive.aiExplanation}</p>
               </div>
             )}
           </CardContent>
@@ -1192,59 +1190,58 @@ export const CompanyDetail: React.FC = () => {
 
       {/* OFFICER FORM UPLOAD SECTION */}
       {isPlacementOfficer && id && (
-        <Card className="bg-[#101D31] border-[#243650] text-[#F8FAFC]">
-          <CardHeader className="border-b border-[#1B2A40]">
+        <Card className="bg-white border-slate-200 text-[#14213D] shadow-xs">
+          <CardHeader className="border-b border-slate-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ClipboardList className="w-4 h-4 text-violet-400" />
-                <CardTitle className="text-base font-bold">Upload Form for Students</CardTitle>
+                <ClipboardList className="w-4 h-4 text-[#2563EB]" />
+                <CardTitle className="text-base font-bold text-[#14213D]">Upload Form for Students</CardTitle>
               </div>
               <Button
                 variant="outline"
                 size="sm"
-                className="border-violet-500/40 text-violet-300 hover:bg-violet-500/10"
                 icon={<Upload className="w-3.5 h-3.5" />}
                 onClick={() => setShowFormBuilder(!showFormBuilder)}
               >
                 {showFormBuilder ? 'Cancel' : 'Create New Form'}
               </Button>
             </div>
-            <p className="text-xs text-[#94A3B8]">Create structured forms for students to fill. Published forms notify all students automatically.</p>
+            <p className="text-xs text-[#64748B]">Create structured forms for students to fill. Published forms notify all students automatically.</p>
           </CardHeader>
           <CardContent className="space-y-4">
             {showFormBuilder && (
-              <form onSubmit={handleUploadForm} className="p-4 rounded-xl bg-slate-900/50 border border-violet-700/30 space-y-3">
+              <form onSubmit={handleUploadForm} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
                 <div>
-                  <label className="text-xs font-bold text-[#F8FAFC] block mb-1">Form Title *</label>
+                  <label className="text-xs font-bold text-[#14213D] block mb-1">Form Title *</label>
                   <input
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
                     required
                     placeholder={`e.g. ${drive.companyName} Registration Form`}
-                    className="w-full text-xs p-2.5 bg-[#0B1628] border border-[#243650] rounded-lg text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-violet-500"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 rounded-lg text-[#14213D] placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-[#F8FAFC] block mb-1">Description</label>
+                  <label className="text-xs font-bold text-[#14213D] block mb-1">Description</label>
                   <textarea
                     value={formDescription}
                     onChange={(e) => setFormDescription(e.target.value)}
                     rows={2}
                     placeholder="Brief instructions for students..."
-                    className="w-full text-xs p-2.5 bg-[#0B1628] border border-[#243650] rounded-lg text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-violet-500 resize-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 rounded-lg text-[#14213D] placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] resize-none"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-[#F8FAFC] block mb-2">
+                  <label className="text-xs font-bold text-[#14213D] block mb-2">
                     Default Fields ({formFields.length})
-                    <span className="text-slate-500 font-normal ml-1">— Full Name, Email, Roll No, Branch, CGPA included by default</span>
+                    <span className="text-[#64748B] font-normal ml-1">— Full Name, Email, Roll No, Branch, CGPA included by default</span>
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                     {formFields.map((field) => (
-                      <div key={field.name} className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/40 border border-slate-700/30 text-xs">
-                        <span className="text-violet-300 font-medium">{field.label}</span>
-                        <span className="text-slate-500">({field.field_type})</span>
-                        {field.required && <span className="ml-auto text-red-400 text-[10px]">required</span>}
+                      <div key={field.name} className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 text-xs shadow-xs">
+                        <span className="text-[#2563EB] font-medium">{field.label}</span>
+                        <span className="text-[#64748B]">({field.field_type})</span>
+                        {field.required && <span className="ml-auto text-red-500 text-[10px]">required</span>}
                       </div>
                     ))}
                   </div>
@@ -1254,7 +1251,6 @@ export const CompanyDetail: React.FC = () => {
                     type="submit"
                     variant="primary"
                     size="sm"
-                    className="bg-violet-600 hover:bg-violet-500 text-white"
                     icon={isUploadingForm ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
                     disabled={isUploadingForm || !formTitle.trim()}
                   >
@@ -1267,16 +1263,16 @@ export const CompanyDetail: React.FC = () => {
             {/* Existing forms list */}
             {forms.length > 0 ? (
               <div className="space-y-2">
-                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Published Forms ({forms.length})</p>
+                <p className="text-[10px] text-[#64748B] uppercase font-bold tracking-wider">Published Forms ({forms.length})</p>
                 {forms.map((f) => (
-                  <div key={f.id} className="p-3 rounded-xl bg-slate-800/30 border border-slate-700/30 flex items-center justify-between gap-3">
+                  <div key={f.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <div className="text-sm font-semibold text-white truncate">{f.title}</div>
-                      {f.description && <div className="text-xs text-slate-400 mt-0.5 truncate">{f.description}</div>}
-                      <div className="flex items-center gap-3 mt-1 text-[10px] text-slate-500">
+                      <div className="text-sm font-semibold text-[#14213D] truncate">{f.title}</div>
+                      {f.description && <div className="text-xs text-[#64748B] mt-0.5 truncate">{f.description}</div>}
+                      <div className="flex items-center gap-3 mt-1 text-[10px] text-[#64748B]">
                         <span>By {f.created_by_name}</span>
                         <span>{f.submission_count} submission{f.submission_count !== 1 ? 's' : ''}</span>
-                        <span className={`px-1.5 py-0.5 rounded-full ${f.is_published ? 'bg-emerald-900/30 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+                        <span className={`px-1.5 py-0.5 rounded-full ${f.is_published ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-[#64748B]'}`}>
                           {f.is_published ? 'Published' : 'Draft'}
                         </span>
                       </div>
@@ -1284,7 +1280,7 @@ export const CompanyDetail: React.FC = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-slate-600 text-slate-300 hover:text-white shrink-0 text-xs"
+                      className="shrink-0 text-xs"
                       onClick={() => navigate(`/student/forms/${f.id}`)}
                     >
                       Preview
@@ -1294,7 +1290,7 @@ export const CompanyDetail: React.FC = () => {
               </div>
             ) : (
               !showFormBuilder && (
-                <div className="text-center py-6 text-xs text-slate-500">
+                <div className="text-center py-6 text-xs text-[#64748B]">
                   No forms created yet. Use <strong>Create New Form</strong> to publish a form for students.
                 </div>
               )
@@ -1305,41 +1301,41 @@ export const CompanyDetail: React.FC = () => {
 
       {/* Review Modal */}
       {reviewModal && reviewModal.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#0B1628] border border-[#243650] rounded-2xl p-6 w-full max-w-lg shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1B2A40]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 w-full max-w-lg shadow-xl space-y-4 text-[#14213D]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <AlertCircle className={`w-5 h-5 ${reviewModal.type === 'reject' ? 'text-red-400' : 'text-indigo-400'}`} />
-                <h3 className="text-base font-bold text-[#F8FAFC]">
+                <AlertCircle className={`w-5 h-5 ${reviewModal.type === 'reject' ? 'text-red-600' : 'text-[#2563EB]'}`} />
+                <h3 className="text-base font-bold text-[#14213D]">
                   {reviewModal.type === 'reject' ? 'Reject Placement Drive' : 'Request Changes from Recruiter'}
                 </h3>
               </div>
-              <button onClick={() => setReviewModal(null)} className="text-[#94A3B8] hover:text-[#F8FAFC]">
+              <button onClick={() => setReviewModal(null)} className="text-[#64748B] hover:text-[#14213D]">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#F8FAFC]">
+              <label className="text-xs font-bold text-[#14213D]">
                 {reviewModal.type === 'reject' ? 'Reason for Rejection' : 'Specific Changes Required'}
               </label>
               <textarea
                 value={reviewNote}
                 onChange={(e) => setReviewNote(e.target.value)}
                 rows={3}
-                className="w-full text-xs p-3 bg-[#101D31] border border-[#243650] rounded-lg text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-3 bg-white border border-slate-200 rounded-lg text-[#14213D] placeholder-[#94A3B8] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                 placeholder={reviewModal.type === 'reject' ? 'Enter reason for rejection...' : 'Specify what needs to be changed before approval...'}
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#1B2A40]">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
               <Button variant="outline" size="sm" onClick={() => setReviewModal(null)}>
                 Cancel
               </Button>
               <Button
                 variant="primary"
                 size="sm"
-                className={reviewModal.type === 'reject' ? 'bg-red-600 hover:bg-red-500 text-white' : 'bg-indigo-600 hover:bg-indigo-500 text-white'}
+                className={reviewModal.type === 'reject' ? 'bg-red-600 hover:bg-red-500 text-white' : 'bg-[#2563EB] hover:bg-blue-700 text-white'}
                 onClick={handleSubmitReview}
                 disabled={isSubmitting}
               >

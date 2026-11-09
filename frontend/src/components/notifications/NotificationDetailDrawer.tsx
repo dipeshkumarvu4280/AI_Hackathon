@@ -80,69 +80,69 @@ export const NotificationDetailDrawer: React.FC<NotificationDetailDrawerProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/65 backdrop-blur-md animate-in fade-in">
-      <div className="w-full max-w-md bg-[#0B1628] text-[#F8FAFC] h-full p-6 shadow-[0_12px_35px_rgba(0,0,0,0.5)] overflow-y-auto space-y-6 border-l border-[#243650]">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-sm animate-in fade-in">
+      <div className="w-full max-w-md bg-white text-[#14213D] h-full p-6 shadow-2xl overflow-y-auto space-y-6 border-l border-slate-200">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-[#243650]">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]">
-              <Bell className="w-4 h-4 text-[#3B82F6]" />
+            <div className="p-2 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200">
+              <Bell className="w-4 h-4 text-[#2563EB]" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#F8FAFC]">Notification Context</h3>
-              <p className="text-xs text-[#CBD5E1]">ID: {notification.id}</p>
+              <h3 className="text-base font-bold text-[#14213D]">Notification Context</h3>
+              <p className="text-xs text-[#64748B]">ID: {notification.id}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1 rounded-lg text-[#94A3B8] hover:text-white transition-colors cursor-pointer">
+          <button onClick={onClose} className="p-1 rounded-lg text-[#64748B] hover:text-[#14213D] transition-colors cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Core Info */}
         <div className="space-y-4 text-xs">
-          <div className="p-4 rounded-xl bg-[#101D31] border border-[#243650] space-y-2">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase text-[#94A3B8]">Notification Header</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(59,130,246,0.15)] text-[#60A5FA] uppercase border border-[rgba(59,130,246,0.30)]">
+              <span className="text-[10px] font-bold uppercase text-[#64748B]">Notification Header</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] uppercase border border-blue-200">
                 {notification.type}
               </span>
             </div>
-            <h4 className="text-sm font-bold text-[#F8FAFC]">{notification.title}</h4>
-            <p className="text-[#CBD5E1] leading-relaxed font-medium">{notification.message}</p>
+            <h4 className="text-sm font-bold text-[#14213D]">{notification.title}</h4>
+            <p className="text-[#64748B] leading-relaxed font-medium">{notification.message}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg border border-[#243650] bg-[#101D31]">
-              <span className="text-[10px] font-bold uppercase text-[#94A3B8] block">Target Recipient</span>
-              <span className="font-bold text-[#F8FAFC] mt-0.5 block">{notification.recipientName}</span>
-              <span className="text-[10px] text-[#CBD5E1] font-medium uppercase">({notification.recipientRole})</span>
+            <div className="p-3 rounded-lg border border-slate-200 bg-slate-50">
+              <span className="text-[10px] font-bold uppercase text-[#64748B] block">Target Recipient</span>
+              <span className="font-bold text-[#14213D] mt-0.5 block">{notification.recipientName}</span>
+              <span className="text-[10px] text-[#64748B] font-medium uppercase">({notification.recipientRole})</span>
             </div>
 
-            <div className="p-3 rounded-lg border border-[#243650] bg-[#101D31]">
-              <span className="text-[10px] font-bold uppercase text-[#94A3B8] block">Dispatch Time</span>
-              <span className="font-bold text-[#F8FAFC] mt-0.5 block">{notification.timestamp}</span>
-              <span className="text-[10px] text-[#86EFAC] font-semibold">Verified Logged</span>
+            <div className="p-3 rounded-lg border border-slate-200 bg-slate-50">
+              <span className="text-[10px] font-bold uppercase text-[#64748B] block">Dispatch Time</span>
+              <span className="font-bold text-[#14213D] mt-0.5 block">{notification.timestamp}</span>
+              <span className="text-[10px] text-emerald-700 font-semibold">Verified Logged</span>
             </div>
           </div>
 
           {/* Related Metadata Context */}
           {(notification.relatedDriveName || notification.relatedCandidateName) && (
-            <div className="p-3 rounded-lg bg-[#101D31] border border-[#243650] space-y-1.5">
-              <span className="text-[10px] font-bold uppercase text-[#94A3B8] block">Linked Entities</span>
+            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
+              <span className="text-[10px] font-bold uppercase text-[#64748B] block">Linked Entities</span>
               {notification.relatedDriveName && (
-                <div className="flex items-center justify-between text-[#CBD5E1]">
+                <div className="flex items-center justify-between text-[#64748B]">
                   <span className="font-semibold flex items-center gap-1">
-                    <Building2 className="w-3.5 h-3.5 text-[#3B82F6]" /> Placement Drive:
+                    <Building2 className="w-3.5 h-3.5 text-[#2563EB]" /> Placement Drive:
                   </span>
-                  <span className="font-bold text-[#F8FAFC]">{notification.relatedDriveName}</span>
+                  <span className="font-bold text-[#14213D]">{notification.relatedDriveName}</span>
                 </div>
               )}
               {notification.relatedCandidateName && (
-                <div className="flex items-center justify-between text-[#CBD5E1]">
+                <div className="flex items-center justify-between text-[#64748B]">
                   <span className="font-semibold flex items-center gap-1">
-                    <User className="w-3.5 h-3.5 text-[#06B6D4]" /> Candidate:
+                    <User className="w-3.5 h-3.5 text-[#2563EB]" /> Candidate:
                   </span>
-                  <span className="font-bold text-[#F8FAFC]">{notification.relatedCandidateName}</span>
+                  <span className="font-bold text-[#14213D]">{notification.relatedCandidateName}</span>
                 </div>
               )}
             </div>
@@ -150,7 +150,7 @@ export const NotificationDetailDrawer: React.FC<NotificationDetailDrawerProps> =
         </div>
 
         {/* Footer Actions */}
-        <div className="pt-4 border-t border-[#243650] space-y-2">
+        <div className="pt-4 border-t border-slate-200 space-y-2">
           {(notification.relatedRoute || notification.drive_id || (notification as any).driveId) && (
             <Button
               variant="primary"

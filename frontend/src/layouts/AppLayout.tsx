@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   BrainCircuit,
   Award,
+  Layers,
 } from 'lucide-react';
 import { TopNavbar } from '../components/navigation/TopNavbar';
 import { useAuth } from '../context/AuthContext';
@@ -65,7 +66,7 @@ export const AppLayout: React.FC = () => {
 
     // Student routes
     if (path.startsWith('/student')) {
-      if (path.includes('/dashboard')) return 'Student Career & Placement Workspace';
+      if (path.includes('/dashboard')) return 'Student Workspace';
       if (path.includes('/resume')) return 'AI Resume Analyzer & Profile';
       if (path.includes('/drives')) return 'Eligible Placement Drives';
       if (path.includes('/assessment')) return 'AI Placement Assessment & PrepBot';
@@ -75,7 +76,7 @@ export const AppLayout: React.FC = () => {
       if (path.includes('/notifications')) return 'Candidate Notifications & Alerts';
       if (path.includes('/profile')) return 'My Student Profile & Credentials';
       if (path.includes('/copilot')) return 'Student Placement Copilot';
-      return 'Student Career & Placement Workspace';
+      return 'Student Workspace';
     }
 
     // Recruiter routes
@@ -85,7 +86,7 @@ export const AppLayout: React.FC = () => {
       if (path.includes('/interviews')) return 'Interview Round Coordination';
       if (path.includes('/copilot')) return 'Recruiter Placement Copilot';
       if (path.includes('/notifications')) return 'Recruiter Notifications';
-      return 'Recruiter Hiring Workspace';
+      return 'Recruiter Workspace';
     }
 
     return 'PlaceMind Operations Hub';
@@ -96,17 +97,17 @@ export const AppLayout: React.FC = () => {
     {
       label: 'STUDENT WORKSPACE',
       items: [
-        { path: '/student/dashboard', label: 'Dashboard', icon: <UserCheck className="w-4 h-4" /> },
-        { path: '/student/resume', label: 'Resume Analyzer', icon: <Sparkles className="w-4 h-4" /> },
+        { path: '/student/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+        { path: '/student/applications', label: 'My Applications', icon: <FileCheck className="w-4 h-4" /> },
         { path: '/student/drives', label: 'Placement Drives', icon: <Briefcase className="w-4 h-4" /> },
-        { path: '/student/community', label: 'Communities', icon: <Users className="w-4 h-4" /> },
+        { path: '/student/resume', label: 'Resume Analyzer', icon: <Sparkles className="w-4 h-4" /> },
         { path: '/student/assessment', label: 'AI Assessment', icon: <BrainCircuit className="w-4 h-4" /> },
         { path: '/student/assessments', label: 'My Assessments', icon: <BarChart3 className="w-4 h-4" /> },
-        { path: '/student/applications', label: 'My Applications', icon: <FileCheck className="w-4 h-4" /> },
+        { path: '/student/community', label: 'Communities', icon: <Users className="w-4 h-4" /> },
         { path: '/student/offers', label: 'Offers & Joining', icon: <Award className="w-4 h-4" /> },
         { path: '/student/interviews', label: 'My Interviews', icon: <GraduationCap className="w-4 h-4" /> },
-        { path: '/student/notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
         { path: '/student/profile', label: 'Profile', icon: <BookOpen className="w-4 h-4" /> },
+        { path: '/student/notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
       ],
     },
   ];
@@ -114,11 +115,11 @@ export const AppLayout: React.FC = () => {
   // 2. Recruiter Portal Navigation
   const recruiterNavSections: NavSection[] = [
     {
-      label: 'CORPORATE RECRUITER',
+      label: 'RECRUITER WORKSPACE',
       items: [
-        { path: '/recruiter/dashboard', label: 'Hiring Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-        { path: '/recruiter/drives', label: 'Company Drives', icon: <Building2 className="w-4 h-4" /> },
-        { path: '/recruiter/candidates', label: 'Candidate Pool', icon: <Users className="w-4 h-4" /> },
+        { path: '/recruiter/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+        { path: '/recruiter/drives', label: 'Post Drives', icon: <Building2 className="w-4 h-4" /> },
+        { path: '/recruiter/candidates', label: 'Applications', icon: <Users className="w-4 h-4" /> },
         { path: '/recruiter/interviews', label: 'Interview Schedules', icon: <CalendarCheck className="w-4 h-4" /> },
         { path: '/recruiter/copilot', label: 'Placement Copilot', icon: <Bot className="w-4 h-4" /> },
         { path: '/recruiter/notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
@@ -131,13 +132,13 @@ export const AppLayout: React.FC = () => {
     {
       label: 'OVERVIEW',
       items: [
-        { path: '/admin/dashboard', label: 'Operations Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+        { path: '/admin/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
       ],
     },
     {
       label: 'PLACEMENT OPERATIONS',
       items: [
-        { path: '/admin/companies', label: 'Companies & Drives', icon: <Building2 className="w-4 h-4" /> },
+        { path: '/admin/companies', label: 'Drives Management', icon: <Building2 className="w-4 h-4" /> },
         { path: '/admin/candidates', label: 'Candidates Pool', icon: <Users className="w-4 h-4" /> },
         { path: '/admin/matching', label: 'AI Matching Hub', icon: <Sparkles className="w-4 h-4" /> },
         { path: '/admin/interviews', label: 'Interview Schedules', icon: <CalendarCheck className="w-4 h-4" /> },
@@ -147,8 +148,9 @@ export const AppLayout: React.FC = () => {
     {
       label: 'INTELLIGENCE & AUDIT',
       items: [
+        { path: '/admin/reports', label: 'Reports', icon: <BarChart3 className="w-4 h-4" /> },
+        { path: '/admin/analytics', label: 'Skill Analytics', icon: <Layers className="w-4 h-4" /> },
         { path: '/admin/notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
-        { path: '/admin/analytics', label: 'Skill Analytics', icon: <BarChart3 className="w-4 h-4" /> },
         { path: '/admin/exceptions', label: 'AI Exceptions', icon: <AlertTriangle className="w-4 h-4" /> },
         { path: '/admin/copilot', label: 'Placement Copilot', icon: <Bot className="w-4 h-4" /> },
         { path: '/admin/audit', label: 'Audit Logs', icon: <BookOpen className="w-4 h-4" /> },
@@ -176,21 +178,18 @@ export const AppLayout: React.FC = () => {
       case 'student':
         return {
           title: 'Student Portal',
-          subtitle: 'Candidate Career Hub',
-          badgeClass: 'bg-[#3B82F6]/20 text-[#60A5FA] border-[#3B82F6]/30',
+          badgeClass: 'bg-blue-50 text-[#2563EB] border-blue-200/80',
         };
       case 'recruiter':
         return {
           title: 'Recruiter Portal',
-          subtitle: 'Corporate Hiring Hub',
-          badgeClass: 'bg-[#06B6D4]/20 text-[#22D3EE] border-[#06B6D4]/30',
+          badgeClass: 'bg-purple-50 text-[#7C3AED] border-purple-200/80',
         };
       case 'placement_officer':
       default:
         return {
           title: 'Placement Officer',
-          subtitle: 'Institutional Operations',
-          badgeClass: 'bg-[#22C55E]/20 text-[#86EFAC] border-[#22C55E]/30',
+          badgeClass: 'bg-teal-50 text-[#0D9488] border-teal-200/80',
         };
     }
   };
@@ -203,46 +202,38 @@ export const AppLayout: React.FC = () => {
   };
 
   const SidebarContent = (
-    <div className="flex flex-col h-full bg-[#050C18] text-[#CBD5E1] border-r border-[#17253A] shadow-3d-lg">
+    <div className="flex flex-col h-full bg-white text-slate-700 border-r border-slate-200/90 shadow-[1px_0_8px_rgba(0,0,0,0.03)]">
       {/* Brand Header */}
-      <div className="p-5 border-b border-[#17253A] flex items-center justify-between">
+      <div className="p-5 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white flex items-center justify-center font-black text-lg shadow-glow-brand transform translate-z-10">
-            P
+          <div className="w-9 h-9 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shadow-xs">
+            <GraduationCap className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base font-black text-[#F8FAFC] tracking-wide flex items-center gap-1.5">
-              <span>PlaceMind</span>
+            <h1 className="text-base font-black text-[#14213D] tracking-tight leading-none">
+              PlaceMind
             </h1>
-            <p className="text-[11px] text-[#94A3B8] font-medium">{portalInfo.subtitle}</p>
+            <p className="text-[11px] text-slate-500 font-semibold mt-1">{portalInfo.title}</p>
           </div>
         </div>
         <button
           onClick={() => setMobileMenuOpen(false)}
-          className="md:hidden text-[#94A3B8] hover:text-white p-1 cursor-pointer"
+          className="md:hidden text-slate-500 hover:text-slate-800 p-1 cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Active Role Card */}
-      <div className="px-4 pt-3">
-        <div className="p-2.5 rounded-xl bg-[#101D31] border border-[#243650] flex items-center justify-between text-xs">
-          <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider">Active Portal</span>
-          <span className={`px-2 py-0.5 rounded-full font-bold text-[10px] border ${portalInfo.badgeClass}`}>
-            {portalInfo.title}
-          </span>
-        </div>
-      </div>
-
       {/* Role-Isolated Navigation Sections */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+      <div className="flex-1 overflow-y-auto px-3.5 py-4 space-y-5">
         {activeNavSections.map((section) => (
           <div key={section.label}>
-            <span className="px-3 text-[10px] font-bold tracking-wider text-[#64748B] uppercase">
-              {section.label}
-            </span>
-            <div className="mt-2 space-y-1">
+            {activeNavSections.length > 1 && (
+              <span className="px-3 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                {section.label}
+              </span>
+            )}
+            <div className="mt-1.5 space-y-1">
               {section.items.map((item) => {
                 const isActive = location.pathname === item.path;
                 return (
@@ -250,18 +241,13 @@ export const AppLayout: React.FC = () => {
                     key={item.path}
                     to={item.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{
-                      background: isActive
-                        ? 'linear-gradient(90deg, rgba(59,130,246,0.22), rgba(6,182,212,0.10))'
-                        : undefined,
-                    }}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-150 ${
+                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-150 ${
                       isActive
-                        ? 'text-white border-l-2 border-[#3B82F6] shadow-sm font-extrabold translate-x-1'
-                        : 'text-[#94A3B8] hover:text-[#E2E8F0] hover:bg-[#101D31]/60 hover:translate-x-0.5'
+                        ? 'bg-[#2563EB] text-white shadow-xs font-bold'
+                        : 'text-slate-700 hover:text-[#14213D] hover:bg-slate-100/90 font-medium'
                     }`}
                   >
-                    <span className={isActive ? 'text-[#3B82F6]' : 'text-[#94A3B8]'}>{item.icon}</span>
+                    <span className={isActive ? 'text-white' : 'text-slate-500'}>{item.icon}</span>
                     <span>{item.label}</span>
                   </NavLink>
                 );
@@ -272,25 +258,20 @@ export const AppLayout: React.FC = () => {
       </div>
 
       {/* Sidebar Footer with Logout */}
-      <div className="p-3 border-t border-[#17253A] space-y-1 bg-[#050C18]">
-        <div className="px-3 py-2 text-xs text-[#94A3B8]">
-          <span className="block text-[10px] text-[#64748B] font-bold uppercase">Logged in as:</span>
-          <span className="text-[#F8FAFC] font-semibold truncate block">{user?.email || 'User'}</span>
-        </div>
-
+      <div className="p-3.5 border-t border-slate-100 space-y-1 bg-white">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 transition-colors cursor-pointer"
+          className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
-          <span>Sign Out of Portal</span>
+          <span>Logout</span>
         </button>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen flex bg-[#07111F] text-[#CBD5E1] overflow-x-hidden">
+    <div className="min-h-screen flex bg-[#EEF3FA] text-[#14213D] overflow-x-hidden selection:bg-[#2563EB] selection:text-white">
       {/* Desktop Sidebar */}
       <aside className="hidden md:block w-64 shrink-0 fixed inset-y-0 z-40">
         {SidebarContent}
@@ -300,7 +281,7 @@ export const AppLayout: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300 animate-fadeIn"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 animate-fadeIn"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -311,12 +292,12 @@ export const AppLayout: React.FC = () => {
       )}
 
       {/* Main Content Container */}
-      <div className="flex-1 md:pl-64 flex flex-col min-w-0 min-h-screen bg-app-main text-[#CBD5E1]">
+      <div className="flex-1 md:pl-64 flex flex-col min-w-0 min-h-screen bg-[#EEF3FA] text-[#14213D]">
         <TopNavbar
           currentTitle={getPageTitle(location.pathname)}
           onMobileMenuToggle={() => setMobileMenuOpen(true)}
         />
-        <main className="flex-1 p-3.5 sm:p-5 md:p-6 max-w-7xl w-full mx-auto min-w-0 overflow-x-hidden">
+        <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl w-full mx-auto min-w-0 overflow-x-hidden">
           <Outlet />
         </main>
       </div>

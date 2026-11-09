@@ -150,24 +150,24 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="bg-[#101D31] border border-[#243650] rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl my-8 text-[#14213D]">
         {/* Modal Header */}
-        <div className="p-6 border-b border-[#243650] flex items-center justify-between bg-[#14243B]">
+        <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-[#F8FAFC]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#2563EB]">
               <Award className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-white">Issue Official Offer Letter</h3>
-              <p className="text-xs text-[#94A3B8]">
-                Generating employment offer for <span className="text-cyan-300 font-bold">{candidate.student_name || candidate.applicant?.name}</span>
+              <h3 className="text-lg font-black text-[#14213D]">Issue Official Offer Letter</h3>
+              <p className="text-xs text-[#64748B]">
+                Generating employment offer for <span className="text-[#2563EB] font-bold">{candidate.student_name || candidate.applicant?.name}</span>
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-[#0B1628] border border-[#243650] text-[#94A3B8] hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-lg bg-white border border-slate-200 text-[#64748B] hover:text-[#14213D] flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -176,25 +176,25 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
           {/* Candidate & Drive Summary */}
-          <div className="p-4 bg-[#0B1628] rounded-xl border border-[#1C2C42] grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div>
-              <span className="text-[#94A3B8] block">Candidate:</span>
-              <strong className="text-white font-bold">{candidate.student_name || candidate.applicant?.name}</strong>
+              <span className="text-[#64748B] block">Candidate:</span>
+              <strong className="text-[#14213D] font-bold">{candidate.student_name || candidate.applicant?.name}</strong>
             </div>
             <div>
-              <span className="text-[#94A3B8] block">Company:</span>
-              <strong className="text-cyan-400 font-bold">{candidate.company_name || candidate.companyName}</strong>
+              <span className="text-[#64748B] block">Company:</span>
+              <strong className="text-[#2563EB] font-bold">{candidate.company_name || candidate.companyName}</strong>
             </div>
             <div>
-              <span className="text-[#94A3B8] block">Role:</span>
-              <strong className="text-white font-bold">{candidate.job_title || candidate.roleTitle}</strong>
+              <span className="text-[#64748B] block">Role:</span>
+              <strong className="text-[#14213D] font-bold">{candidate.job_title || candidate.roleTitle}</strong>
             </div>
           </div>
 
           {/* Compensation Breakdown */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5">
                 Total CTC (LPA) *
               </label>
               <input
@@ -208,12 +208,12 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
                   setPackageLpa(val);
                   setBaseSalaryLpa(parseFloat((val * 0.8).toFixed(2)));
                 }}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5">
                 Base Salary (LPA)
               </label>
               <input
@@ -222,12 +222,12 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
                 min="0"
                 value={baseSalaryLpa}
                 onChange={(e) => setBaseSalaryLpa(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5">
                 Joining Bonus (LPA)
               </label>
               <input
@@ -236,7 +236,7 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
                 min="0"
                 value={joiningBonusLpa}
                 onChange={(e) => setJoiningBonusLpa(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
           </div>
@@ -244,7 +244,7 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
           {/* Designation & Location */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5">
                 Official Designation
               </label>
               <input
@@ -252,12 +252,12 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
                 required
                 value={designation}
                 onChange={(e) => setDesignation(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-medium focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-medium focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5">
                 Work Location
               </label>
               <input
@@ -265,7 +265,7 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
                 required
                 value={jobLocation}
                 onChange={(e) => setJobLocation(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-medium focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-medium focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
           </div>
@@ -273,35 +273,35 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
           {/* Dates */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-cyan-400" /> Tentative Joining Date *
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-[#2563EB]" /> Tentative Joining Date *
               </label>
               <input
                 type="date"
                 required
                 value={joiningDate}
                 onChange={(e) => setJoiningDate(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-amber-400" /> Response Deadline *
+              <label className="text-xs font-bold text-[#14213D] block mb-1.5 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-amber-600" /> Response Deadline *
               </label>
               <input
                 type="date"
                 required
                 value={responseDeadline}
                 onChange={(e) => setResponseDeadline(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-sm font-bold focus:outline-none focus:border-cyan-400"
+                className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-sm font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
           </div>
 
           {/* Custom Letter Remarks / Text Override */}
           <div>
-            <label className="text-xs font-bold text-[#CBD5E1] block mb-1.5">
+            <label className="text-xs font-bold text-[#14213D] block mb-1.5">
               Custom Offer Letter Message &amp; Notes (Optional)
             </label>
             <textarea
@@ -309,18 +309,17 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
               placeholder="Leave empty to use standard formal corporate offer letter template."
               value={customLetterText}
               onChange={(e) => setCustomLetterText(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl text-xs font-normal focus:outline-none focus:border-cyan-400"
+              className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-xl text-xs font-normal focus:outline-none focus:border-[#2563EB] focus:bg-white placeholder-[#94A3B8]"
             />
           </div>
 
           {/* Modal Footer Actions */}
-          <div className="pt-4 border-t border-[#243650] flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
               disabled={submitting}
-              className="border-[#243650] text-[#CBD5E1]"
             >
               Cancel
             </Button>
@@ -328,16 +327,14 @@ export const CreateOfferModal: React.FC<CreateOfferModalProps> = ({
               type="submit"
               variant="primary"
               disabled={submitting}
-              className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold flex items-center gap-2"
+              icon={<Send className="w-4 h-4" />}
             >
               {submitting ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" /> Issuing Offer...
                 </>
               ) : (
-                <>
-                  <Send className="w-4 h-4" /> Issue Offer Letter
-                </>
+                'Issue Offer Letter'
               )}
             </Button>
           </div>

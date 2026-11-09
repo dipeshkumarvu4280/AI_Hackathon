@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'brand' | 'violet' | 'emerald' | 'cyan' | 'success';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'brand' | 'violet' | 'emerald' | 'cyan' | 'teal' | 'success';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -20,25 +20,27 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variants = {
     primary:
-      'bg-gradient-to-r from-[#3B82F6] to-[#2563EB] text-white hover:from-[#60A5FA] hover:to-[#3B82F6] focus:ring-[#3B82F6] border border-[#3B82F6]/40 shadow-[0_4px_14px_rgba(59,130,246,0.25)]',
+      'bg-[#2563EB] text-white hover:bg-[#1D4ED8] focus:ring-[#2563EB] shadow-xs',
     brand:
-      'bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] text-white hover:from-[#60A5FA] hover:to-[#3B82F6] focus:ring-[#3B82F6] border border-[#3B82F6]/40 shadow-[0_4px_14px_rgba(59,130,246,0.25)]',
+      'bg-[#2563EB] text-white hover:bg-[#1D4ED8] focus:ring-[#2563EB] shadow-xs',
     violet:
-      'bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-500 hover:to-indigo-500 focus:ring-violet-500 border border-violet-500/40 shadow-glow-violet',
+      'bg-violet-600 text-white hover:bg-violet-700 focus:ring-violet-500 shadow-xs',
     emerald:
-      'bg-[#22C55E] text-white hover:bg-emerald-500 focus:ring-[#22C55E] border border-emerald-500/40 shadow-glow-emerald',
+      'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500 shadow-xs',
     success:
-      'bg-[#22C55E] text-white hover:bg-emerald-500 focus:ring-[#22C55E] border border-emerald-500/40 shadow-glow-emerald',
+      'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500 shadow-xs',
     cyan:
-      'bg-[#06B6D4] text-white hover:bg-cyan-500 focus:ring-[#06B6D4] border border-cyan-500/40 shadow-glow-cyan',
+      'bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500 shadow-xs',
+    teal:
+      'bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500 shadow-xs',
     secondary:
-      'bg-[#14243B] text-[#E2E8F0] hover:bg-[#192B45] border border-[#2A4263] hover:border-[#3B82F6] focus:ring-[#3B82F6]',
+      'bg-[#E8F0FE] text-[#2563EB] hover:bg-[#DBEAFE] border border-blue-200 focus:ring-[#2563EB]',
     outline:
-      'bg-[#101D31] text-[#F8FAFC] border border-[#243650] hover:bg-[#14243B] hover:border-[#31527A] focus:ring-[#3B82F6]',
+      'bg-white text-[#1E293B] border border-slate-300 hover:bg-slate-50 hover:border-slate-400 focus:ring-[#2563EB] shadow-xs',
     ghost:
-      'bg-transparent text-[#94A3B8] hover:bg-[#14243B] hover:text-[#F8FAFC] focus:ring-[#3B82F6] shadow-none hover:shadow-none',
+      'bg-transparent text-slate-700 hover:bg-slate-100 hover:text-[#14213D] focus:ring-[#2563EB] shadow-none hover:shadow-none',
     danger:
-      'bg-[#EF4444] text-white hover:bg-rose-700 focus:ring-rose-500 border border-rose-500',
+      'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-xs',
   };
 
   const sizes = {

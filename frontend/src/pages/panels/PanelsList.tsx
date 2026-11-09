@@ -89,7 +89,7 @@ export const PanelsList: React.FC = () => {
   );
 
   return (
-    <div className="space-y-6 pb-12 text-[#F8FAFC]">
+    <div className="space-y-6 pb-12 text-[#14213D]">
       {/* Page Header */}
       <PageHeader
         title="Panels & Rooms"
@@ -120,13 +120,13 @@ export const PanelsList: React.FC = () => {
       />
 
       {/* Tab Navigation */}
-      <div className="flex items-center gap-2 border-b border-[#243650] pb-1 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-slate-200 pb-1 overflow-x-auto">
         <button
           onClick={() => setActiveTab('availability')}
           className={`px-4 py-2 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
             activeTab === 'availability'
-              ? 'border-[#3B82F6] text-[#60A5FA]'
-              : 'border-transparent text-[#CBD5E1] hover:text-white'
+              ? 'border-[#2563EB] text-[#2563EB]'
+              : 'border-transparent text-[#475569] hover:text-[#14213D]'
           }`}
         >
           <Calendar className="w-3.5 h-3.5" />
@@ -136,8 +136,8 @@ export const PanelsList: React.FC = () => {
           onClick={() => setActiveTab('panels')}
           className={`px-4 py-2 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'panels'
-              ? 'border-[#3B82F6] text-[#60A5FA]'
-              : 'border-transparent text-[#CBD5E1] hover:text-white'
+              ? 'border-[#2563EB] text-[#2563EB]'
+              : 'border-transparent text-[#475569] hover:text-[#14213D]'
           }`}
         >
           Panels ({panelsList.length})
@@ -146,8 +146,8 @@ export const PanelsList: React.FC = () => {
           onClick={() => setActiveTab('rooms')}
           className={`px-4 py-2 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'rooms'
-              ? 'border-[#3B82F6] text-[#60A5FA]'
-              : 'border-transparent text-[#CBD5E1] hover:text-white'
+              ? 'border-[#2563EB] text-[#2563EB]'
+              : 'border-transparent text-[#64748B] hover:text-[#14213D]'
           }`}
         >
           Rooms ({roomsList.length})
@@ -156,8 +156,8 @@ export const PanelsList: React.FC = () => {
           onClick={() => setActiveTab('assignments')}
           className={`px-4 py-2 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'assignments'
-              ? 'border-[#3B82F6] text-[#60A5FA]'
-              : 'border-transparent text-[#CBD5E1] hover:text-white'
+              ? 'border-[#2563EB] text-[#2563EB]'
+              : 'border-transparent text-[#64748B] hover:text-[#14213D]'
           }`}
         >
           Assignments ({interviewsList.length})
@@ -166,13 +166,13 @@ export const PanelsList: React.FC = () => {
           onClick={() => setActiveTab('conflicts')}
           className={`px-4 py-2 text-xs font-bold border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'conflicts'
-              ? 'border-[#EF4444] text-[#F87171]'
-              : 'border-transparent text-[#CBD5E1] hover:text-white'
+              ? 'border-red-600 text-red-600'
+              : 'border-transparent text-[#64748B] hover:text-[#14213D]'
           }`}
         >
           <span>Conflicts</span>
           {panelAndRoomConflicts.length > 0 && (
-            <span className="px-1.5 py-0.2 rounded-full bg-[rgba(239,68,68,0.20)] text-[#F87171] border border-[rgba(239,68,68,0.30)] text-[10px] font-bold">
+            <span className="px-1.5 py-0.2 rounded-full bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold">
               {panelAndRoomConflicts.length}
             </span>
           )}
@@ -184,8 +184,8 @@ export const PanelsList: React.FC = () => {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-base font-bold text-[#F8FAFC]">Manual Interview Availability Slots</h3>
-              <p className="text-xs text-[#94A3B8]">
+              <h3 className="text-base font-bold text-[#14213D]">Manual Interview Availability Slots</h3>
+              <p className="text-xs text-[#64748B]">
                 Configured interview slots saved directly in MongoDB. Available slots are selected when shortlisting students.
               </p>
             </div>
@@ -202,11 +202,11 @@ export const PanelsList: React.FC = () => {
             </Button>
           </div>
 
-          <Card className="p-0 overflow-hidden bg-[#101D31] border-[#243650]">
+          <Card className="p-0 overflow-hidden bg-white border-slate-200">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-[#243650] bg-[#0B1628] text-[#94A3B8] uppercase text-[10px] font-bold tracking-wider">
+                  <tr className="border-b border-slate-200 bg-[#F8FAFC] text-[#64748B] uppercase text-[10px] font-bold tracking-wider">
                     <th className="p-3.5">Date</th>
                     <th className="p-3.5">Time</th>
                     <th className="p-3.5">Panel</th>
@@ -217,18 +217,18 @@ export const PanelsList: React.FC = () => {
                     <th className="p-3.5 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1B2A40]">
+                <tbody className="divide-y divide-slate-100">
                   {loadingSlots ? (
                     <tr>
-                      <td colSpan={8} className="p-8 text-center text-[#94A3B8]">
+                      <td colSpan={8} className="p-8 text-center text-[#64748B]">
                         Loading availability slots...
                       </td>
                     </tr>
                   ) : availabilitySlots.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="p-8 text-center text-[#94A3B8]">
-                        <Calendar className="w-8 h-8 mx-auto text-[#64748B] mb-2 opacity-50" />
-                        <p className="font-bold text-sm text-[#F8FAFC]">No interview slots available.</p>
+                      <td colSpan={8} className="p-8 text-center text-[#64748B]">
+                        <Calendar className="w-8 h-8 mx-auto text-[#94A3B8] mb-2 opacity-50" />
+                        <p className="font-bold text-sm text-[#14213D]">No interview slots available.</p>
                         <p className="text-xs text-[#64748B] mt-1">
                           Click "+ Add Interview Availability" above to configure your first manual interview slot.
                         </p>
@@ -239,40 +239,40 @@ export const PanelsList: React.FC = () => {
                       const isAvailable = slot.status === 'AVAILABLE';
                       const isAssigned = slot.status === 'ASSIGNED';
                       return (
-                        <tr key={slot.id} className="hover:bg-[#14243B]/60 transition-colors">
-                          <td className="p-3.5 font-bold text-[#F8FAFC] whitespace-nowrap">
+                        <tr key={slot.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="p-3.5 font-bold text-[#14213D] whitespace-nowrap">
                             {slot.date}
                           </td>
-                          <td className="p-3.5 font-mono text-[#CBD5E1] whitespace-nowrap">
+                          <td className="p-3.5 font-mono text-[#64748B] whitespace-nowrap">
                             {slot.start_time} - {slot.end_time}
                           </td>
-                          <td className="p-3.5 font-bold text-[#60A5FA] whitespace-nowrap">
+                          <td className="p-3.5 font-bold text-[#2563EB] whitespace-nowrap">
                             {slot.panel_name}
                           </td>
-                          <td className="p-3.5 text-[#CBD5E1] max-w-xs truncate">
+                          <td className="p-3.5 text-[#64748B] max-w-xs truncate">
                             {Array.isArray(slot.panel_members) && slot.panel_members.length > 0
                               ? slot.panel_members.join(', ')
                               : '—'}
                           </td>
-                          <td className="p-3.5 text-[#CBD5E1] whitespace-nowrap">
+                          <td className="p-3.5 text-[#64748B] whitespace-nowrap">
                             {slot.block}
                           </td>
-                          <td className="p-3.5 font-semibold text-[#F8FAFC] whitespace-nowrap">
+                          <td className="p-3.5 font-semibold text-[#14213D] whitespace-nowrap">
                             {slot.room_number}
                           </td>
                           <td className="p-3.5 whitespace-nowrap">
                             {isAvailable && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)]">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                                 🟢 AVAILABLE
                               </span>
                             )}
                             {isAssigned && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200">
                                 🔵 ASSIGNED
                               </span>
                             )}
                             {!isAvailable && !isAssigned && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(100,116,139,0.15)] text-[#94A3B8] border border-[rgba(100,116,139,0.30)]">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-[#64748B] border border-slate-200">
                                 ⚪ UNAVAILABLE
                               </span>
                             )}
@@ -284,14 +284,14 @@ export const PanelsList: React.FC = () => {
                                   setEditingSlot(slot);
                                   setIsAvailabilityModalOpen(true);
                                 }}
-                                className="p-1.5 text-[#94A3B8] hover:text-[#60A5FA] hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer"
+                                className="p-1.5 text-[#64748B] hover:text-[#2563EB] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                                 title="Edit Availability"
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => handleDeleteSlot(slot)}
-                                className="p-1.5 text-[#94A3B8] hover:text-[#F87171] hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer"
+                                className="p-1.5 text-[#64748B] hover:text-red-600 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                                 title="Delete Availability"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -313,30 +313,30 @@ export const PanelsList: React.FC = () => {
       {activeTab === 'panels' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {panelsList.map((panel) => (
-            <Card key={panel.id} className="p-5 space-y-4 bg-[#101D31] border-[#243650]">
+            <Card key={panel.id} className="p-5 space-y-4 bg-white border-slate-200">
               <div className="flex items-start justify-between">
                 <div>
-                  <h4 className="font-bold text-sm text-[#F8FAFC]">{panel.name}</h4>
-                  <span className="text-xs text-[#94A3B8]">{panel.companyName || panel.expertise?.join(', ') || 'Core Engineering'}</span>
+                  <h4 className="font-bold text-sm text-[#14213D]">{panel.name}</h4>
+                  <span className="text-xs text-[#64748B]">{panel.companyName || panel.expertise?.join(', ') || 'Core Engineering'}</span>
                 </div>
                 <StatusBadge
                   status={panel.confirmed ? 'completed' : 'pending'}
                 />
               </div>
 
-              <div className="space-y-2 text-xs text-[#CBD5E1]">
+              <div className="space-y-2 text-xs text-[#64748B]">
                 <div className="flex items-center gap-2">
-                  <Users className="w-3.5 h-3.5 text-[#3B82F6]" />
+                  <Users className="w-3.5 h-3.5 text-[#2563EB]" />
                   <span>Members: {panel.members?.join(', ') || 'Lead Interviewers'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-[#3B82F6]" />
+                  <Clock className="w-3.5 h-3.5 text-[#2563EB]" />
                   <span>Assigned Slots: {panel.interviewsScheduled || 0} interviews</span>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-[#1B2A40] flex items-center justify-between">
-                <span className="text-[11px] text-[#94A3B8]">Room: {panel.roomNumber || 'Main Block'}</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[11px] text-[#64748B]">Room: {panel.roomNumber || 'Main Block'}</span>
                 {!panel.confirmed && (
                   <Button
                     size="sm"
@@ -360,21 +360,21 @@ export const PanelsList: React.FC = () => {
             {roomsList.map((room) => (
               <Card
                 key={room.id}
-                className={`p-5 cursor-pointer transition-all bg-[#101D31] border-[#243650] ${
-                  selectedRoom?.id === room.id ? 'border-[#3B82F6] ring-1 ring-[#3B82F6]' : ''
+                className={`p-5 cursor-pointer transition-all bg-white border-slate-200 ${
+                  selectedRoom?.id === room.id ? 'border-[#2563EB] ring-1 ring-[#2563EB]' : ''
                 }`}
                 onClick={() => setSelectedRoom(room)}
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-bold text-sm text-[#F8FAFC]">{room.name}</h4>
-                    <span className="text-xs text-[#94A3B8]">{room.building}</span>
+                    <h4 className="font-bold text-sm text-[#14213D]">{room.name}</h4>
+                    <span className="text-xs text-[#64748B]">{room.building}</span>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-[#14243B] text-[#CBD5E1] border border-[#243650]">
+                  <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-slate-100 text-[#64748B] border border-slate-200">
                     Cap: {room.capacity}
                   </span>
                 </div>
-                <div className="mt-3 flex items-center justify-between text-xs text-[#94A3B8]">
+                <div className="mt-3 flex items-center justify-between text-xs text-[#64748B]">
                   <span>Video Conf: {room.hasVideoConf ? 'Available ✓' : 'Standard'}</span>
                 </div>
               </Card>
@@ -387,10 +387,10 @@ export const PanelsList: React.FC = () => {
 
       {/* TAB 4: ASSIGNMENTS */}
       {activeTab === 'assignments' && (
-        <Card className="p-0 overflow-hidden bg-[#101D31] border-[#243650]">
+        <Card className="p-0 overflow-hidden bg-white border-slate-200">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-[#243650] bg-[#0B1628] text-[#94A3B8] uppercase text-[10px] font-bold">
+              <tr className="border-b border-slate-200 bg-[#F8FAFC] text-[#64748B] uppercase text-[10px] font-bold">
                 <th className="p-3.5">Candidate</th>
                 <th className="p-3.5">Company & Role</th>
                 <th className="p-3.5">Panel</th>
@@ -399,27 +399,27 @@ export const PanelsList: React.FC = () => {
                 <th className="p-3.5">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1B2A40]">
+            <tbody className="divide-y divide-slate-100">
               {interviewsList.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-[#94A3B8]">
+                  <td colSpan={6} className="p-8 text-center text-[#64748B]">
                     No interviews assigned yet.
                   </td>
                 </tr>
               ) : (
                 interviewsList.map((intv) => (
-                  <tr key={intv.id} className="hover:bg-[#14243B]/60">
-                    <td className="p-3.5 font-bold text-[#F8FAFC]">{intv.candidateName}</td>
-                    <td className="p-3.5 text-[#CBD5E1]">
+                  <tr key={intv.id} className="hover:bg-slate-50/80">
+                    <td className="p-3.5 font-bold text-[#14213D]">{intv.candidateName}</td>
+                    <td className="p-3.5 text-[#64748B]">
                       {intv.companyName} &bull; {intv.roleTitle}
                     </td>
-                    <td className="p-3.5 text-[#60A5FA]">{intv.panelName}</td>
-                    <td className="p-3.5 text-[#CBD5E1]">{intv.roomName}</td>
-                    <td className="p-3.5 font-mono text-[#F8FAFC]">
+                    <td className="p-3.5 text-[#2563EB]">{intv.panelName}</td>
+                    <td className="p-3.5 text-[#64748B]">{intv.roomName}</td>
+                    <td className="p-3.5 font-mono text-[#14213D]">
                       {intv.date} &bull; {intv.timeSlot}
                     </td>
                     <td className="p-3.5">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[rgba(34,197,94,0.15)] text-[#4ADE80] border border-[rgba(34,197,94,0.30)]">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
                         {intv.status.toUpperCase()}
                       </span>
                     </td>
@@ -435,19 +435,19 @@ export const PanelsList: React.FC = () => {
       {activeTab === 'conflicts' && (
         <div className="space-y-3">
           {panelAndRoomConflicts.length === 0 ? (
-            <Card className="p-8 text-center text-[#94A3B8] bg-[#101D31] border-[#243650]">
-              <CheckCircle2 className="w-8 h-8 mx-auto text-[#22C55E] mb-2" />
-              <p className="font-bold text-sm text-[#F8FAFC]">No scheduling or room conflicts detected.</p>
+            <Card className="p-8 text-center text-[#64748B] bg-white border-slate-200">
+              <CheckCircle2 className="w-8 h-8 mx-auto text-emerald-600 mb-2" />
+              <p className="font-bold text-sm text-[#14213D]">No scheduling or room conflicts detected.</p>
               <p className="text-xs text-[#64748B]">All panel allocations and room schedules are currently harmonious.</p>
             </Card>
           ) : (
             panelAndRoomConflicts.map((conf) => (
-              <Card key={conf.id} className="p-4 bg-[rgba(239,68,68,0.08)] border-[rgba(239,68,68,0.30)] space-y-2">
+              <Card key={conf.id} className="p-4 bg-red-50/50 border-red-200 space-y-2">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-[#EF4444]" />
-                  <h4 className="font-bold text-xs text-[#F87171]">{conf.title}</h4>
+                  <AlertTriangle className="w-4 h-4 text-red-600" />
+                  <h4 className="font-bold text-xs text-red-700">{conf.title}</h4>
                 </div>
-                <p className="text-xs text-[#CBD5E1]">{conf.description}</p>
+                <p className="text-xs text-[#14213D]">{conf.description}</p>
               </Card>
             ))
           )}

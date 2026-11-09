@@ -105,19 +105,19 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="w-full max-w-lg bg-[#101D31] border border-[#243650] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="w-full max-w-lg bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-5 border-b border-[#243650] flex items-center justify-between bg-[#0B1628]">
+        <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-[#F8FAFC]">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30">
+            <div className="p-2 rounded-xl bg-blue-50 text-[#2563EB] border border-blue-200">
               <Calendar className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#F8FAFC]">
+              <h3 className="text-base font-bold text-[#14213D]">
                 {isEditing ? 'Edit Interview Availability' : 'Add Interview Availability'}
               </h3>
-              <p className="text-xs text-[#94A3B8]">
+              <p className="text-xs text-[#64748B]">
                 {isEditing
                   ? 'Modify interview panel, room, block, and timing availability.'
                   : 'Manually configure new interview panel and room availability.'}
@@ -126,7 +126,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-[#94A3B8] hover:text-white hover:bg-[#192B45] rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-[#64748B] hover:text-[#14213D] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -134,12 +134,12 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
 
         {/* Assigned Warning Banner */}
         {isAssigned && (
-          <div className="px-5 py-3 bg-[rgba(245,158,11,0.15)] border-b border-[rgba(245,158,11,0.30)] flex items-start gap-2.5 text-xs text-[#FCD34D]">
+          <div className="px-5 py-3 bg-amber-50 border-b border-amber-200 flex items-start gap-2.5 text-xs text-amber-800">
             <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
             <div>
               <strong className="block font-bold">Slot is already assigned to a candidate</strong>
               <span>
-                Assigned to: <strong className="text-white">{slot.assigned_student_name || slot.assigned_student_id}</strong>
+                Assigned to: <strong className="text-[#14213D]">{slot.assigned_student_name || slot.assigned_student_id}</strong>
                 {slot.assigned_company_name ? ` (${slot.assigned_company_name})` : ''}. Modifying this slot may affect the scheduled interview.
               </span>
             </div>
@@ -147,9 +147,9 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
         )}
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto text-xs text-[#CBD5E1]">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto text-xs text-[#14213D]">
           {errorMsg && (
-            <div className="p-3 rounded-lg bg-[rgba(239,68,68,0.15)] border border-[rgba(239,68,68,0.30)] text-[#F87171] font-semibold text-xs flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 font-semibold text-xs flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
             </div>
@@ -157,7 +157,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
 
           {/* Panel Name */}
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
               Panel Name *
             </label>
             <input
@@ -166,13 +166,13 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
               value={panelName}
               onChange={(e) => setPanelName(e.target.value)}
               placeholder="e.g. Technical Panel A, Core Systems Panel"
-              className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+              className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           {/* Panel Members */}
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
               Panel Members (comma-separated)
             </label>
             <input
@@ -180,14 +180,14 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
               value={panelMembers}
               onChange={(e) => setPanelMembers(e.target.value)}
               placeholder="e.g. Dr. Suresh, Prof. Anjali Roy"
-              className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+              className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
           {/* Date, Start Time, End Time */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 Date *
               </label>
               <input
@@ -195,11 +195,11 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 Start Time *
               </label>
               <input
@@ -208,11 +208,11 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 placeholder="10:00 AM"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 End Time *
               </label>
               <input
@@ -221,7 +221,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 placeholder="10:30 AM"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
@@ -229,7 +229,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
           {/* Block & Room */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 Block *
               </label>
               <input
@@ -238,11 +238,11 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
                 value={block}
                 onChange={(e) => setBlock(e.target.value)}
                 placeholder="e.g. Block B, Tech Tower"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 Room Number *
               </label>
               <input
@@ -251,7 +251,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
                 value={roomNumber}
                 onChange={(e) => setRoomNumber(e.target.value)}
                 placeholder="e.g. B-204, Room 102"
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6]"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
@@ -259,13 +259,13 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
           {/* Availability Status */}
           {!isAssigned && (
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#94A3B8] mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-1.5">
                 Availability Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full p-2.5 bg-[#0B1628] border border-[#243650] text-white rounded-xl focus:outline-none focus:border-[#3B82F6] cursor-pointer"
+                className="w-full p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:outline-none focus:border-[#2563EB] cursor-pointer"
               >
                 <option value="AVAILABLE">AVAILABLE (Can be assigned)</option>
                 <option value="UNAVAILABLE">UNAVAILABLE (Cannot be selected)</option>
@@ -274,7 +274,7 @@ export const CreateEditAvailabilityModal: React.FC<CreateEditAvailabilityModalPr
           )}
 
           {/* Action Buttons */}
-          <div className="pt-4 border-t border-[#243650] flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
             <Button variant="outline" type="button" onClick={onClose} disabled={loading}>
               Cancel
             </Button>

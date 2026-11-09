@@ -424,19 +424,19 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-[#0B1628] border border-[#243650] rounded-2xl w-full max-w-3xl max-h-[94vh] sm:max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-3xl max-h-[94vh] sm:max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
         {/* Modal Header */}
-        <div className="shrink-0 flex items-center justify-between p-3.5 sm:p-4 border-b border-[#243650] bg-[#101D31] gap-3">
+        <div className="shrink-0 flex items-center justify-between p-3.5 sm:p-4 border-b border-slate-200 bg-[#F8FAFC] gap-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="p-2 rounded-xl bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)] shrink-0">
+            <div className="p-2 rounded-xl bg-blue-50 text-[#2563EB] border border-blue-200 shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-sm font-bold text-[#F8FAFC] truncate">
+              <h3 className="text-sm font-bold text-[#14213D] truncate">
                 {initialDrive ? 'Edit Placement Drive Requirements' : 'Create Campus Placement Drive'}
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-[#94A3B8] truncate">
+              <p className="text-[10px] sm:text-[11px] text-[#64748B] truncate">
                 Driven strictly by recruiter raw text & dynamic AI requirement extraction
               </p>
             </div>
@@ -444,7 +444,7 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B] transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="p-1.5 rounded-lg text-[#64748B] hover:text-[#14213D] hover:bg-slate-100 transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
           >
             <X className="w-4 h-4" />
           </button>
@@ -453,7 +453,7 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
         {/* Modal Content */}
         <div className="p-5 overflow-y-auto flex-1 space-y-4">
           {analysisError && (
-            <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{analysisError}</span>
             </div>
@@ -461,14 +461,14 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
 
           {/* Step Navigation Tabs for Existing Drive */}
           {initialDrive && (
-            <div className="flex items-center gap-2 p-1 bg-[#101D31] border border-[#243650] rounded-xl">
+            <div className="flex items-center gap-2 p-1 bg-slate-100 border border-slate-200 rounded-xl">
               <button
                 type="button"
                 onClick={() => setStep('form')}
                 className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                   step === 'form'
-                    ? 'bg-[#3B82F6] text-white shadow-sm'
-                    : 'text-[#CBD5E1] hover:text-white hover:bg-[#1E293B]'
+                    ? 'bg-[#2563EB] text-white shadow-sm'
+                    : 'text-[#64748B] hover:text-[#14213D] hover:bg-slate-200'
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" /> 1. Job Description & Details
@@ -481,8 +481,8 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                 }}
                 className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                   step === 'review'
-                    ? 'bg-[#3B82F6] text-white shadow-sm'
-                    : 'text-[#CBD5E1] hover:text-white hover:bg-[#1E293B]'
+                    ? 'bg-[#2563EB] text-white shadow-sm'
+                    : 'text-[#64748B] hover:text-[#14213D] hover:bg-slate-200'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" /> 2. Extracted Criteria ({extractedRequiredSkills.length} skills, {extractedBranches.length} branches)
@@ -495,34 +495,34 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
             <form onSubmit={(e) => { e.preventDefault(); handleStartAIAnalysis(); }} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#CBD5E1] block mb-1">Company Name</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1">Company Name</label>
                   <input
                     type="text"
                     required
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
                     placeholder="e.g. Acme Corp"
-                    className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none placeholder:text-[#94A3B8]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#CBD5E1] block mb-1">Role Title (Optional - AI extracts if empty)</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1">Role Title (Optional - AI extracts if empty)</label>
                   <input
                     type="text"
                     value={roleTitle}
                     onChange={(e) => setRoleTitle(e.target.value)}
                     placeholder="e.g. Backend Developer"
-                    className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none placeholder:text-[#94A3B8]"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-semibold text-[#CBD5E1]">
+                  <label className="text-xs font-semibold text-[#14213D]">
                     Raw Job Description Text <span className="text-[#EF4444]">*</span>
                   </label>
-                  <span className="text-[10px] text-[#94A3B8]">AI parses skills, CGPA, branches & graduation years</span>
+                  <span className="text-[10px] text-[#64748B]">AI parses skills, CGPA, branches & graduation years</span>
                 </div>
                 <textarea
                   required
@@ -530,45 +530,45 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
                   placeholder="Paste or type raw job requirements, e.g.:&#10;Backend Developer for Bengaluru office. Minimum CGPA: 7.5. Eligible branches: CSE, IT. Graduation batch: 2027. Required skills: Python, FastAPI, MongoDB. Good to have: AWS. Package: 12 LPA."
-                  className="w-full text-xs p-3 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none font-mono leading-relaxed resize-y"
+                  className="w-full text-xs p-3 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none font-mono leading-relaxed resize-y placeholder:text-[#94A3B8]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#CBD5E1] block mb-1">Location (Optional)</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1">Location (Optional)</label>
                   <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="e.g. Bengaluru / Remote"
-                    className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none placeholder:text-[#94A3B8]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#CBD5E1] block mb-1">Package (LPA)</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1">Package (LPA)</label>
                   <input
                     type="number"
                     step="0.5"
                     value={packageLpa || ''}
                     onChange={(e) => setPackageLpa(parseFloat(e.target.value) || 0)}
                     placeholder="e.g. 12"
-                    className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none placeholder:text-[#94A3B8]"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#CBD5E1] block mb-1">Application Deadline</label>
+                  <label className="text-xs font-semibold text-[#14213D] block mb-1">Application Deadline</label>
                   <input
                     type="date"
                     required
                     value={deadline}
                     onChange={(e) => setDeadline(e.target.value)}
-                    className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-xl focus:border-[#3B82F6] outline-none"
+                    className="w-full text-xs p-2.5 bg-white border border-slate-200 text-[#14213D] rounded-xl focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] outline-none"
                   />
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-[#243650] flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
                 <Button variant="outline" size="sm" type="button" onClick={onClose}>
                   Cancel
                 </Button>
@@ -588,20 +588,20 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
           {step === 'analyzing' && (
             <div className="py-12 text-center space-y-4">
               <div className="relative w-16 h-16 mx-auto">
-                <div className="absolute inset-0 rounded-full border-4 border-[#3B82F6]/20 animate-pulse"></div>
-                <div className="absolute inset-0 rounded-full border-4 border-[#3B82F6] border-t-transparent animate-spin"></div>
-                <Bot className="w-8 h-8 text-[#06B6D4] absolute inset-0 m-auto" />
+                <div className="absolute inset-0 rounded-full border-4 border-[#2563EB]/20 animate-pulse"></div>
+                <div className="absolute inset-0 rounded-full border-4 border-[#2563EB] border-t-transparent animate-spin"></div>
+                <Bot className="w-8 h-8 text-[#2563EB] absolute inset-0 m-auto" />
               </div>
-              <h4 className="text-base font-bold text-[#F8FAFC]">AI Job Description Analysis</h4>
-              <p className="text-xs text-[#CBD5E1] max-w-sm mx-auto">{analysisStatusText}</p>
+              <h4 className="text-base font-bold text-[#14213D]">AI Job Description Analysis</h4>
+              <p className="text-xs text-[#64748B] max-w-sm mx-auto">{analysisStatusText}</p>
             </div>
           )}
 
           {/* STEP 3: AI EXTRACTED REVIEW & HUMAN-IN-THE-LOOP EDITOR */}
           {step === 'review' && (
             <div className="space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-[#243650]">
-                <span className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Review AI Requirements</span>
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <span className="text-xs font-bold text-[#14213D] uppercase tracking-wider">Review AI Requirements</span>
                 <Button
                   variant={isEditingRequirements ? 'primary' : 'outline'}
                   size="sm"
@@ -612,48 +612,48 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-[#101D31] p-3.5 rounded-xl border border-[#243650]">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
                 <div>
-                  <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Role</span>
-                  <span className="text-xs font-bold text-[#F8FAFC]">{roleTitle || 'Campus Role'}</span>
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase block">Role</span>
+                  <span className="text-xs font-bold text-[#14213D]">{roleTitle || 'Campus Role'}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Location</span>
-                  <span className="text-xs font-bold text-[#F8FAFC]">{location || 'Unspecified'}</span>
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase block">Location</span>
+                  <span className="text-xs font-bold text-[#14213D]">{location || 'Unspecified'}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Package</span>
-                  <span className="text-xs font-bold text-[#86EFAC]">
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase block">Package</span>
+                  <span className="text-xs font-bold text-emerald-600">
                     {packageLpa > 0 ? `₹${packageLpa} LPA` : 'As per policy'}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <h5 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Eligibility Criteria</h5>
+                <h5 className="text-xs font-bold text-[#14213D] uppercase tracking-wider">Eligibility Criteria</h5>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="p-3 bg-[#101D31] border border-[#243650] rounded-xl">
-                    <span className="text-[10px] font-semibold text-[#CBD5E1] block">Minimum CGPA</span>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span className="text-[10px] font-semibold text-[#64748B] block">Minimum CGPA</span>
                     {isEditingRequirements ? (
                       <input
                         type="number"
                         step="0.1"
                         value={extractedMinCgpa || ''}
                         onChange={(e) => setExtractedMinCgpa(parseFloat(e.target.value) || 0)}
-                        className="w-full mt-1 text-xs p-1.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded font-bold"
+                        className="w-full mt-1 text-xs p-1.5 bg-white border border-slate-200 text-[#14213D] rounded font-bold"
                       />
                     ) : (
-                      <span className="text-base font-bold text-[#F8FAFC]">{extractedMinCgpa > 0 ? extractedMinCgpa : 'None'}</span>
+                      <span className="text-base font-bold text-[#14213D]">{extractedMinCgpa > 0 ? extractedMinCgpa : 'None'}</span>
                     )}
                   </div>
 
-                  <div className="p-3 bg-[#101D31] border border-[#243650] rounded-xl sm:col-span-2">
-                    <span className="text-[10px] font-semibold text-[#CBD5E1] block mb-1">Eligible Branches</span>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl sm:col-span-2">
+                    <span className="text-[10px] font-semibold text-[#64748B] block mb-1">Eligible Branches</span>
                     <div className="flex flex-wrap gap-1.5">
                       {extractedBranches.map((b) => (
                           <span
                             key={b}
-                            className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-[rgba(59,130,246,0.15)] text-[#60A5FA] border border-[rgba(59,130,246,0.30)]"
+                            className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-[#2563EB] border border-blue-200"
                           >
                             {b}
                             {isEditingRequirements && (
@@ -671,15 +671,15 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                           placeholder="Add branch..."
                           value={newBranchInput}
                           onChange={(e) => setNewBranchInput(e.target.value)}
-                          className="text-xs p-1 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded w-24 uppercase"
+                          className="text-xs p-1 bg-white border border-slate-200 text-[#14213D] rounded w-24 uppercase"
                         />
-                        <button type="button" onClick={handleAddBranch} className="px-2 py-1 text-xs bg-[#3B82F6] text-white rounded font-medium cursor-pointer">+ Add</button>
+                        <button type="button" onClick={handleAddBranch} className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded font-medium cursor-pointer">+ Add</button>
                       </div>
                     )}
                   </div>
 
-                  <div className="p-3 bg-[#101D31] border border-[#243650] rounded-xl sm:col-span-3">
-                    <span className="text-[10px] font-semibold text-[#CBD5E1] block mb-1.5">Eligible Graduation Year(s)</span>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl sm:col-span-3">
+                    <span className="text-[10px] font-semibold text-[#64748B] block mb-1.5">Eligible Graduation Year(s)</span>
                     <div className="flex flex-wrap items-center gap-2">
                       {extractedGradYears.length === 0 ? (
                         <span className="text-xs text-[#94A3B8] italic">No graduation year specified (All batches eligible)</span>
@@ -687,14 +687,14 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                         extractedGradYears.map((year) => (
                           <span
                             key={year}
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200"
                           >
                             Batch {year}
                             {isEditingRequirements && (
                               <button
                                 type="button"
                                 onClick={() => handleRemoveGradYear(year)}
-                                className="hover:text-red-400 transition-colors ml-0.5 cursor-pointer"
+                                className="hover:text-red-600 transition-colors ml-0.5 cursor-pointer"
                               >
                                 <X className="w-3 h-3" />
                               </button>
@@ -704,18 +704,18 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                       )}
                     </div>
                     {isEditingRequirements && (
-                      <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[#243650]/50">
+                      <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-200">
                         <input
                           type="number"
                           placeholder="Add year e.g. 2029..."
                           value={newGradYearInput}
                           onChange={(e) => setNewGradYearInput(e.target.value)}
-                          className="text-xs p-1 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded w-36"
+                          className="text-xs p-1 bg-white border border-slate-200 text-[#14213D] rounded w-36"
                         />
                         <button
                           type="button"
                           onClick={handleAddGradYear}
-                          className="px-2 py-1 text-xs bg-[#3B82F6] text-white rounded font-medium cursor-pointer"
+                          className="px-2 py-1 text-xs bg-[#2563EB] text-white rounded font-medium cursor-pointer"
                         >
                           + Add Batch
                         </button>
@@ -728,17 +728,17 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
               {/* Required Skills */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h5 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Required Skills (Extracted from Raw Text)</h5>
-                  <span className="text-[11px] text-[#94A3B8]">{extractedRequiredSkills.length} Detected</span>
+                  <h5 className="text-xs font-bold text-[#14213D] uppercase tracking-wider">Required Skills (Extracted from Raw Text)</h5>
+                  <span className="text-[11px] text-[#64748B]">{extractedRequiredSkills.length} Detected</span>
                 </div>
-                <div className="p-3 bg-[#101D31] border border-[#243650] rounded-xl flex flex-wrap gap-1.5 min-h-[48px] items-center">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-wrap gap-1.5 min-h-[48px] items-center">
                   {extractedRequiredSkills.length === 0 ? (
                     <span className="text-xs text-[#64748B] italic">No mandatory skills detected in text</span>
                   ) : (
                     extractedRequiredSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30"
+                        className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded bg-blue-50 text-[#2563EB] border border-blue-200"
                       >
                         {skill}
                         {isEditingRequirements && (
@@ -750,18 +750,18 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
                     ))
                   )}
                   {isEditingRequirements && (
-                    <div className="flex items-center gap-2 w-full mt-2 pt-2 border-t border-[#243650]">
+                    <div className="flex items-center gap-2 w-full mt-2 pt-2 border-t border-slate-200">
                       <input
                         type="text"
                         placeholder="Add required skill..."
                         value={newSkillInput}
                         onChange={(e) => setNewSkillInput(e.target.value)}
-                        className="text-xs p-1.5 bg-[#0B1628] border border-[#243650] text-[#F8FAFC] rounded flex-1"
+                        className="text-xs p-1.5 bg-white border border-slate-200 text-[#14213D] rounded flex-1"
                       />
                       <button
                         type="button"
                         onClick={handleAddRequiredSkill}
-                        className="px-2.5 py-1 text-xs bg-[#3B82F6] text-white rounded font-semibold cursor-pointer"
+                        className="px-2.5 py-1 text-xs bg-[#2563EB] text-white rounded font-semibold cursor-pointer"
                       >
                         + Add Skill
                       </button>
@@ -772,15 +772,15 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
 
               {/* Preferred Skills */}
               <div className="space-y-2">
-                <h5 className="text-xs font-bold text-[#F8FAFC] uppercase tracking-wider">Preferred / Secondary Skills</h5>
-                <div className="p-3 bg-[#101D31] border border-[#243650] rounded-xl flex flex-wrap gap-1.5 min-h-[40px] items-center">
+                <h5 className="text-xs font-bold text-[#14213D] uppercase tracking-wider">Preferred / Secondary Skills</h5>
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-wrap gap-1.5 min-h-[40px] items-center">
                   {extractedPreferredSkills.length === 0 ? (
                     <span className="text-xs text-[#64748B] italic">No secondary skills specified</span>
                   ) : (
                     extractedPreferredSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded bg-[rgba(6,182,212,0.15)] text-[#22D3EE] border border-[rgba(6,182,212,0.30)]"
+                        className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded bg-slate-100 text-[#64748B] border border-slate-200"
                       >
                         {skill}
                         {isEditingRequirements && (
@@ -795,22 +795,22 @@ export const CreateDriveModal: React.FC<CreateDriveModalProps> = ({
               </div>
 
               {/* AI Explanation & Human-in-the-Loop Footer Notice */}
-              <div className="p-3.5 rounded-xl bg-[#14243B] border border-[#243650]">
+              <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-100">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                    <Bot className="w-4 h-4 text-[#06B6D4]" /> AI Analysis Rationale
+                  <span className="text-xs font-bold text-[#14213D] flex items-center gap-1.5">
+                    <Bot className="w-4 h-4 text-[#2563EB]" /> AI Analysis Rationale
                   </span>
-                  <span className="text-[10px] font-semibold text-[#CBD5E1] bg-[#0B1628] px-2 py-0.5 rounded border border-[#243650]">
+                  <span className="text-[10px] font-semibold text-[#2563EB] bg-blue-100/70 px-2 py-0.5 rounded border border-blue-200">
                     Generated strictly from Raw Text
                   </span>
                 </div>
-                <p className="text-xs text-[#CBD5E1] leading-relaxed font-medium">
+                <p className="text-xs text-[#14213D] leading-relaxed font-medium">
                   {extractedExplanation || extractedSummary || "AI extracted placement requirements strictly from the provided raw text."}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 border-t border-[#243650] flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
                 <Button variant="outline" size="sm" onClick={() => setStep('form')}>
                   Back to Raw Text
                 </Button>

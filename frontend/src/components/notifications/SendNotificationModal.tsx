@@ -41,22 +41,22 @@ export const SendNotificationModal: React.FC<SendNotificationModalProps> = ({ is
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/65 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0B1628] rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden border border-[#243650] max-h-[94vh] sm:max-h-[90vh] flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150 text-[#F8FAFC]">
-        <div className="shrink-0 px-4 sm:px-6 py-3.5 sm:py-4 bg-[#101D31] border-b border-[#243650] text-[#F8FAFC] flex items-center justify-between gap-3">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/40 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-slate-200 max-h-[94vh] sm:max-h-[90vh] flex flex-col my-auto animate-in fade-in zoom-in-95 duration-150 text-[#14213D]">
+        <div className="shrink-0 px-4 sm:px-6 py-3.5 sm:py-4 bg-[#F8FAFC] border-b border-slate-200 text-[#14213D] flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="p-2 rounded-lg bg-gradient-to-tr from-[#3B82F6] to-[#06B6D4] text-white font-bold text-xs shadow-glow-brand shrink-0">
+            <div className="p-2 rounded-lg bg-blue-50 text-[#2563EB] border border-blue-200 font-bold text-xs shrink-0">
               <Bell className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-sm sm:text-base font-bold text-[#F8FAFC] tracking-tight truncate">Send Placement Notification</h3>
-              <p className="text-[10px] sm:text-xs text-[#CBD5E1] truncate">Broadcast updates to candidates, panels, or campus officers</p>
+              <h3 className="text-sm sm:text-base font-bold text-[#14213D] tracking-tight truncate">Send Placement Notification</h3>
+              <p className="text-[10px] sm:text-xs text-[#64748B] truncate">Broadcast updates to candidates, panels, or campus officers</p>
             </div>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="p-1 rounded-lg text-[#94A3B8] hover:text-white transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="p-1 rounded-lg text-[#64748B] hover:text-[#14213D] transition-colors cursor-pointer shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
           >
             <X className="w-5 h-5" />
           </button>
@@ -65,7 +65,7 @@ export const SendNotificationModal: React.FC<SendNotificationModalProps> = ({ is
         <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Recipient Category</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Recipient Category</label>
               <select
                 value={recipientRole}
                 onChange={(e) => {
@@ -75,7 +75,7 @@ export const SendNotificationModal: React.FC<SendNotificationModalProps> = ({ is
                   else if (role === 'panel') setRecipientName(panelsList[0]?.name || '');
                   else setRecipientName('Placement Officer');
                 }}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] font-medium cursor-pointer"
+                className="w-full text-xs p-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] focus:bg-white font-medium cursor-pointer"
               >
                 <option value="students">Student Candidate</option>
                 <option value="panel">Interview Panel</option>
@@ -85,24 +85,24 @@ export const SendNotificationModal: React.FC<SendNotificationModalProps> = ({ is
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Specific Recipient</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Specific Recipient</label>
               <input
                 type="text"
                 required
                 value={recipientName}
                 onChange={(e) => setRecipientName(e.target.value)}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg font-bold focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-lg font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Notification Type</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Notification Type</label>
               <select
                 value={notifType}
                 onChange={(e) => setNotifType(e.target.value as NotificationType)}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg focus:outline-none focus:border-[#3B82F6] font-medium cursor-pointer"
+                className="w-full text-xs p-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-lg focus:outline-none focus:border-[#2563EB] focus:bg-white font-medium cursor-pointer"
               >
                 <option value="interview">Interview Notice</option>
                 <option value="eligibility">Eligibility Alert</option>
@@ -113,30 +113,30 @@ export const SendNotificationModal: React.FC<SendNotificationModalProps> = ({ is
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Subject / Header</label>
+              <label className="block text-xs font-bold text-[#14213D] mb-1">Subject / Header</label>
               <input
                 type="text"
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full text-xs p-2.5 bg-[#101D31] border border-[#243650] text-[#F8FAFC] rounded-lg font-bold focus:outline-none focus:border-[#3B82F6]"
+                className="w-full text-xs p-2.5 bg-[#F8FAFC] border border-slate-200 text-[#14213D] rounded-lg font-bold focus:outline-none focus:border-[#2563EB] focus:bg-white"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#E2E8F0] mb-1">Message Content</label>
+            <label className="block text-xs font-bold text-[#14213D] mb-1">Message Content</label>
             <textarea
               rows={4}
               required
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full text-xs p-3 bg-[#101D31] border border-[#243650] text-[#F8FAFC] placeholder-[#64748B] rounded-lg focus:outline-none focus:border-[#3B82F6] leading-relaxed font-medium"
+              className="w-full text-xs p-3 bg-[#F8FAFC] border border-slate-200 text-[#14213D] placeholder-[#94A3B8] rounded-lg focus:outline-none focus:border-[#2563EB] focus:bg-white leading-relaxed font-medium"
               placeholder="Enter clear, concise notification details..."
             />
           </div>
 
-          <div className="pt-3 border-t border-[#243650] flex items-center justify-between">
+          <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
             <Button variant="outline" size="sm" type="button" onClick={onClose}>
               Cancel
             </Button>
